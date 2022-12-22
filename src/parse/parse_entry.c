@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse_entry.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:44:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/19 14:49:06 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/22 07:59:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parse_filename(char *filename)
 	return (0);
 }
 
-int	parse(char *filename, t_config *main)
+int	parse_entry(char *filename, t_config *main)
 {
 	int	return_value;
 

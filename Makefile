@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2022/12/19 13:52:58 by brda-sil         ###   ########.fr        #
+#    Updated: 2022/12/22 07:00:37 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ MAKE			:= make -C
 VERSION			:= 0.0.0
 $(eval export MAIN=1)
 
-ifneq ($(PADDING),30)
-PADDING			:= 30
+ifneq ($(PADDING),45)
+PADDING			:= 45
 endif
 
 ifeq ($(DEBUG),)
@@ -49,11 +49,15 @@ MINI_LIBX		:= $(LIB_DIR)/minilibx-linux/libmlx_Linux.a
 LDFLAGS			:= -Llib/minilibx-linux -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 
 # SRC
-SRC_C			:= src/free/free.c \
+SRC_C			:= src/error/parse_error.c \
+				   src/free/free.c \
+				   src/init_entry.c \
 				   src/main.c \
-				   src/parse/parse_error.c \
+				   src/parse/parse_entry.c \
 				   src/parse/parse_file.c \
-				   src/parse/parsing.c
+				   src/parse/parse_line.c \
+				   src/parse/parse_line_color.c \
+				   src/parse/parse_line_texture.c
 # OBJ
 
 OBJ_C			:= $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_C:%.c=%.o))
@@ -98,12 +102,12 @@ LR="\xe2\x95\x9d"
 # utils
 
 define ascii_art
- ██╗ ██╗   ██╗ ██████╗  ██╗ ██████╗  ██╗
-██╔╝ ██║   ██║██╔═══██╗ ██║ ██╔══██╗ ╚██╗
-██║  ██║   ██║██║   ██║ ██║ ██║  ██║  ██║
-██║  ╚██╗ ██╔╝██║   ██║ ██║ ██║  ██║  ██║
-╚██╗  ╚████╔╝ ╚██████╔╝ ██║ ██████╔╝ ██╔╝
- ╚═╝   ╚═══╝   ╚═════╝  ╚═╝ ╚═════╝  ╚═╝
+ ██████╗██╗   ██╗██████╗ ██████╗ ██████╗
+██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗
+██║     ██║   ██║██████╔╝ █████╔╝██║  ██║
+██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║
+╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝
 $(reset)
 endef
 export ascii_art

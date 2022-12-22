@@ -1,6 +1,6 @@
-# executable
+# executable and object
 cub3D
 obj/
 
-# python3
+# python3 cache
 scripts/ft_helper/modules/__pycache__

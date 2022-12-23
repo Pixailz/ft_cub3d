@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:33:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/22 08:29:56 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:33:07 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,45 @@ char	*get_line(int file)
 	last_char_index = ft_strlen(ptr) - 1;
 	if (ptr[last_char_index] == '\n')
 		ptr[last_char_index] = 0;
+	debug_print(PARSE_LINE, (void *)ptr);
 	return (ptr);
 }
 
-int	parse_file_content(int file, t_config *main)
+int	parse_file_params(int file, t_parse *main)
 {
 	char	*line;
 	int		return_value;
 
 	line = get_line(file);
-	ft_printf("line[0] [%s]\n", line);
 	if (!line)
 		return (4);
 	return_value = parse_line(line, main);
 	if (return_value == 1)
-		ft_printf("Empty line\n");
+		debug_print(PARSE_EMPTY_LINE, FT_NULL);
 	else if (return_value)
-		return (return_value + 3);
+		return (return_value);
 	while (line)
 	{
 		free(line);
 		line = get_line(file);
-		ft_printf("line[] [%s]\n", line);
 		return_value = parse_line(line, main);
 		if (return_value == 1)
-			ft_printf("Empty line\n");
+			debug_print(PARSE_EMPTY_LINE, FT_NULL);
+		else if (return_value == -1)
+			break ;
 		else if (return_value)
-			return (return_value + 3);
+			return (return_value);
 	}
 	return (0);
 }
 
-int	parse_file(char *filename, t_config *main)
+int	parse_file_map(int file, t_parse *main)
+{
+	ft_printf("parameters done\n");
+	return (-1);
+}
+
+int	parse_file(char *filename, t_parse *main)
 {
 	int		file;
 	int		return_value;
@@ -68,8 +75,9 @@ int	parse_file(char *filename, t_config *main)
 	file = check_permission(filename);
 	if (file < 0)
 		return (3);
-	return_value = parse_file_content(file, main);
-	if (return_value)
+	return_value = parse_file_params(file, main);
+	if (return_value && return_value != -1)
 		return (return_value);
-	return (0);
+	return_value = parse_file_map(file, main);
+	return (return_value);
 }

@@ -1,6 +1,13 @@
 # executable and object
 cub3D
+a.out
 obj/
+
+# log file
+exec.log
+
+# vscode
+.vscode/
 
 # python3 cache
 scripts/ft_helper/modules/__pycache__

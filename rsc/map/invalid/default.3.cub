@@ -3,12 +3,11 @@ SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
-# map must be at the end
+F 220,100,0
+C 225,30,0
+
 111111
 1001011
 1010001
 1100N11
 111111
-
-F 220,100,0
-C 225,30,0

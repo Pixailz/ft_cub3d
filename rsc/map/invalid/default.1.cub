@@ -4,7 +4,7 @@ WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
 F 220,100,0
-C 225,30 0						# color format (0-255<comma>0-255<comma>0-255)
+C 225,30 0
 
 111111
 1001011

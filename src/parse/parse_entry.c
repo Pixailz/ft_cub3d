@@ -6,29 +6,29 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:44:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/22 07:59:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/23 12:50:02 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	parse_filename(char *filename)
+int	parse_file_name(char *filename)
 {
-	int	filename_len;
+	int	file_name_len;
 
-	filename_len = ft_strlen(filename) - 4;
-	if (filename_len < 0)
+	file_name_len = ft_strlen(filename) - 4;
+	if (file_name_len < 0)
 		return (1);
-	if (ft_strncmp(".cub", filename + filename_len, 4))
+	if (ft_strncmp(".cub", filename + file_name_len, 4))
 		return (2);
 	return (0);
 }
 
-int	parse_entry(char *filename, t_config *main)
+int	parse_entry(char *filename, t_parse *main)
 {
 	int	return_value;
 
-	return_value = parse_filename(filename);
+	return_value = parse_file_name(filename);
 	if (return_value)
 		return (return_value);
 	return_value = parse_file(filename, main);

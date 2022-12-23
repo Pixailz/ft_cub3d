@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:06:13 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/22 08:21:00 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:24:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	init_entry(t_config *main)
+void	init_entry(t_parse *main)
 {
 	main->ceiling[0] = 0;
 	main->ceiling[1] = 0;

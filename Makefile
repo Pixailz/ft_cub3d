@@ -49,7 +49,9 @@ MINI_LIBX		:= $(LIB_DIR)/minilibx-linux/libmlx_Linux.a
 LDFLAGS			:= -Llib/minilibx-linux -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 
 # SRC
-SRC_C			:= src/error/parse_error.c \
+SRC_C			:= src/debug/debug.c \
+				   src/debug/parsing.1.c \
+				   src/error/parse_error.c \
 				   src/free/free.c \
 				   src/init_entry.c \
 				   src/main.c \

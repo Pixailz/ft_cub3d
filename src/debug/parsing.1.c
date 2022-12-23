@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   parsing.1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 14:50:13 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/23 12:50:02 by brda-sil         ###   ########.fr       */
+/*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
+/*   Updated: 2022/12/23 14:38:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	free_entry(t_parse *main)
+void	debug_parse(char *ptr)
 {
-	if (main->file >= 0)
-		close(main->file);
-	return (0);
+	ft_printf_fd(DEBUG_FD, "line [%s]\n", ptr);
 }

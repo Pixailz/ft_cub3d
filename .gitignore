@@ -5,6 +5,7 @@ obj/
 
 # log file
 exec.log
+deepthought
 
 # vscode
 .vscode/

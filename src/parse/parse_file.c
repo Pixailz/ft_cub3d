@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:33:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/23 16:33:07 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:43:00 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*get_line(int file)
 	int		last_char_index;
 
 	ptr = ft_get_next_line(file);
+	if (!ptr)
+		return (FT_NULL);
 	last_char_index = ft_strlen(ptr) - 1;
 	if (ptr[last_char_index] == '\n')
 		ptr[last_char_index] = 0;
@@ -63,7 +65,7 @@ int	parse_file_params(int file, t_parse *main)
 
 int	parse_file_map(int file, t_parse *main)
 {
-	ft_printf("parameters done\n");
+	debug_print(PARSE_PARAMS_DONE, NULL);
 	return (-1);
 }
 

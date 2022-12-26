@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/23 13:41:52 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:56:09 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ typedef struct s_parse
 
 enum e_debug_type
 {
+	PARSE_RETURN_VALUE,
 	PARSE_LINE,
-	PARSE_EMPTY_LINE
+	PARSE_EMPTY_LINE,
+	PARSE_PARAMS_DONE
 };
 
 enum e_param_type

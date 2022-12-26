@@ -5,7 +5,10 @@ obj/
 
 # log file
 exec.log
-deepthought
+
+# unit_test
+./scripts/unit_test/deepthought
+./scripts/unit_test/test/
 
 # vscode
 .vscode/

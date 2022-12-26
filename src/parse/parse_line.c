@@ -43,12 +43,19 @@ t_bool	parse_is_line_already_taken(int already_taken, int line_type)
 	return (FALSE);
 }
 
+
+
 int	parse_is_good_line(char *line, t_parse *main)
 {
 	static unsigned char	already_taken = 0;
 	int						line_type;
 	int						return_value;
 
+	if (already_taken == (NO | SO | WE | EA | F | C))
+	{
+		return_value = parse_map(line, main);
+		return (return_value);
+	}
 	if (ft_is_str(line, ft_isspace))
 		return (1);
 	line_type = parse_get_line_type(line);
@@ -63,8 +70,6 @@ int	parse_is_good_line(char *line, t_parse *main)
 		return_value = parse_line_color(line, line_type, main);
 	if (return_value)
 		return (return_value);
-	if (already_taken == (NO | SO | WE | EA | F | C))
-		return (-1);
 	return (0);
 }
 

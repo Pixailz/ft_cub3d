@@ -51,6 +51,7 @@ typedef struct s_parse
 	int				south_file;
 	int				west_file;
 	int				east_file;
+	char			**map;
 }				t_parse;
 
 // typedef struct s_config
@@ -108,7 +109,7 @@ int		parse_file_name(char *filename);
 char	*get_line(int file);
 int		check_permission(char *filename);
 int		parse_file(char *filename, t_parse *main);
-int		parse_file_map(int file, t_parse *main);
+int		parse_file_map(t_parse *main);
 int		parse_file_params(int file, t_parse *main);
 
 // parse/parse_line.c
@@ -124,6 +125,9 @@ int		parse_line_color(char *line, int line_type, t_parse *main);
 // parse/parse_line_texture.c
 int		parse_line_texture(char *line, int line_type, t_parse *main);
 t_bool	ft_is_space(const char c);
+
+// parce/parc_map.c
+int parse_map(char *line, t_parse *main);
 
 /* ########################################################################## */
 

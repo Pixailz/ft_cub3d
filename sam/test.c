@@ -632,25 +632,26 @@ void	ft_check_line(char *line, t_map_param *map_param, int *nb_id)
 		ft_file_map(line, map_param);
 }
 
-int		ft_get_max_width(char **map,int *heigth)
+char	**ft_get_max_width(char **map)
 {
-	int max_width;
+	int h;
+	int w;
 	int j;
 
-	max_width = 0;
-	*heigth = 0;
-	while (map[*heigth])
+	w = 0;
+	h = 0;
+	while (map[h])
 	{
 		j = 0;
-		while (map[*heigth][j])
+		while (map[h][j])
 		{
-			if (j + 1 > max_width && map[*heigth][j] != ' ')
-				max_width = j + 1;
+			if (j + 1 > w && map[h][j] != ' ')
+				w = j + 1;
 			j++;
 		}
-		++*heigth;
+		h++;
 	}
-	return (max_width);
+
 }
 
 void	ft_create_w(char **check_map, t_map_param *map_param, int *i, int w)

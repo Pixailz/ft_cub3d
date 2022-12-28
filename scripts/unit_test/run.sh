@@ -39,11 +39,12 @@ function	exec_parse
 	return_value=$(sed -n -E 's|return_value=\[(-?[0-9]*)\]|\1|p' ${TEST_DIR}/debug.log)
 	if [ "${return_value}" != "${expected_return_value}" ]; then
 		test_log 3 "return_value not ${R}good${RR} ${path_to_config}"
+		test_log 3 "   args = [${args}]"
 		test_log 2 "   expected [${expected_return_value}] | your [${return_value}]"
 	else
 		test_log 2 "return_value ${G}good${RR} ${path_to_config}"
+		test_log 2 "   args = [${args}]"
 	fi
-	test_log 2 "   args = [${args}]"
 	# test_log 2 "   debug log [$(cat ${TEST_DIR}/debug.log)]"
 }
 
@@ -57,11 +58,12 @@ function	exec_parse_perm()
 	return_value=$(grep params_done ${TEST_DIR}/debug.log)
 	if [ ${return_value} != "params_done" ]; then
 		test_log 3 "return_value not ${R}good${RR} ${path_to_config}"
+		test_log 3 "   args = [${args}]"
 		test_log 2 "   expected [${expected_return_value}] | your [${return_value}]"
 	else
 		test_log 2 "return_value ${G}good${RR} ${path_to_config}"
+		test_log 2 "   args = [${args}]"
 	fi
-	test_log 2 "   args = [${args}]"
 	# test_log 2 "   debug log [$(cat ${TEST_DIR}/debug.log)]"
 }
 
@@ -178,7 +180,7 @@ function	main()
 	init_entry
 	parsing_args
 	parsing_map
-	rm -rf ${TEST_DIR}}
+	rm -rf ${TEST_DIR}
 }
 
 if [ ! -f "${TARGET}" ]; then

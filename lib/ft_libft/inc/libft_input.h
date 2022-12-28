@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:16:35 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/11/09 03:36:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/28 21:21:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@
 
 // ft_get_next_line.c
 char	*ft_get_next_line(int fd);
-char	*ft_line(char *buf);
-char	*ft_read(int fd, char *buf);
-char	*ft_stash(char *s);
 
 /* ########################################################################## */
 

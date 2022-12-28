@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:16:35 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/11/09 03:34:24 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:46:53 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_uint32	ft_strlcat(char *dest, char *src, t_size size);
 t_uint32	ft_strlcpy(char *dest, char *src, t_size size);
 
 // ft_strlen.c
-int			ft_strlen(char *str);
+int			ft_strlen(const char *str);
 
 // ft_strmapi.c
 char		*ft_strmapi(char const *s1, char (*f)(unsigned int, char));

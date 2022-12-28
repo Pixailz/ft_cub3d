@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_entry.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 08:06:13 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/28 07:40:00 by brda-sil         ###   ########.fr       */
+/*   Created: 2022/12/27 09:03:31 by brda-sil          #+#    #+#             */
+/*   Updated: 2022/12/27 09:06:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	init_file(t_parse *main)
+int	check_permission(char *filename)
 {
-	main->file = -1;
-	main->north_file = -1;
-	main->south_file = -1;
-	main->west_file = -1;
-	main->east_file = -1;
+	int	file;
+
+	file = open(filename, O_RDONLY);
+	return (file);
 }
 
-void	init_entry(t_parse *main)
+char	*get_line(int file)
 {
-	init_file(main);
-	main->map = NULL;
-	main->ceiling[0] = 0;
-	main->ceiling[1] = 0;
-	main->ceiling[2] = 0;
-	main->floor[0] = 0;
-	main->floor[1] = 0;
-	main->floor[2] = 0;
+	char	*ptr;
+	int		last_char_index;
+
+	ptr = ft_get_next_line(file);
+	if (!ptr)
+		return (FT_NULL);
+	last_char_index = ft_strlen(ptr) - 1;
+	if (ptr[last_char_index] == '\n')
+		ptr[last_char_index] = 0;
+	debug_print(PARSE_LINE, (void *)ptr);
+	return (ptr);
 }

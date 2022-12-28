@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/23 16:30:25 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/27 09:29:05 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_bool	parse_is_line_already_taken(int already_taken, int line_type)
 			return (TRUE);
 	return (FALSE);
 }
-
-
 
 int	parse_is_good_line(char *line, t_parse *main)
 {

@@ -6,34 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:33:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/24 12:43:00 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/27 09:29:33 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-int	check_permission(char *filename)
-{
-	int	file;
-
-	file = open(filename, O_RDONLY);
-	return (file);
-}
-
-char	*get_line(int file)
-{
-	char	*ptr;
-	int		last_char_index;
-
-	ptr = ft_get_next_line(file);
-	if (!ptr)
-		return (FT_NULL);
-	last_char_index = ft_strlen(ptr) - 1;
-	if (ptr[last_char_index] == '\n')
-		ptr[last_char_index] = 0;
-	debug_print(PARSE_LINE, (void *)ptr);
-	return (ptr);
-}
 
 int	parse_file_params(int file, t_parse *main)
 {
@@ -44,15 +21,16 @@ int	parse_file_params(int file, t_parse *main)
 	if (!line)
 		return (4);
 	return_value = parse_line(line, main);
+	free(line);
 	if (return_value == 1)
 		debug_print(PARSE_EMPTY_LINE, FT_NULL);
 	else if (return_value)
 		return (return_value);
-	while (line)
+	while (TRUE)
 	{
-		free(line);
 		line = get_line(file);
 		return_value = parse_line(line, main);
+		free(line);
 		if (return_value == 1)
 			debug_print(PARSE_EMPTY_LINE, FT_NULL);
 		else if (return_value == -1)
@@ -65,7 +43,7 @@ int	parse_file_params(int file, t_parse *main)
 
 void	get_map_size(char **map, int *h, int *w)
 {
-	int j;
+	int	j;
 
 	*w = 0;
 	*h = 0;
@@ -82,16 +60,16 @@ void	get_map_size(char **map, int *h, int *w)
 	}
 }
 
-char **calloc_check_map(int h, int w)
+char	**calloc_check_map(int h, int w)
 {
-	int i;
-	char **check_map;
+	int		i;
+	char	**check_map;
 
 	i = 0;
 	check_map = ft_calloc(sizeof(char *), h + 5);
 	if (!check_map)
-		return(NULL);
-	while(i < h + 4)
+		return (NULL);
+	while (i < h + 4)
 	{
 		check_map[i] = ft_calloc(sizeof(char *), w + 5);
 		if (!check_map[i])
@@ -103,16 +81,16 @@ char **calloc_check_map(int h, int w)
 				i++;
 			}
 			free(check_map);
-			return(NULL);
+			return (NULL);
 		}
 		i++;
 	}
-	return(check_map);
+	return (check_map);
 }
 
 void	create_check_wall(char *check_map, int w)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < w + 4)
@@ -124,7 +102,7 @@ void	create_check_wall(char *check_map, int w)
 
 void	create_space_check_wall(char *check_map, int w)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < w + 4)
@@ -138,7 +116,7 @@ void	create_space_check_wall(char *check_map, int w)
 
 void	init_check_map(char **check_map, int h, int w)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < h + 4)
@@ -158,10 +136,10 @@ void	init_check_map(char **check_map, int h, int w)
 	}
 }
 
-void fill_check_map(char **map ,char **check_map, int h, int w)
+void	fill_check_map(char **map, char **check_map, int h, int w)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 2;
 	while (i < h + 2)
@@ -184,51 +162,51 @@ void fill_check_map(char **map ,char **check_map, int h, int w)
 	}
 }
 
-char **create_check_map(char **map)
+char	**create_check_map(char **map)
 {
-	int w;
-	int h;
-	char **check_map;
+	int		w;
+	int		h;
+	char	**check_map;
 
 	get_map_size(map, &h, &w);
 	check_map = calloc_check_map(h, w);
 	if (!check_map)
-		return(NULL);
+		return (NULL);
 	init_check_map(check_map, h, w);
-	fill_check_map(map ,check_map, h, w);
+	fill_check_map(map, check_map, h, w);
 	return (check_map);
 }
 
-int check_map_error(char **check_map, int i, int j)
+int	check_map_error(char **check_map, int i, int j)
 {
 	if (check_map[i][j] == ' ')
 	{
 		if (check_map[i][j + 1] != '1' && check_map[i][j + 1] != ' ')
-			return(1);
+			return (1);
 		if (check_map[i][j - 1] != '1' && check_map[i][j - 1] != ' ')
-			return(1);
+			return (1);
 		if (check_map[i + 1][j] != '1' && check_map[i + 1][j] != ' ')
-			return(1);
+			return (1);
 		if (check_map[i - 1][j] != '1' && check_map[i - 1][j] != ' ')
-			return(1);
+			return (1);
 	}
-	return(0);
+	return (0);
 }
 
 int	check_map_is_good(char **check_map)
-{ 
-	int i;
-	int j;
+{
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (check_map[i])
 	{
-		j= 0;
+		j = 0;
 		while (check_map[i][j])
 		{
 			if (check_map_error(check_map, i, j))
-				return(1);
+				return (1);
 			j++;
 		}
 		i++;
@@ -238,17 +216,17 @@ int	check_map_is_good(char **check_map)
 
 int	parse_file_map(t_parse *main)
 {
-	int r_value;
+	int		r_value;
+	char	**check_map;
 
-	char **check_map;
 	check_map = create_check_map(main->map);
 	if (!check_map)
-		return(15);
+		return (15);
 	r_value = check_map_is_good(check_map);
 	if (r_value)
 	{
 		ft_free_char_pp(check_map);
-		return(12);
+		return (12);
 	}
 	ft_free_char_pp(main->map);
 	main->map = check_map;

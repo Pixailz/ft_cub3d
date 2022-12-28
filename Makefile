@@ -59,8 +59,9 @@ SRC_C			:= src/debug/debug.c \
 				   src/parse/parse_file.c \
 				   src/parse/parse_line.c \
 				   src/parse/parse_line_color.c \
+				   src/parse/parse_line_texture.c \
 				   src/parse/parse_map.c \
-				   src/parse/parse_line_texture.c
+				   src/parse/utils.c
 # OBJ
 
 OBJ_C			:= $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_C:%.c=%.o))

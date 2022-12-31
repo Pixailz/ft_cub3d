@@ -3,8 +3,12 @@ cub3D
 a.out
 obj/
 
-# log file
+# tmp file
 exec.log
+path_to_the_north_texture
+path_to_the_south_texture
+path_to_the_east_texture
+path_to_the_west_texture
 
 # unit_test
 scripts/unit_test/deepthought

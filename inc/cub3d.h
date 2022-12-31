@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/27 09:02:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/29 15:23:02 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ enum e_debug_type
 	PARSE_RETURN_VALUE,
 	PARSE_LINE,
 	PARSE_EMPTY_LINE,
-	PARSE_PARAMS_DONE
+	PARSE_PARAMS_DONE,
+	PARSE_GET_MAP,
+	PARSE_GET_MAP_SPLITTED
 };
 
 enum e_param_type
@@ -86,7 +88,8 @@ enum e_param_type
 void	debug_print(int mode, void *ptr);
 
 // debug/parsing.1.c
-void	debug_parse(char *ptr);
+void	debug_print_parse(int mode, void *ptr);
+void	debug_print_splitted(char **splitted);
 
 // error/parse_error.c
 int		parsing_error(int return_code);
@@ -106,23 +109,24 @@ void	init_file(t_parse *main);
 
 // main.c
 
+// parse/map/entry.c
+char	*get_map(int file);
+int		parse_map(t_parse *main);
+int		parse_map_content(char *tmp_map);
+int		parse_map_line(char *line);
+
+// parse/map/ft_cub3d_split.c
+char	**ft_cub3d_split(char *str, char delim);
+char	**ft_cub3d_split_get_words(char *str, char delim, int len_tab);
+char	*ft_cub3d_get_word(char **str, char delim);
+
 // parse/parse_entry.c
 int		parse_entry(char *filename, t_parse *main);
 int		parse_file_name(char *filename);
 
 // parse/parse_file.c
-char	**calloc_check_map(int h, int w);
-char	**create_check_map(char **map);
-int		check_map_error(char **check_map, int i, int j);
-int		check_map_is_good(char **check_map);
 int		parse_file(char *filename, t_parse *main);
-int		parse_file_map(t_parse *main);
-int		parse_file_params(int file, t_parse *main);
-void	create_check_wall(char *check_map, int w);
-void	create_space_check_wall(char *check_map, int w);
-void	fill_check_map(char **map, char **check_map, int h, int w);
-void	get_map_size(char **map, int *h, int *w);
-void	init_check_map(char **check_map, int h, int w);
+int		parse_file_params(t_parse *main);
 
 // parse/parse_line.c
 int		parse_get_line_type(char *line);
@@ -137,12 +141,6 @@ int		parse_line_color(char *line, int line_type, t_parse *main);
 // parse/parse_line_texture.c
 int		parse_line_texture(char *line, int line_type, t_parse *main);
 t_bool	ft_is_space(const char c);
-
-// parse/parse_map.c
-int		check_is_line_in_map(char *line, unsigned char *in_map);
-int		check_is_line_is_map(char *l, unsigned char *player);
-int		fill_map(char *line, t_parse *main);
-int		parse_map(char *line, t_parse *main);
 
 // parse/utils.c
 char	*get_line(int file);

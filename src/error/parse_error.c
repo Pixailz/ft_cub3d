@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/26 10:56:22 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/28 21:35:05 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,7 @@ void	parsing_error_texture_type(int line_type)
 
 void	parsing_error_map(int return_code)
 {
-	if (return_code == 12)
-		ft_printf_fd(2, "Wrong map format");
-	else if (return_code == 13)
-		ft_printf_fd(2, "More than one player in map");
-	else if (return_code == 14)
-		ft_printf_fd(2, "Wrong char in map");
-	else if (return_code == 15)
-		ft_printf_fd(2, "Bad Alloc");
-	else if (return_code == 16)
-		ft_printf_fd(2, "No player in map");
-	else if (return_code == 17)
-		ft_printf_fd(2, "No map in file");
+	return ;
 }
 
 int	parsing_error(int return_code)

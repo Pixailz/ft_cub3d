@@ -55,12 +55,13 @@ SRC_C			:= src/debug/debug.c \
 				   src/free/free.c \
 				   src/init_entry.c \
 				   src/main.c \
+				   src/parse/map/entry.c \
+				   src/parse/map/ft_cub3d_split.c \
 				   src/parse/parse_entry.c \
 				   src/parse/parse_file.c \
 				   src/parse/parse_line.c \
 				   src/parse/parse_line_color.c \
 				   src/parse/parse_line_texture.c \
-				   src/parse/parse_map.c \
 				   src/parse/utils.c
 # OBJ
 

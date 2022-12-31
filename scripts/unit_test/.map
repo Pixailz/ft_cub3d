@@ -84,7 +84,7 @@ C 225,30,0
  11111
 EOF
 
-read -r -d '' VALID_MAP_04 << EOF
+read -r -d '' VALID_MAP_05 << EOF
 NO ${TEST_DIR}/path_to_the_north_texture
 SO ${TEST_DIR}/path_to_the_south_texture
 WE ${TEST_DIR}/path_to_the_west_texture
@@ -109,7 +109,7 @@ C 225,30,0
 111111111111
 EOF
 
-read -r -d '' VALID_MAP_04 << EOF
+read -r -d '' VALID_MAP_06 << EOF
 NO ${TEST_DIR}/path_to_the_north_texture
 SO ${TEST_DIR}/path_to_the_south_texture
 WE ${TEST_DIR}/path_to_the_west_texture
@@ -133,6 +133,21 @@ C 225,30,0
 100000000001
 100000000001
 111111111111
+EOF
+
+read -r -d '' VALID_MAP_07 << EOF
+NO ${TEST_DIR}/path_to_the_north_texture
+SO ${TEST_DIR}/path_to_the_south_texture
+WE ${TEST_DIR}/path_to_the_west_texture
+EA ${TEST_DIR}/path_to_the_east_texture
+
+F 220,100,0
+C 225,30,0
+111111
+1001011
+1010001
+1100N11
+111111
 EOF
 
 read -r -d '' INVALID_MAP_00 << EOF

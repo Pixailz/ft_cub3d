@@ -122,6 +122,9 @@ function	create_maps()
 	create_map "${VALID_MAP_02}" "valid_map_02"
 	create_map "${VALID_MAP_03}" "valid_map_03"
 	create_map "${VALID_MAP_04}" "valid_map_04"
+	create_map "${VALID_MAP_05}" "valid_map_05"
+	create_map "${VALID_MAP_06}" "valid_map_06"
+	create_map "${VALID_MAP_07}" "valid_map_07"
 	create_map "${INVALID_MAP_00}" "invalid_map_00"
 	create_map "${INVALID_MAP_01}" "invalid_map_01"
 	create_map "${INVALID_MAP_02}" "invalid_map_02"
@@ -146,11 +149,15 @@ function	parsing_map()
 	touch "${TEST_DIR}/path_to_the_west_texture"
 	exec_parse "${TEST_DIR}/map/valid_map_00.cub" 2303
 	touch "${TEST_DIR}/path_to_the_east_texture"
+
 	exec_parse "${TEST_DIR}/map/valid_map_00.cub" -1
 	exec_parse "${TEST_DIR}/map/valid_map_01.cub" -1
 	exec_parse "${TEST_DIR}/map/valid_map_02.cub" -1
 	exec_parse "${TEST_DIR}/map/valid_map_03.cub" -1
 	exec_parse "${TEST_DIR}/map/valid_map_04.cub" -1
+	exec_parse "${TEST_DIR}/map/valid_map_05.cub" -1
+	exec_parse "${TEST_DIR}/map/valid_map_06.cub" -1
+	exec_parse "${TEST_DIR}/map/valid_map_07.cub" -1
 
 	exec_parse "${TEST_DIR}/map/invalid_map_00.cub" -1
 	exec_parse "${TEST_DIR}/map/invalid_map_01.cub" -1

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/27 09:29:05 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/28 22:58:41 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ int	parse_is_good_line(char *line, t_parse *main)
 	int						line_type;
 	int						return_value;
 
-	if (already_taken == (NO | SO | WE | EA | F | C))
-	{
-		return_value = parse_map(line, main);
-		return (return_value);
-	}
 	if (ft_is_str(line, ft_isspace))
 		return (1);
 	line_type = parse_get_line_type(line);
@@ -68,6 +63,8 @@ int	parse_is_good_line(char *line, t_parse *main)
 		return_value = parse_line_color(line, line_type, main);
 	if (return_value)
 		return (return_value);
+	if (already_taken == (NO | SO | WE | EA | F | C))
+		return (-1);
 	return (0);
 }
 

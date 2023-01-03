@@ -12,7 +12,7 @@
 
 # **************************************************************************** #
 # config
-CFLAGS			:= -Wall -Wextra
+CFLAGS			:= -Wall -Wextra -g3
 TARGET			:= cub3D
 RM				:= rm -rf
 CC				:= gcc
@@ -21,7 +21,7 @@ VERSION			:= 0.0.0
 $(eval export MAIN=1)
 
 ifneq ($(PADDING),45)
-PADDING			:= 45
+PADDING			:= 65
 endif
 
 ifeq ($(DEBUG),)
@@ -55,19 +55,21 @@ SRC_C			:= src/debug/debug.c \
 				   src/free/free.c \
 				   src/init_entry.c \
 				   src/main.c \
+				   src/parse/check_map_parsing/create_check_map.c \
+				   src/parse/check_map_parsing/verif_check_map.c \
 				   src/parse/parse_entry.c \
 				   src/parse/parse_file.c \
 				   src/parse/parse_line.c \
 				   src/parse/parse_line_color.c \
-				   src/parse/parse_map.c \
-				   src/parse/parse_line_texture.c
+				   src/parse/parse_line_texture.c \
+				   src/parse/parse_map.c
 # OBJ
 
 OBJ_C			:= $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_C:%.c=%.o))
 
 # LIB DIR
 CFLAGS			+= $(INC_DIR)
-LIBS			:= $(LIBFT) -Llib/minilibx-linux
+LIBS			:= $(LIBFT) $(MINI_LIBX)
 
 #  Bash Color / unicode char
 
@@ -161,7 +163,7 @@ $(MINI_LIBX):
 
 $(TARGET):				$(LIBFT) $(MINI_LIBX) $(OBJ_C)
 	@printf "$(green_plus) $(font_color)Creation of $(bold)$@$(reset)\n"
-	@$(CC) $(CFLAGS) -o $@ $(OBJ_C) $(LIBS) $(LDFLAGS)
+	@$(CC) -g3 $(CFLAGS) -o $@ $(OBJ_C) $(LIBS) $(LDFLAGS)
 
 setup:					call_logo $(OBJ_SUBDIR) $(BIN_DIR)
 

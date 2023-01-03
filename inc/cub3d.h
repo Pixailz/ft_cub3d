@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/24 12:56:09 by brda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:41:52 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,67 @@ typedef struct s_parse
 	char			**map;
 }				t_parse;
 
+/*tmp for main vomie*/
+
+typedef struct s_ray
+{
+	int r;
+	int n_r;
+	int	mx;
+	int	my;
+	int ca;
+	int	map_x;
+	int	map_y;
+	int	mp;
+	int	dof;
+	float rx;
+	float ry;
+	float sx;
+	float sy;
+	float ra;
+	float xo;
+	float yo;
+} t_ray;
+
+
+typedef struct s_player
+{
+	float pos_y;
+	float pos_x;
+	float dx;
+	float dy;
+	float angle;
+	float fov_rad;
+} t_player;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*buff;
+	int		img_y;
+	int		img_x;
+	int		map_y;
+	int		map_x;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	t_player player;
+	char	**map;
+	unsigned char *floor;
+	unsigned char *ceiling;
+} t_window;
+/*tmp for main vomie*/
+
 // typedef struct s_config
 // {
 // }				t_parse;
 
 enum e_debug_type
 {
-	PARSE_RETURN_VALUE,
 	PARSE_LINE,
-	PARSE_EMPTY_LINE,
-	PARSE_PARAMS_DONE
+	PARSE_EMPTY_LINE
 };
 
 enum e_param_type
@@ -100,6 +151,29 @@ int		free_entry(t_parse *main);
 void	init_entry(t_parse *main);
 
 // main.c
+int		check_button_press(int button, t_window *window);
+int		ft_close(t_window *window);
+int		get_x_size(char *map);
+int		get_y_size(char **map);
+void	draw_map(t_window *window);
+void	draw_pixel(t_window *window , int x , int y,unsigned char rgb[3]);
+void	draw_player(t_window *window);
+void	draw_square(t_window *window , int x[2] , int y[2], unsigned char rgb[3]);
+void	ft_put_pixel(int x, int y, t_window *window, unsigned char rgb[3]);
+void	set_player_pos(t_window *window);
+void draw_ray(t_window *window);
+void reder_2d_test(t_parse *main);
+
+// parse/check_map_parsing/create_check_map.c
+char **calloc_check_map(int h, int w);
+char **create_check_map(char **map);
+void	get_map_size(char **map, int *h, int *w);
+void	init_check_map(char **check_map, int h, int w , char bord);
+void fill_check_map(char **map ,char **check_map, int h, int w);
+
+// parse/check_map_parsing/verif_check_map.c
+int		check_map_is_good(char **check_map);
+int check_map_error(char **check_map, int i, int j);
 
 // parse/parse_entry.c
 int		parse_entry(char *filename, t_parse *main);
@@ -126,7 +200,10 @@ int		parse_line_color(char *line, int line_type, t_parse *main);
 int		parse_line_texture(char *line, int line_type, t_parse *main);
 t_bool	ft_is_space(const char c);
 
-// parce/parc_map.c
+// parse/parse_map.c
+int    fill_map(char *line, t_parse *main);
+int check_is_line_in_map(char *line, unsigned char *in_map);
+int check_is_line_is_map(char *line, unsigned char *player);
 int parse_map(char *line, t_parse *main);
 
 /* ########################################################################## */

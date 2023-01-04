@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 05:13:21 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 19:28:37 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # endif
 
 # define GOOD_CHAR_MAP	" 10NSEW"
-# define VOID_CHAR '-'
+# define VOID_CHAR '.'
 
 /* ########################################################################## */
 
@@ -122,14 +122,16 @@ t_bool	check_map_new_line(char **map);
 t_bool	check_map_wrong_char(char **map);
 
 // parse/map/check.surrounded.c
-char	**dup_map(char **map);
-char	*dup_map_get_line(int width, int height, char *line);
-t_bool	check_is_surrounded_char(int x, int y, char **map);
+t_bool	check_is_surrounded_char_4(int x, int y, char **map);
+t_bool	check_is_surrounded_char_8(int x, int y, char **map);
 t_bool	check_is_surrounded_map(char **map);
-void	get_map_size(int *height, int *width, char **map);
+void	debug_print_coord_checked(int x, int y, char **map);
 
 // parse/map/check_utils.c
+char	**dup_map(char **map);
+char	*dup_map_get_line(int width, char *line);
 t_bool	map_char_is_player(char c);
+void	get_map_size(int *height, int *width, char **map);
 
 // parse/map/entry.c
 int		parse_map(t_parse *main);

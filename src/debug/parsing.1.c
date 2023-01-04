@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 04:48:07 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 19:29:34 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	debug_print_splitted(char **splitted)
 	while (splitted[counter])
 	{
 		ft_printf_fd(DEBUG_FD, \
-			"splitted[%d] {%s}\n", counter, splitted[counter]);
+			"splitted [%d]\t{%s}\n", counter, splitted[counter]);
 		counter++;
 	}
 }
@@ -33,7 +33,7 @@ void	debug_print_surrounded(char **splitted)
 	while (splitted[counter])
 	{
 		ft_printf_fd(DEBUG_FD, \
-			"surrounded[%d] {%s}\n", counter, splitted[counter]);
+			"surrounded[%d]\t{%s}\n", counter, splitted[counter]);
 		counter++;
 	}
 }

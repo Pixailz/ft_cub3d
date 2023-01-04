@@ -55,6 +55,9 @@ SRC_C			:= src/debug/debug.c \
 				   src/free/free.c \
 				   src/init_entry.c \
 				   src/main.c \
+				   src/parse/map/check.c \
+				   src/parse/map/check.surrounded.c \
+				   src/parse/map/check_utils.c \
 				   src/parse/map/entry.c \
 				   src/parse/map/ft_cub3d_split.c \
 				   src/parse/parse_entry.c \

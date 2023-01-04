@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/23 16:02:06 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 03:58:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	parse_line_texture(char *line, int line_type, t_parse *main)
 		return (0xff + (line_type << 8));
 	else
 	{
-		if (line_type == NO)
+		if (line_type == NORTH)
 			main->north_file = file;
-		else if (line_type == SO)
+		else if (line_type == SOUTH)
 			main->south_file = file;
-		else if (line_type == WE)
+		else if (line_type == WEST)
 			main->west_file = file;
-		else if (line_type == EA)
+		else if (line_type == EAST)
 			main->east_file = file;
 	}
 	return (0);

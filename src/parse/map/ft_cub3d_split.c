@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:48:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/29 15:22:02 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 04:18:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ char	*ft_cub3d_get_word(char **str, char delim)
 char	**ft_cub3d_split_get_words(char *str, char delim, int len_tab)
 {
 	int		counter;
-	int		size;
 	char	**tab;
 
-	tab = (char **)ft_calloc(sizeof(char *), len_tab + 1);
+	tab = (char **)ft_calloc(sizeof(char *), len_tab + 2);
 	counter = 0;
 	while (counter < len_tab)
 	{
@@ -71,10 +70,13 @@ char	**ft_cub3d_split(char *str, char delim)
 	char	**tab;
 	char	*tmp_str;
 	int		len_tab;
+	char	set[2];
 
+	set[0] = delim;
+	set[1] = 0;
 	if (!str)
 		return (FT_NULL);
-	tmp_str = ft_strtrim(str, (char *)&delim);
+	tmp_str = ft_strtrim(str, set);
 	len_tab = ft_strcchr(tmp_str, delim);
 	tab = ft_cub3d_split_get_words(tmp_str, delim, len_tab);
 	free(tmp_str);

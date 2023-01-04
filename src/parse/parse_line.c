@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/28 22:58:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 03:57:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ int	parse_get_line_type(char *line)
 
 	ft_strncpy(two_first_char, line, 2);
 	if (!ft_strncmp(two_first_char, "NO", 2))
-		return (NO);
+		return (NORTH);
 	else if (!ft_strncmp(two_first_char, "SO", 2))
-		return (SO);
+		return (SOUTH);
 	else if (!ft_strncmp(two_first_char, "WE", 2))
-		return (WE);
+		return (WEST);
 	else if (!ft_strncmp(two_first_char, "EA", 2))
-		return (EA);
+		return (EAST);
 	else if (!ft_strncmp(two_first_char, "F", 1))
-		return (F);
+		return (FLOOR);
 	else if (!ft_strncmp(two_first_char, "C", 1))
-		return (C);
+		return (CEIL);
 	return (0);
 }
 
@@ -57,13 +57,13 @@ int	parse_is_good_line(char *line, t_parse *main)
 	if (parse_is_line_already_taken(already_taken, line_type))
 		return (6);
 	already_taken += line_type;
-	if (line_type <= EA)
+	if (line_type <= EAST)
 		return_value = parse_line_texture(line, line_type, main);
 	else
 		return_value = parse_line_color(line, line_type, main);
 	if (return_value)
 		return (return_value);
-	if (already_taken == (NO | SO | WE | EA | F | C))
+	if (already_taken == (NORTH | SOUTH | WEST | EAST | FLOOR | CEIL))
 		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/28 21:35:05 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 04:21:42 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,32 @@ void	parsing_error_params(int return_code)
 void	parsing_error_texture_type(int line_type)
 {
 	ft_printf_fd(2, "Texture");
-	if (line_type == NO)
+	if (line_type == NORTH)
 		ft_printf_fd(2, "(NO)");
-	else if (line_type == SO)
+	else if (line_type == SOUTH)
 		ft_printf_fd(2, "(SO)");
-	else if (line_type == WE)
+	else if (line_type == WEST)
 		ft_printf_fd(2, "(WE)");
-	else if (line_type == EA)
+	else if (line_type == EAST)
 		ft_printf_fd(2, "(EA)");
 	ft_printf_fd(2, ": %s", strerror(errno));
 }
 
 void	parsing_error_map(int return_code)
 {
+	ft_printf_fd(2, "Map:");
+	if (return_code == 12)
+		ft_printf_fd(2, " is empty");
+	else if (return_code == 13)
+		ft_printf_fd(2, " have empty new line in map");
+	else if (return_code == 14)
+		ft_printf_fd(2, " have wrong char in map");
+	else if (return_code == 15)
+		ft_printf_fd(2, " map is not surrounded");
+	else if (return_code == 16)
+		ft_printf_fd(2, " have multiple player");
+	else if (return_code == 17)
+		ft_printf_fd(2, " don't have player");
 	return ;
 }
 
@@ -69,7 +82,7 @@ int	parsing_error(int return_code)
 		parsing_error_args(return_code);
 	else if (return_code >= 5 && return_code <= 11)
 		parsing_error_params(return_code);
-	else if (return_code >= 12 && return_code <= 17)
+	else if (return_code >= 12 && return_code <= 0xff - 1)
 		parsing_error_map(return_code);
 	else if ((return_code & 0xff) == 0xff)
 		parsing_error_texture_type(return_code >> 8);

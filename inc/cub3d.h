@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/29 15:23:02 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 05:13:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # ifndef DEBUG_FD
 #  define DEBUG_FD 420
 # endif
+
+# define GOOD_CHAR_MAP	" 10NSEW"
+# define VOID_CHAR '-'
 
 /* ########################################################################## */
 
@@ -65,17 +68,19 @@ enum e_debug_type
 	PARSE_EMPTY_LINE,
 	PARSE_PARAMS_DONE,
 	PARSE_GET_MAP,
-	PARSE_GET_MAP_SPLITTED
+	PARSE_GET_MAP_SPLITTED,
+	PARSE_GET_MAP_SURROUDED
 };
 
 enum e_param_type
 {
-	NO	= 1,
-	SO	= 1 << 1,
-	WE	= 1 << 2,
-	EA	= 1 << 3,
-	F	= 1 << 4,
-	C	= 1 << 5,
+	NORTH	= 1,
+	SOUTH	= 1 << 1,
+	WEST	= 1 << 2,
+	EAST	= 1 << 3,
+	FLOOR	= 1 << 4,
+	CEIL	= 1 << 5,
+	OTHER	= 0
 };
 
 /* ########################################################################## */
@@ -90,6 +95,7 @@ void	debug_print(int mode, void *ptr);
 // debug/parsing.1.c
 void	debug_print_parse(int mode, void *ptr);
 void	debug_print_splitted(char **splitted);
+void	debug_print_surrounded(char **splitted);
 
 // error/parse_error.c
 int		parsing_error(int return_code);
@@ -109,11 +115,25 @@ void	init_file(t_parse *main);
 
 // main.c
 
+// parse/map/check.c
+int		check_map_content(char **map);
+int		check_map_player_char(char **map);
+t_bool	check_map_new_line(char **map);
+t_bool	check_map_wrong_char(char **map);
+
+// parse/map/check.surrounded.c
+char	**dup_map(char **map);
+char	*dup_map_get_line(int width, int height, char *line);
+t_bool	check_is_surrounded_char(int x, int y, char **map);
+t_bool	check_is_surrounded_map(char **map);
+void	get_map_size(int *height, int *width, char **map);
+
+// parse/map/check_utils.c
+t_bool	map_char_is_player(char c);
+
 // parse/map/entry.c
-char	*get_map(int file);
 int		parse_map(t_parse *main);
-int		parse_map_content(char *tmp_map);
-int		parse_map_line(char *line);
+t_bool	get_map(t_parse *main);
 
 // parse/map/ft_cub3d_split.c
 char	**ft_cub3d_split(char *str, char delim);

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 03:58:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:24:33 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool	ft_is_space(const char c)
 	return (c == ' ');
 }
 
-int	parse_line_texture(char *line, int line_type, t_parse *main)
+int	parse_line_texture(char *line, int line_type, t_parse *parsing)
 {
 	char	*ptr;
 	int		file;
@@ -35,13 +35,13 @@ int	parse_line_texture(char *line, int line_type, t_parse *main)
 	else
 	{
 		if (line_type == NORTH)
-			main->north_file = file;
+			parsing->north_file_path = ft_strdup(ptr);
 		else if (line_type == SOUTH)
-			main->south_file = file;
+			parsing->south_file_path = ft_strdup(ptr);
 		else if (line_type == WEST)
-			main->west_file = file;
+			parsing->west_file_path = ft_strdup(ptr);
 		else if (line_type == EAST)
-			main->east_file = file;
+			parsing->east_file_path = ft_strdup(ptr);
 	}
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/23 16:03:19 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:06:11 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	check_line_color(char *ptr, int line_type, t_parse *main)
+int	check_line_color(char *ptr, int line_type, t_parse *parsing)
 {
 	char	**color;
 	int		tmp_number;
@@ -31,16 +31,16 @@ int	check_line_color(char *ptr, int line_type, t_parse *main)
 		if (has_overflow || tmp_number < 0 || tmp_number > 255)
 			return (11);
 		if (line_type == (1 << 4))
-			main->floor[counter] = tmp_number;
+			parsing->floor[counter] = tmp_number;
 		else
-			main->ceiling[counter] = tmp_number;
+			parsing->ceiling[counter] = tmp_number;
 		counter++;
 	}
 	ft_free_char_pp(color);
 	return (0);
 }
 
-int	parse_line_color(char *line, int line_type, t_parse *main)
+int	parse_line_color(char *line, int line_type, t_parse *parsing)
 {
 	char	*ptr;
 	int		return_value;
@@ -54,7 +54,7 @@ int	parse_line_color(char *line, int line_type, t_parse *main)
 		ptr++;
 	if (ft_get_words(ptr, ',') != 3)
 		return (9);
-	return_value = check_line_color(ptr, line_type, main);
+	return_value = check_line_color(ptr, line_type, parsing);
 	if (return_value)
 		return (return_value);
 	return (0);

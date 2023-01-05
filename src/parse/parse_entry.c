@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:44:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/24 11:22:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:26:16 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ int	parse_file_name(char *filename)
 	return (0);
 }
 
-int	parse_entry(char *filename, t_parse *main)
+int	parse_entry(char *filename, t_parse *parsing)
 {
 	int	return_value;
 
 	return_value = parse_file_name(filename);
 	if (return_value)
 		return (return_value);
-	return_value = parse_file(filename, main);
-	if (return_value)
-		return (return_value);
-	return (0);
+	return_value = parse_file(filename, parsing);
+	return (return_value);
 }

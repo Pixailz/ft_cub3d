@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free.parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:50:13 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/12/28 07:44:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:55:33 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,14 @@ void	close_file(int fd)
 		close(fd);
 }
 
-void	free_close_file(t_parse *main)
+void	free_entry_parsing(t_parse *parsing)
 {
-	close_file(main->file);
-	close_file(main->north_file);
-	close_file(main->south_file);
-	close_file(main->west_file);
-	close_file(main->east_file);
-}
-
-void	free_entry(t_parse *main)
-{
-	free_close_file(main);
-	if (main->map)
-		ft_free_char_pp(main->map);
+	close_file(parsing->map_fd);
+	ft_free_char_pointer(parsing->north_file_path);
+	ft_free_char_pointer(parsing->south_file_path);
+	ft_free_char_pointer(parsing->west_file_path);
+	ft_free_char_pointer(parsing->east_file_path);
+	if (parsing->map)
+		ft_free_char_pp(parsing->map);
 	ft_get_next_line(-2);
 }

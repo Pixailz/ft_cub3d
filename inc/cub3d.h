@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 19:28:37 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:43:42 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@
 #  define DEBUG_FD 420
 # endif
 
-# define GOOD_CHAR_MAP	" 10NSEW"
+# define GOOD_CHAR_MAP	" 10NSWE"
 # define VOID_CHAR '.'
+
+typedef int	t_return_value;
 
 /* ########################################################################## */
 
@@ -47,15 +49,26 @@
 
 typedef struct s_parse
 {
-	int				file;
-	unsigned char	floor[3];
-	unsigned char	ceiling[3];
-	int				north_file;
-	int				south_file;
-	int				west_file;
-	int				east_file;
-	char			**map;
+	int		map_fd;
+	short	floor[3];
+	short	ceiling[3];
+	char	*north_file_path;
+	char	*south_file_path;
+	char	*west_file_path;
+	char	*east_file_path;
+	char	**map;
 }				t_parse;
+
+typedef struct s_main
+{
+	short	floor[3];
+	short	ceiling[3];
+	char	*path_to_north_file;
+	char	*path_to_south_file;
+	char	*path_to_west_file;
+	char	*path_to_east_file;
+	char	**map;
+}				t_main;
 
 // typedef struct s_config
 // {
@@ -104,16 +117,20 @@ void	parsing_error_map(int return_code);
 void	parsing_error_params(int return_code);
 void	parsing_error_texture_type(int line_type);
 
-// free/free.c
-void	close_file(int fd);
-void	free_close_file(t_parse *main);
-void	free_entry(t_parse *main);
+// free/free.config.c
+void	free_entry_config(t_main *config);
 
-// init_entry.c
-void	init_entry(t_parse *main);
-void	init_file(t_parse *main);
+// free/free.parsing.c
+void	close_file(int fd);
+void	free_entry_parsing(t_parse *parsing);
+
+// init.c
+void	init_config_entry(t_main *config);
+void	init_entry(t_parse *parsing, t_main *config);
+void	init_parsing_entry(t_parse *parsing);
 
 // main.c
+void	get_clean_value(t_parse *parsing, t_main *config);
 
 // parse/map/check.c
 int		check_map_content(char **map);
@@ -134,8 +151,8 @@ t_bool	map_char_is_player(char c);
 void	get_map_size(int *height, int *width, char **map);
 
 // parse/map/entry.c
-int		parse_map(t_parse *main);
-t_bool	get_map(t_parse *main);
+int		parse_map(t_parse *parsing);
+t_bool	get_map(t_parse *parsing);
 
 // parse/map/ft_cub3d_split.c
 char	**ft_cub3d_split(char *str, char delim);
@@ -143,30 +160,33 @@ char	**ft_cub3d_split_get_words(char *str, char delim, int len_tab);
 char	*ft_cub3d_get_word(char **str, char delim);
 
 // parse/parse_entry.c
-int		parse_entry(char *filename, t_parse *main);
+int		parse_entry(char *filename, t_parse *parsing);
 int		parse_file_name(char *filename);
 
 // parse/parse_file.c
-int		parse_file(char *filename, t_parse *main);
-int		parse_file_params(t_parse *main);
+int		parse_file(char *filename, t_parse *parsing);
+int		parse_file_params(t_parse *parsing);
 
 // parse/parse_line.c
 int		parse_get_line_type(char *line);
-int		parse_is_good_line(char *line, t_parse *main);
-int		parse_line(char *line, t_parse *main);
+int		parse_is_good_line(char *line, t_parse *parsing);
+int		parse_line(char *line, t_parse *parsing);
 t_bool	parse_is_line_already_taken(int already_taken, int line_type);
 
 // parse/parse_line_color.c
-int		check_line_color(char *ptr, int line_type, t_parse *main);
-int		parse_line_color(char *line, int line_type, t_parse *main);
+int		check_line_color(char *ptr, int line_type, t_parse *parsing);
+int		parse_line_color(char *line, int line_type, t_parse *parsing);
 
 // parse/parse_line_texture.c
-int		parse_line_texture(char *line, int line_type, t_parse *main);
+int		parse_line_texture(char *line, int line_type, t_parse *parsing);
 t_bool	ft_is_space(const char c);
 
 // parse/utils.c
 char	*get_line(int file);
 int		check_permission(char *filename);
+
+// utils/ft_free_char_pointer.c
+void	ft_free_char_pointer(char *ptr);
 
 /* ########################################################################## */
 

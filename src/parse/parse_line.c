@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 03:57:57 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:04:54 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool	parse_is_line_already_taken(int already_taken, int line_type)
 	return (FALSE);
 }
 
-int	parse_is_good_line(char *line, t_parse *main)
+int	parse_is_good_line(char *line, t_parse *parsing)
 {
 	static unsigned char	already_taken = 0;
 	int						line_type;
@@ -58,9 +58,9 @@ int	parse_is_good_line(char *line, t_parse *main)
 		return (6);
 	already_taken += line_type;
 	if (line_type <= EAST)
-		return_value = parse_line_texture(line, line_type, main);
+		return_value = parse_line_texture(line, line_type, parsing);
 	else
-		return_value = parse_line_color(line, line_type, main);
+		return_value = parse_line_color(line, line_type, parsing);
 	if (return_value)
 		return (return_value);
 	if (already_taken == (NORTH | SOUTH | WEST | EAST | FLOOR | CEIL))
@@ -68,11 +68,11 @@ int	parse_is_good_line(char *line, t_parse *main)
 	return (0);
 }
 
-int	parse_line(char *line, t_parse *main)
+int	parse_line(char *line, t_parse *parsing)
 {
 	int	return_value;
 
-	return_value = parse_is_good_line(line, main);
+	return_value = parse_is_good_line(line, parsing);
 	if (return_value)
 		return (return_value);
 	return (0);

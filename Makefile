@@ -52,8 +52,9 @@ LDFLAGS			:= -Llib/minilibx-linux -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 SRC_C			:= src/debug/debug.c \
 				   src/debug/parsing.1.c \
 				   src/error/parse_error.c \
-				   src/free/free.c \
-				   src/init_entry.c \
+				   src/free/free.config.c \
+				   src/free/free.parsing.c \
+				   src/init.c \
 				   src/main.c \
 				   src/parse/map/check.c \
 				   src/parse/map/check.surrounded.c \
@@ -65,7 +66,8 @@ SRC_C			:= src/debug/debug.c \
 				   src/parse/parse_line.c \
 				   src/parse/parse_line_color.c \
 				   src/parse/parse_line_texture.c \
-				   src/parse/utils.c
+				   src/parse/utils.c \
+				   src/utils/ft_free_char_pointer.c
 # OBJ
 
 OBJ_C			:= $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_C:%.c=%.o))

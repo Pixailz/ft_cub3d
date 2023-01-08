@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_error.c                                      :+:      :+:    :+:   */
+/*   error.parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 19:28:44 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 04:27:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	parsing_error_args(int return_code)
+void	error_parsing_args(int return_code)
 {
 	if (return_code == 1)
 		ft_printf_fd(2, "The file name is too short");
@@ -24,7 +24,7 @@ void	parsing_error_args(int return_code)
 		ft_printf_fd(2, "Empty file");
 }
 
-void	parsing_error_params(int return_code)
+void	error_parsing_params(int return_code)
 {
 	if (return_code == 5)
 		ft_printf_fd(2, "Wrong line begining");
@@ -43,7 +43,7 @@ void	parsing_error_params(int return_code)
 		ft_printf_fd(2, "Wrong number for colors");
 }
 
-void	parsing_error_texture_type(int line_type)
+void	error_parsing_texture_type(int line_type)
 {
 	ft_printf_fd(2, "Texture");
 	if (line_type == NORTH)
@@ -57,7 +57,7 @@ void	parsing_error_texture_type(int line_type)
 	ft_printf_fd(2, ": %s", strerror(errno));
 }
 
-void	parsing_error_map(int return_code)
+void	error_parsing_map(int return_code)
 {
 	ft_printf_fd(2, "Map:");
 	if (return_code == 12)
@@ -75,17 +75,17 @@ void	parsing_error_map(int return_code)
 	return ;
 }
 
-int	parsing_error(int return_code)
+int	error_parsing(int return_code)
 {
 	ft_printf_fd(2, "Error: ");
 	if (return_code >= 1 && return_code <= 4)
-		parsing_error_args(return_code);
+		error_parsing_args(return_code);
 	else if (return_code >= 5 && return_code <= 11)
-		parsing_error_params(return_code);
+		error_parsing_params(return_code);
 	else if (return_code >= 12 && return_code <= 0xff - 1)
-		parsing_error_map(return_code);
+		error_parsing_map(return_code);
 	else if ((return_code & 0xff) == 0xff)
-		parsing_error_texture_type(return_code >> 8);
+		error_parsing_texture_type(return_code >> 8);
 	ft_printf_fd(2, "\n");
 	return (return_code);
 }

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 13:17:18 by pix               #+#    #+#             */
-/*   Updated: 2022/09/24 21:05:14 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 18:54:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,30 @@ t_size	ft_nbrlen_base(const void *void_nbr, const char *base)
 		nb = ~(nb - 1);
 		size++;
 	}
+	while (nb && ++size)
+		nb /= size_base;
+	return (size);
+}
+
+/**
+ * @brief			Length of an integer, given a base.
+ *
+ * @param void_nbr	Integer to take the size of.
+ * @param base		String base to convert from
+ *
+ * @return (t_size)	The length of nb, if number is negative, add +1 for the '-'.
+ */
+t_size	ft_unbrlen_base(const void *void_nbr, const char *base)
+{
+	t_size		size;
+	t_size		size_base;
+	t_uint64	nb;
+
+	size = 0;
+	if ((t_uint64)void_nbr == 0)
+		return (1);
+	size_base = ft_strlen((char *)base);
+	nb = (t_uint64)void_nbr;
 	while (nb && ++size)
 		nb /= size_base;
 	return (size);

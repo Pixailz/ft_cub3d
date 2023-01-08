@@ -6,25 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 20:44:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 23:31:27 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-void	debug_print_coord_checked(int x, int y, char **map)
-{
-	ft_printf_fd(DEBUG_FD, "currently checked(%d,%d;[%c]):\n", x, y, map[x][y]);
-	ft_printf_fd(DEBUG_FD, "[%c]", map[x - 1][y - 1]);
-	ft_printf_fd(DEBUG_FD, "[%c]", map[x - 1][y]);
-	ft_printf_fd(DEBUG_FD, "[%c]\n", map[x - 1][y + 1]);
-	ft_printf_fd(DEBUG_FD, "[%c]", map[x][y - 1]);
-	ft_printf_fd(DEBUG_FD, "[%c]", map[x][y]);
-	ft_printf_fd(DEBUG_FD, "[%c]\n", map[x][y + 1]);
-	ft_printf_fd(DEBUG_FD, "[%c]", map[x + 1][y - 1]);
-	ft_printf_fd(DEBUG_FD, "[%c]", map[x + 1][y]);
-	ft_printf_fd(DEBUG_FD, "[%c]\n\n", map[x + 1][y + 1]);
-}
 
 t_bool	check_is_surrounded_char_8(int x, int y, char **map)
 {
@@ -33,8 +19,7 @@ t_bool	check_is_surrounded_char_8(int x, int y, char **map)
 	int		dir_y;
 	char	current_char;
 
-	if (DEBUG)
-		debug_print_coord_checked(x, y, map);
+	debug_print_coord_checked(x, y, map);
 	wall_check = 0;
 	dir_x = -1;
 	while (dir_x < 2)

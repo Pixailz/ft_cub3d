@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.malloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:52:47 by brda-sil         ###   ########.fr       */
+/*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/08 21:23:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <cub3d.h>
 
-int	main(int argc, char **argv)
+void	error_print_malloc(t_return_value return_value)
 {
-	t_main			config;
-
-	if (argc != 2)
-		return (ft_printf_fd(2, "Error: program take one arguments.\n"));
-	init_config(&config);
-	if (parse_entry(argv[1], &config.parsing))
-		return (error_print(&config));
-	start_rendering(&config);
-	error_print(&config);
-	return (have_error(0));
+	ft_putstr_fd("Malloc: ", 2);
+	if (return_value & ERRN_01)
+		ft_putstr_fd(ERRN_MALLOC_STR_01, 2);
+	ft_putchar_fd('\n', 2);
 }

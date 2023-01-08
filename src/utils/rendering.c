@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:52:47 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/09 00:11:06 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <cub3d.h>
 
-int	main(int argc, char **argv)
+void	init_rendering(t_main *config)
 {
-	t_main			config;
+	init_mlx(&config->mlx);
+}
 
-	if (argc != 2)
-		return (ft_printf_fd(2, "Error: program take one arguments.\n"));
-	init_config(&config);
-	if (parse_entry(argv[1], &config.parsing))
-		return (error_print(&config));
-	start_rendering(&config);
-	error_print(&config);
-	return (have_error(0));
+void	start_rendering(t_main *config)
+{
+	init_rendering(config);
 }

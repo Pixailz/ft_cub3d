@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2022/12/22 07:00:37 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/08 23:19:50 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,31 +50,52 @@ LDFLAGS			:= -Llib/minilibx-linux -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 
 # SRC
 SRC_C			:= src/debug/debug.c \
-				   src/debug/parsing.1.c \
-				   src/error/parse_error.c \
-				   src/free/free.config.c \
-				   src/free/free.parsing.c \
-				   src/init.c \
+				   src/debug/debug.error.c \
+				   src/debug/debug.map.c \
+				   src/debug/debug.parsing.c \
+				   src/debug/debug.render.c \
+				   src/error/args/args.already_provided.c \
+				   src/error/args/args.c \
+				   src/error/args/args.have_empty.c \
+				   src/error/args/args.map.c \
+				   src/error/args/args.wrong_color.c \
+				   src/error/args/args.wrong_path.c \
+				   src/error/args/args.wrong_sep.c \
+				   src/error/error.c \
+				   src/error/error.line.c \
+				   src/error/error.malloc.c \
+				   src/error/error.parsing.c \
+				   src/error/error.print.c \
+				   src/error/error.texture.c \
 				   src/main.c \
 				   src/parse/map/check.c \
 				   src/parse/map/check.surrounded.c \
 				   src/parse/map/check_utils.c \
 				   src/parse/map/entry.c \
-				   src/parse/map/ft_cub3d_split.c \
-				   src/parse/parse_entry.c \
-				   src/parse/parse_file.c \
-				   src/parse/parse_line.c \
-				   src/parse/parse_line_color.c \
-				   src/parse/parse_line_texture.c \
-				   src/parse/utils.c \
-				   src/utils/ft_free_char_pointer.c
+				   src/parse/parse.entry.c \
+				   src/parse/parse.file.c \
+				   src/parse/parse.line.c \
+				   src/parse/parse.line.color.c \
+				   src/parse/parse.line.texture.c \
+				   src/utils/check_permission.c \
+				   src/utils/close_file.c \
+				   src/utils/config.c \
+				   src/utils/file.c \
+				   src/utils/ft_cub3d_split.c \
+				   src/utils/ft_free_char_pointer.c \
+				   src/utils/get_line.c \
+				   src/utils/mlx.c \
+				   src/utils/mlx.hook.c \
+				   src/utils/parsing.c \
+				   src/utils/rendering.c \
+				   src/utils/texture.c
 # OBJ
 
 OBJ_C			:= $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_C:%.c=%.o))
 
 # LIB DIR
 CFLAGS			+= $(INC_DIR)
-LIBS			:= $(LIBFT) -Llib/minilibx-linux
+LIBS			:= $(LIBFT) $(MINI_LIBX)
 
 #  Bash Color / unicode char
 

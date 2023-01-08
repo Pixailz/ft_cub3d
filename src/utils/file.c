@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:52:47 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/08 15:09:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <cub3d.h>
 
-int	main(int argc, char **argv)
+void	init_file(t_file *file)
 {
-	t_main			config;
+	file->fd = -1;
+	file->path = FT_NULL;
+}
 
-	if (argc != 2)
-		return (ft_printf_fd(2, "Error: program take one arguments.\n"));
-	init_config(&config);
-	if (parse_entry(argv[1], &config.parsing))
-		return (error_print(&config));
-	start_rendering(&config);
-	error_print(&config);
-	return (have_error(0));
+void	free_file(t_file *file)
+{
+	if (file->fd != -1)
+		close(file->fd);
+	if (file->path != FT_NULL)
+	{
+		free(file->path);
+		file->path = FT_NULL;
+	}
+}
+
+void	set_file(t_file *file, char *path, int fd)
+{
+	file->fd = fd;
+	file->path = path;
 }

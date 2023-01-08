@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 21:26:12 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 19:14:44 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 21:54:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ t_bool	get_map(t_parse *parsing)
 {
 	char	*tmp_line;
 	char	*tmp_joined;
+	int		gnl_status;
 
 	tmp_joined = (char *)ft_calloc(sizeof(char), 1);
 	while (TRUE)
 	{
-		tmp_line = ft_get_next_line(parsing->map_fd);
+		tmp_line = ft_get_next_line(parsing->map_file.fd, &gnl_status);
 		if (!*tmp_line)
 			break ;
 		tmp_joined = ft_memjoin(tmp_joined, tmp_line);
@@ -38,13 +39,12 @@ t_bool	get_map(t_parse *parsing)
 	return (TRUE);
 }
 
-int	parse_map(t_parse *parsing)
+t_return_value	parse_map(t_parse *parsing)
 {
-	int	return_value;
+	t_return_value	return_value;
 
 	if (!get_map(parsing))
-		return (12);
-	debug_print(PARSE_GET_MAP_SPLITTED, (void *)parsing->map);
+		return (set_error(1, ERRN_13));
 	return_value = check_map_content(parsing->map);
 	return (return_value);
 }

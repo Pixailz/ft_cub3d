@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:16:35 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/11/09 03:31:32 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 15:41:35 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ t_size	ft_nbrlen(const void *void_nbr);
 
 // ft_nbrlen_base.c
 t_size	ft_nbrlen_base(const void *void_nbr, const char *base);
+
+// ft_unbrlen_base.c
+t_size	ft_unbrlen_base(const void *void_nbr, const char *base);
 
 // ft_rev_int.c
 int		ft_rev_int(int nb);

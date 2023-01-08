@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_line_color.c                                 :+:      :+:    :+:   */
+/*   parse.line.color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 19:06:11 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 21:43:31 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,25 @@
 int	check_line_color(char *ptr, int line_type, t_parse *parsing)
 {
 	char	**color;
-	int		tmp_number;
 	int		counter;
 	int		has_overflow;
+	int		tmp_number;
 
 	color = ft_split(ptr, ',');
 	counter = 0;
 	while (counter < 3)
 		if (!ft_is_str(color[counter++], ft_isdigit))
-			return (10);
+			set_error_known_type(line_type, ERRN_11);
 	counter = 0;
 	while (counter < 3)
 	{
 		tmp_number = ft_patoi(color[counter], &has_overflow);
 		if (has_overflow || tmp_number < 0 || tmp_number > 255)
-			return (11);
+			set_error_known_type(line_type, ERRN_12);
 		if (line_type == (1 << 4))
-			parsing->floor[counter] = tmp_number;
+			parsing->texture.floor[counter++] = tmp_number;
 		else
-			parsing->ceiling[counter] = tmp_number;
-		counter++;
+			parsing->texture.ceiling[counter++] = tmp_number;
 	}
 	ft_free_char_pp(color);
 	return (0);
@@ -43,19 +42,17 @@ int	check_line_color(char *ptr, int line_type, t_parse *parsing)
 int	parse_line_color(char *line, int line_type, t_parse *parsing)
 {
 	char	*ptr;
-	int		return_value;
 
-	if (line[1] != ' ')
-		return (7);
+	if (line[1] != ' ' && line[1] != 0)
+		return (set_error_known_type(line_type, ERRN_07));
 	else if (ft_is_str(line + 2, ft_is_space))
-		return (8);
+		return (set_error_known_type(line_type, ERRN_08));
 	ptr = line + 1;
 	while (ft_isblank(*ptr))
 		ptr++;
 	if (ft_get_words(ptr, ',') != 3)
-		return (9);
-	return_value = check_line_color(ptr, line_type, parsing);
-	if (return_value)
-		return (return_value);
+		return (set_error_known_type(line_type, ERRN_10));
+	if (check_line_color(ptr, line_type, parsing))
+		return (1);
 	return (0);
 }

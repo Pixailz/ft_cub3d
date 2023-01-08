@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   close_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:52:47 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 01:05:08 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/08 01:05:33 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <cub3d.h>
 
-int	main(int argc, char **argv)
+void	close_file(int fd)
 {
-	t_main			config;
-
-	if (argc != 2)
-		return (ft_printf_fd(2, "Error: program take one arguments.\n"));
-	init_config(&config);
-	if (parse_entry(argv[1], &config.parsing))
-		return (error_print(&config));
-	start_rendering(&config);
-	error_print(&config);
-	return (have_error(0));
+	if (fd > -1)
+		close(fd);
 }

@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.parsing.c                                     :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:50:13 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 19:55:33 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/08 15:11:06 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	close_file(int fd)
+void	init_parsing(t_parse *parsing)
 {
-	if (fd > -1)
-		close(fd);
+	init_file(&parsing->map_file);
+	parsing->map = FT_NULL;
+	init_texture(&parsing->texture);
 }
 
-void	free_entry_parsing(t_parse *parsing)
+void	free_parsing(t_parse *parsing)
 {
-	close_file(parsing->map_fd);
-	ft_free_char_pointer(parsing->north_file_path);
-	ft_free_char_pointer(parsing->south_file_path);
-	ft_free_char_pointer(parsing->west_file_path);
-	ft_free_char_pointer(parsing->east_file_path);
+	free_file(&parsing->map_file);
+	free_texture(&parsing->texture);
 	if (parsing->map)
 		ft_free_char_pp(parsing->map);
-	ft_get_next_line(-2);
+	ft_get_next_line(-2, FT_NULL);
 }

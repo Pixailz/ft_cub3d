@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.config.c                                      :+:      :+:    :+:   */
+/*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 14:50:13 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 19:57:23 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/09 00:09:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	free_entry_config(t_main *config)
+void	init_config(t_main *config)
 {
-	ft_free_char_pointer(config->path_to_north_file);
-	ft_free_char_pointer(config->path_to_south_file);
-	ft_free_char_pointer(config->path_to_west_file);
-	ft_free_char_pointer(config->path_to_east_file);
-	if (config->map[0])
-		ft_free_char_pp(config->map);
+	get_error(0);
+	init_parsing(&config->parsing);
+}
+
+void	free_config(t_main *config)
+{
+	free_parsing(&config->parsing);
+	if (DEBUG)
+		close(DEBUG_FD);
 }

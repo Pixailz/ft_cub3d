@@ -64,6 +64,7 @@ SRC_C			:= src/debug/debug.c \
 				   src/error/error.c \
 				   src/error/error.line.c \
 				   src/error/error.malloc.c \
+				   src/error/error.mlx.c \
 				   src/error/error.parsing.c \
 				   src/error/error.print.c \
 				   src/error/error.texture.c \

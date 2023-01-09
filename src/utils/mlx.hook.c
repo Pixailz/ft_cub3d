@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:37:12 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 01:50:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,10 @@ int	key_press(int key_pressed, t_mlx *mlx)
 	return (0);
 }
 
-// int	key_release(int key_released, t_mlx *mlx)
-// {
-// 	// debug_print(RENDER_KEY_RELEASE, (void *)&key_released);
-// 	return (0);
-// }
-
 void	init_mlx_hook(t_mlx *mlx)
 {
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), key_press, mlx);
 	mlx_do_key_autorepeaton(mlx->ptr);
-	// mlx_hook(mlx->win, 3, (1L << 1), key_release, mlx);
 	return ;
 }

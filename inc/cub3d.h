@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:49:03 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 01:59:04 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,15 @@ typedef unsigned int			t_return_value;
 
 # define KNOW_TYPE_MASK			0xfe0
 # define MAP_ERROR_MASK			0x3f000
+# define MLX_ERROR_MASK			0x7e
 
 # define ERRN_MALLOC_STR_01		"inside gnl"
+# define ERRN_MALLOC_STR_02		"mlx init failed"
+# define ERRN_MALLOC_STR_03		"mlx window init failed"
+# define ERRN_MALLOC_STR_04		"load texture (NO)"
+# define ERRN_MALLOC_STR_05		"load texture (SO)"
+# define ERRN_MALLOC_STR_06		"load texture (WE)"
+# define ERRN_MALLOC_STR_07		"load texture (EA)"
 
 # define ERRN_ARGS_STR_01		"file path too short"
 # define ERRN_ARGS_STR_02		"wrong file extension"
@@ -157,12 +164,12 @@ enum e_param_type
 /* MALLOC
  * ERRN_00 = ALL_GOOD
  * ERRN_01 = MALLOC_INSIDE_GNL
- * ERRN_02 =
- * ERRN_03 =
- * ERRN_04 =
- * ERRN_05 =
- * ERRN_06 =
- * ERRN_07 =
+ * ERRN_02 = MLX_FAILED
+ * ERRN_03 = MLX_WINDOW_FAILED
+ * ERRN_04 = MLX_NORTH_TEXT
+ * ERRN_05 = MLX_SOUTH_TEXT
+ * ERRN_06 = MLX_WEST_TEXT
+ * ERRN_07 = MLX_EAST_TEXT
  * ERRN_08 =
  * ERRN_09 =
  * ERRN_10 =
@@ -286,29 +293,40 @@ typedef struct s_error
 	t_return_value	texture;
 }					t_error;
 
+typedef struct s_mlx_texture
+{
+	void		*ptr;
+	int			len_x;
+	int			len_y;
+}			t_mlx_texture;
+
+typedef struct s_mlx
+{
+	void			*ptr;
+	void			*win;
+	int				screen_x;
+	int				screen_y;
+	t_mlx_texture	north_text;
+	t_mlx_texture	south_text;
+	t_mlx_texture	west_text;
+	t_mlx_texture	east_text;
+}			t_mlx;
+
 typedef struct s_file
 {
-	int		fd;
-	char	*path;
+	int			fd;
+	char		*path;
 }			t_file;
 
 typedef struct s_texture
 {
-	short	floor[3];
-	short	ceiling[3];
-	t_file	north_file;
-	t_file	south_file;
-	t_file	west_file;
-	t_file	east_file;
+	short			floor[3];
+	short			ceiling[3];
+	t_file			north_file;
+	t_file			south_file;
+	t_file			west_file;
+	t_file			east_file;
 }			t_texture;
-
-typedef struct s_mlx
-{
-	void	*ptr;
-	void	*win;
-	int		screen_x;
-	int		screen_y;
-}			t_mlx;
 
 typedef struct s_parse
 {
@@ -391,6 +409,9 @@ t_return_value	set_error_known_type(int line_type, t_return_value return_value);
 
 // error/error.malloc.c
 void			error_print_malloc(t_return_value return_value);
+
+// error/error.mlx.c
+void			error_print_mlx(t_return_value return_value);
 
 // error/error.parsing.c
 int				error_parsing(int return_code);
@@ -478,8 +499,10 @@ void			ft_free_char_pointer(char *ptr);
 char			*parse_get_line(int file);
 
 // utils/mlx.c
+t_return_value	init_mlx(t_mlx *mlx);
 void			free_mlx(t_mlx *mlx);
-void			init_mlx(t_mlx *mlx);
+void			free_mlx_textures(t_mlx *mlx);
+void			init_mlx_texture(t_mlx *mlx);
 
 // utils/mlx.hook.c
 int				end_hook(t_mlx *mlx);
@@ -491,12 +514,14 @@ void			free_parsing(t_parse *parsing);
 void			init_parsing(t_parse *parsing);
 
 // utils/rendering.c
-void			init_rendering(t_main *config);
-void			start_rendering(t_main *config);
+t_return_value	init_rendering(t_main *config);
+t_return_value	start_rendering(t_main *config);
 
 // utils/texture.c
-void			free_texture(t_texture *texture);
-void			init_texture(t_texture *texture);
+t_return_value	load_texture(t_mlx_texture *text, char *file_path, void *mlx);
+t_return_value	load_textures(t_main *config);
+void			free_textures(t_texture *texture);
+void			init_textures(t_texture *texture);
 
 /* ########################################################################## */
 

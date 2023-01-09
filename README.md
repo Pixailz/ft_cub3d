@@ -4,7 +4,6 @@
 
 # TODO
 
-- protect mlx->ptr and mlx->win init
 - finish loading texture
 
 # utils command

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 22:30:19 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 01:42:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	error_print_args(t_error *error)
 	t_return_value	have_map_error;
 	t_return_value	have_know_type_error;
 
-	have_know_type_error = error->args & (KNOW_TYPE_MASK);
-	have_map_error = error->args & (MAP_ERROR_MASK);
+	have_know_type_error = error->args & KNOW_TYPE_MASK;
+	have_map_error = error->args & MAP_ERROR_MASK;
 	if (!have_map_error && !have_know_type_error)
 		ft_putstr_fd("Args:\n", 2);
 	if (error->args & ERRN_01)

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 00:09:22 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:22:12 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_config(t_main *config)
 {
-	get_error(0);
 	init_parsing(&config->parsing);
 }
 

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 18:58:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:13:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	debug_print_errn(void)
 {
 	t_error	*error;
 
-	error = get_error(0);
+	error = get_error();
 	debug_print_errn_binary("Malloc", error->malloc);
 	debug_print_errn_binary("Args", error->args);
 	debug_print_errn_binary("Texture", error->texture);

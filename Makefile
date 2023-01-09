@@ -81,12 +81,15 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/check_permission.c \
 				   src/utils/close_file.c \
 				   src/utils/config.c \
+				   src/utils/draw.3d.c \
+				   src/utils/draw.ray.c \
 				   src/utils/file.c \
 				   src/utils/ft_cub3d_split.c \
 				   src/utils/ft_free_char_pointer.c \
 				   src/utils/get_line.c \
 				   src/utils/mlx.c \
-				   src/utils/mlx.hook.c \
+				   src/utils/mlx.hook.3d.c \
+				   src/utils/mlx.hook.ray.c \
 				   src/utils/parsing.c \
 				   src/utils/rendering.c \
 				   src/utils/texture.c

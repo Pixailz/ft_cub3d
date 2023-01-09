@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:33:30 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 18:32:27 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:14:35 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_return_value	error_print(t_main *config)
 	t_error			*error;
 	t_return_value	have_error_question_mark;
 
-	error = get_error(0);
+	error = get_error();
 	debug_print(ERROR_PRINT_ERRN, FT_NULL);
 	have_error_question_mark = have_error(0);
 	if (have_error_question_mark)

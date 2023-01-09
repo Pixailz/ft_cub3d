@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 01:46:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:25:25 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	error_print_mlx(t_return_value return_value)
 		ft_putstr_fd(ERRN_MALLOC_STR_06, 2);
 	if (return_value & ERRN_07)
 		ft_putstr_fd(ERRN_MALLOC_STR_07, 2);
+	if (return_value & ERRN_08)
+		ft_putstr_fd(ERRN_MALLOC_STR_08, 2);
 	return ;
 }

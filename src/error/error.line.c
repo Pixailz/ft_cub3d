@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 19:39:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:14:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_return_value	set_error_known_type(int line_type, t_return_value return_value)
 {
 	t_error	*error;
 
-	error = get_error(0);
+	error = get_error();
 	error->args |= return_value;
 	if (return_value & ERRN_06)
 		set_error_already_provided(line_type, &error->texture);

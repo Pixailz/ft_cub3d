@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 01:59:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 22:11:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,54 +28,63 @@
 /* CONFIG */
 /* ###### */
 
-# define WINDOW_TITLE			"Cub3D"
-# define FULL_SCREEN			0
-# define DEFAULT_SCREEN_X		1920
-# define DEFAULT_SCREEN_Y		1080
+# define WINDOW_TITLE_3D				"Supa Cub3D"
+# define FULL_SCREEN					0
+# define WINDOW_TITLE_RAYCAST			"Supa Cub3D - RayCasting"
+# define DEFAULT_SCREEN_3D_X			1200
+# define DEFAULT_SCREEN_3D_Y			800
+# define DEFAULT_SCREEN_RAYCAST_X		500
+# define DEFAULT_SCREEN_RAYCAST_Y		500
+
+# define MINIMAP_CELL_SIZE				32
+# define MINIMAP_WALL_PATH				"./rsc/xpm/minimap_wall_32x32.xpm"
+# define MINIMAP_VOID_PATH				"./rsc/xpm/minimap_void_32x32.xpm"
+# define MINIMAP_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
 
 # ifndef DEBUG
-#  define DEBUG					1
+#  define DEBUG							1
 # endif
 
 # ifndef DEBUG_FD
-#  define DEBUG_FD				420
+#  define DEBUG_FD						420
 # endif
 
-# define GOOD_CHAR_MAP			" 10NSWE"
-# define VOID_CHAR				'.'
-# define ERRN_LENGTH			32
-# define PADDING				16
+# define GOOD_CHAR_MAP					" 10NSWE"
+# define VOID_CHAR						'.'
+# define ERRN_LENGTH					32
+# define PADDING						16
 
-typedef unsigned int			t_return_value;
+typedef unsigned int					t_return_value;
 
-# define KNOW_TYPE_MASK			0xfe0
-# define MAP_ERROR_MASK			0x3f000
-# define MLX_ERROR_MASK			0x7e
+# define KNOW_TYPE_MASK					0xfe0
+# define MAP_ERROR_MASK					0x3f000
+# define MLX_ERROR_MASK					0x7e
 
-# define ERRN_MALLOC_STR_01		"inside gnl"
-# define ERRN_MALLOC_STR_02		"mlx init failed"
-# define ERRN_MALLOC_STR_03		"mlx window init failed"
-# define ERRN_MALLOC_STR_04		"load texture (NO)"
-# define ERRN_MALLOC_STR_05		"load texture (SO)"
-# define ERRN_MALLOC_STR_06		"load texture (WE)"
-# define ERRN_MALLOC_STR_07		"load texture (EA)"
+# define ERRN_MALLOC_STR_01	"inside gnl"
+# define ERRN_MALLOC_STR_02	"init failed"
+# define ERRN_MALLOC_STR_03	"window, 3D, init failed"
+# define ERRN_MALLOC_STR_04	"window, RayCasting, init failed"
+# define ERRN_MALLOC_STR_05	"load texture (NO)"
+# define ERRN_MALLOC_STR_06	"load texture (SO)"
+# define ERRN_MALLOC_STR_07	"load texture (WE)"
+# define ERRN_MALLOC_STR_08	"load texture (EA)"
 
-# define ERRN_ARGS_STR_01		"file path too short"
-# define ERRN_ARGS_STR_02		"wrong file extension"
-# define ERRN_ARGS_STR_04		"empty file (argv[1])"
-# define ERRN_ARGS_STR_05		"unknown parameter"
-# define ERRN_ARGS_STR_06		"parameter already provided"
-# define ERRN_ARGS_STR_07		"wrong parameter seperator (spaces(' '), only)"
-# define ERRN_ARGS_STR_08		"parameter cannot be empty"
-# define ERRN_ARGS_STR_10		"wrong color format"
-# define ERRN_ARGS_STR_11		"non numeric number provided"
-# define ERRN_ARGS_STR_12		"wrong number"
-# define ERRN_ARGS_STR_13		"no map provided"
-# define ERRN_ARGS_STR_14		"contain empty line ('\\n' only)"
-# define ERRN_ARGS_STR_15		"wrong char in map"
-# define ERRN_ARGS_STR_16		"not surrounded"
-# define ERRN_ARGS_STR_17		"map have multiple player"
-# define ERRN_ARGS_STR_18		"don't have player"
+# define ERRN_ARGS_STR_01	"file path too short"
+# define ERRN_ARGS_STR_02	"wrong file extension"
+# define ERRN_ARGS_STR_04	"empty file (argv[1])"
+# define ERRN_ARGS_STR_05	"unknown parameter"
+# define ERRN_ARGS_STR_06	"parameter already provided"
+# define ERRN_ARGS_STR_07	"wrong parameter seperator (spaces(' '), only)"
+# define ERRN_ARGS_STR_08	"parameter cannot be empty"
+# define ERRN_ARGS_STR_10	"wrong color format"
+# define ERRN_ARGS_STR_11	"non numeric number provided"
+# define ERRN_ARGS_STR_12	"wrong number"
+# define ERRN_ARGS_STR_13	"no map provided"
+# define ERRN_ARGS_STR_14	"contain empty line ('\\n' only)"
+# define ERRN_ARGS_STR_15	"wrong char in map"
+# define ERRN_ARGS_STR_16	"not surrounded"
+# define ERRN_ARGS_STR_17	"map have multiple player"
+# define ERRN_ARGS_STR_18	"don't have player"
 
 // KEYBOARD
 	// DEFAULT
@@ -165,11 +174,12 @@ enum e_param_type
  * ERRN_00 = ALL_GOOD
  * ERRN_01 = MALLOC_INSIDE_GNL
  * ERRN_02 = MLX_FAILED
- * ERRN_03 = MLX_WINDOW_FAILED
- * ERRN_04 = MLX_NORTH_TEXT
- * ERRN_05 = MLX_SOUTH_TEXT
- * ERRN_06 = MLX_WEST_TEXT
- * ERRN_07 = MLX_EAST_TEXT
+ * ERRN_03 = MLX_WINDOW_3D_FAILED
+ * ERRN_04 = MLX_WINDOW_RAY_FAILED
+ * ERRN_05 = MLX_NORTH_TEXT
+ * ERRN_06 = MLX_SOUTH_TEXT
+ * ERRN_07 = MLX_WEST_TEXT
+ * ERRN_08 = MLX_EAST_TEXT
  * ERRN_08 =
  * ERRN_09 =
  * ERRN_10 =
@@ -303,13 +313,17 @@ typedef struct s_mlx_texture
 typedef struct s_mlx
 {
 	void			*ptr;
-	void			*win;
+	void			*win_3d;
 	int				screen_x;
 	int				screen_y;
+	void			*win_ray;
 	t_mlx_texture	north_text;
 	t_mlx_texture	south_text;
 	t_mlx_texture	west_text;
 	t_mlx_texture	east_text;
+	t_mlx_texture	mini_wall;
+	t_mlx_texture	mini_void;
+	t_mlx_texture	mini_player;
 }			t_mlx;
 
 typedef struct s_file
@@ -400,7 +414,7 @@ void			set_error_wrong_sep(int line_type, t_return_value *return_value);
 
 // error/error.c
 t_bool			have_error(int mode);
-t_error			*get_error(int mode);
+t_error			*get_error(void);
 t_return_value	set_error(unsigned char mode, t_return_value return_value);
 void			free_error(t_error *error);
 
@@ -482,6 +496,15 @@ void			close_file(int fd);
 void			free_config(t_main *config);
 void			init_config(t_main *config);
 
+// utils/draw.3d.c
+int				draw_3d(t_main *config);
+void			draw_3d_map(t_main *config);
+
+// utils/draw.ray.c
+int				draw_ray(t_main *config);
+void			draw_map_point(t_main *config, char current_cell, int x, int y);
+void			draw_ray_map(t_main *config);
+
 // utils/file.c
 void			free_file(t_file *file);
 void			init_file(t_file *file);
@@ -499,15 +522,19 @@ void			ft_free_char_pointer(char *ptr);
 char			*parse_get_line(int file);
 
 // utils/mlx.c
-t_return_value	init_mlx(t_mlx *mlx);
+t_return_value	init_mlx(t_main *config);
 void			free_mlx(t_mlx *mlx);
 void			free_mlx_textures(t_mlx *mlx);
 void			init_mlx_texture(t_mlx *mlx);
 
-// utils/mlx.hook.c
+// utils/mlx.hook.3d.c
 int				end_hook(t_mlx *mlx);
-int				key_press(int key_pressed, t_mlx *mlx);
-void			init_mlx_hook(t_mlx *mlx);
+int				key_press_3d(int key_pressed, t_mlx *mlx);
+void			init_mlx_hook_3d(t_main *config);
+
+// utils/mlx.hook.ray.c
+int				key_press_ray(int key_pressed, t_mlx *mlx);
+void			init_mlx_hook_ray(t_main *config);
 
 // utils/parsing.c
 void			free_parsing(t_parse *parsing);

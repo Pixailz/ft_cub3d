@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 20:07:24 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:57:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_return_value	parse_line_texture(char *line, int line_type, t_parse *parsing)
 		ptr++;
 	file = check_permission(ptr);
 	if (file < 0)
-		set_error_known_type(line_type, ERRN_09);
+		return (set_error_known_type(line_type, ERRN_09));
 	else
 	{
 		if (line_type == NORTH)

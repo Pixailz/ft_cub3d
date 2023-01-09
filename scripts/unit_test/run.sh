@@ -6,6 +6,7 @@ TARGET=${1}
 LOG_FILE="${BASE_DIR}/deepthought"
 TEST_DIR="${BASE_DIR}/test"
 EXEC_PATH="${TEST_DIR}/executable"
+TEXT_BASE_DIR="${BASE_DIR}/../../rsc/xpm/"
 source ${BASE_DIR}/.map
 
 R="\e[31m"

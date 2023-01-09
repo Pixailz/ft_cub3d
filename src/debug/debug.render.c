@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 01:14:45 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:26:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	debug_print_screen_size(void *ptr)
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)ptr;
-	ft_printf_fd(DEBUG_FD, "screen_size{x=%d,y=%d}", mlx->screen_x, \
+	ft_printf_fd(DEBUG_FD, "screen_size 3D {x=%d,y=%d}", mlx->screen_x, \
 		mlx->screen_y);
 }
 

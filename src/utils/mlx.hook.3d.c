@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   mlx.hook.3d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 21:38:13 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/09 21:37:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_return_value	init_rendering(t_main *config)
+int	end_hook(t_mlx *mlx)
 {
-	if (init_mlx(config))
-		return (1);
-	if (load_textures(config))
-		return (1);
+	mlx_loop_end(mlx->ptr);
 	return (0);
 }
 
-t_return_value	start_rendering(t_main *config)
+int	key_press_3d(int key_pressed, t_mlx *mlx)
 {
-	if (init_rendering(config))
-	{
-		free_mlx(&config->mlx);
-		return (1);
-	}
-	draw_ray(config);
-	mlx_loop(config->mlx.ptr);
-	free_mlx(&config->mlx);
+	debug_print(RENDER_KEY_PRESS, (void *)&key_pressed);
+	if (key_pressed == KEY_ESC)
+		end_hook(mlx);
 	return (0);
+}
+
+void	init_mlx_hook_3d(t_main *config)
+{
+	t_mlx	*mlx;
+
+	mlx = &config->mlx;
+	mlx_hook(mlx->win_3d, 33, (1L << 17), end_hook, mlx);
+	mlx_hook(mlx->win_3d, 2, (1L << 0), key_press_3d, mlx);
+	mlx_do_key_autorepeaton(mlx->ptr);
+	return ;
 }

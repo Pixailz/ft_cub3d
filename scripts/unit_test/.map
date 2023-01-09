@@ -1,10 +1,10 @@
 #!/bin/bash
 
 read -r -d '' VALID_MAP_00 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -17,10 +17,10 @@ C 225,30,0
 EOF
 
 read -r -d '' VALID_MAP_01 << EOF
-NO                       ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO                       ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -34,10 +34,10 @@ EOF
 
 read -r -d '' VALID_MAP_02 << EOF
 F 255,100,0
-NO                       ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO                       ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 C 225,30,0
 
@@ -50,14 +50,14 @@ EOF
 
 read -r -d '' VALID_MAP_03 << EOF
 F 255,100,0
-NO                       ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
+NO                       ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
 
 
 
 
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 C     225,30,0
 
@@ -69,10 +69,10 @@ C     225,30,0
 EOF
 
 read -r -d '' VALID_MAP_04 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -85,10 +85,10 @@ C 225,30,0
 EOF
 
 read -r -d '' VALID_MAP_05 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -110,10 +110,10 @@ C 225,30,0
 EOF
 
 read -r -d '' VALID_MAP_06 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -136,10 +136,10 @@ C 225,30,0
 EOF
 
 read -r -d '' VALID_MAP_07 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -151,10 +151,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_00 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30 0
@@ -167,10 +167,10 @@ C 225,30 0
 EOF
 
 read -r -d '' INVALID_MAP_01 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 111111
 1001011
@@ -184,9 +184,9 @@ EOF
 
 read -r -d '' INVALID_MAP_02 << EOF
 NO
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -199,10 +199,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_03 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 256,100,-1
 C 225,30,0
@@ -215,10 +215,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_04 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -231,10 +231,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_05 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -257,11 +257,11 @@ EOF
 #more empty line(s).
 
 read -r -d '' INVALID_MAP_06 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -274,10 +274,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_07 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -299,10 +299,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_08 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -325,10 +325,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_09 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,0
@@ -350,10 +350,10 @@ C 225,30,0
 EOF
 
 read -r -d '' INVALID_MAP_10 << EOF
-NO ${TEST_DIR}/path_to_the_north_texture
-SO ${TEST_DIR}/path_to_the_south_texture
-WE ${TEST_DIR}/path_to_the_west_texture
-EA ${TEST_DIR}/path_to_the_east_texture
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
 
 F 220,100,0
 C 225,30,avds

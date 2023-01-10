@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 15:25:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:09:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@
 /* CONFIG */
 /* ###### */
 
+# define DR								0.0174533
+
 # define WINDOW_TITLE_3D				"Supa Cub3D"
 # define FULL_SCREEN					0
 # define WINDOW_TITLE_RAYCAST			"Supa Cub3D - RayCasting"
 # define DEFAULT_SCREEN_3D_X			1200
 # define DEFAULT_SCREEN_3D_Y			800
-# define DEFAULT_SCREEN_RAYCAST_X		500
+# define DEFAULT_SCREEN_RAYCAST_X		1200
 # define DEFAULT_SCREEN_RAYCAST_Y		500
 
 # define PLAYER_STEP					0.25
+# define PLAYER_ANGLE_SIZE				16
+# define PLAYER_ANGLE_COLOR				0x00ff00
 
 # define MINIMAP_CELL_SIZE				32
 # define MINIMAP_PLAYER_SIZE			8
@@ -328,10 +332,10 @@ typedef struct s_mlx_texture
 typedef struct s_mlx
 {
 	void			*ptr;
+	void			*win_ray;
 	void			*win_3d;
 	int				screen_x;
 	int				screen_y;
-	void			*win_ray;
 	t_mlx_texture	north_text;
 	t_mlx_texture	south_text;
 	t_mlx_texture	west_text;
@@ -531,7 +535,7 @@ void			draw_player_pos(t_main *config);
 void			draw_ray_map(t_main *config);
 
 // utils/draw_line.c
-void			draw_line(t_mlx *mlx, t_pos begin, t_pos end, int color);
+void			draw_line(void *mlx_ptr, void *win_ptr, t_pos begin, t_pos end, int color);
 
 // utils/file.c
 void			free_file(t_file *file);

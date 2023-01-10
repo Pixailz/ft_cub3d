@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 15:17:23 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:07:11 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,22 @@ void	draw_player_pos(t_main *config)
 
 void	draw_player_angle(t_main *config)
 {
+	t_pos	begin;
+	t_pos	end;
 
+	begin.x = config->player.pos.x * MINIMAP_CELL_SIZE;
+	begin.y = config->player.pos.y * MINIMAP_CELL_SIZE;
+	end.x = config->player.pos.x * MINIMAP_CELL_SIZE;
+	end.y = config->player.pos.y * MINIMAP_CELL_SIZE;
+	if (config->player.angle == 0)
+		end.x += PLAYER_ANGLE_SIZE;
+	else if (config->player.angle == 180)
+		end.x -= PLAYER_ANGLE_SIZE;
+	else if (config->player.angle == 270)
+		end.y += PLAYER_ANGLE_SIZE;
+	else if (config->player.angle == 90)
+		end.y -= PLAYER_ANGLE_SIZE;
+	draw_line(config->mlx.ptr, config->mlx.win_ray, begin, end, PLAYER_ANGLE_COLOR);
 }
 
 int	draw_ray(t_main *config)

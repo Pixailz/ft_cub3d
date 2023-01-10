@@ -90,6 +90,7 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/mlx.c \
 				   src/utils/mlx.hook.3d.c \
 				   src/utils/mlx.hook.ray.c \
+				   src/utils/move.c \
 				   src/utils/parsing.c \
 				   src/utils/rendering.c \
 				   src/utils/texture.c

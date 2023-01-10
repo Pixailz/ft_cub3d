@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 02:03:25 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:42:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_return_value	start_rendering(t_main *config)
 		free_mlx(&config->mlx);
 		return (1);
 	}
-	draw_ray(config);
-	mlx_loop(config->mlx.ptr);
 	free_mlx(&config->mlx);
 	return (0);
 }

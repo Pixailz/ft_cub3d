@@ -7,3 +7,12 @@ static char * minimap_player_4x4_xpm[] = {
 "  ..",
 "..  ",
 "..  "};
+///* XPM */
+//static char * minimap_player_4x4_xpm[] = {
+//"4 4 2 1",
+//" 	c #FF0000",
+//".	c #0026FF",
+//"  ..",
+//"  ..",
+//"..  ",
+//"..  "};

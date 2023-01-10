@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 22:14:00 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 02:04:02 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,10 @@ void	draw_map_point(t_main *config, char current_cell, int x, int y)
 		mlx_put_image_to_window(config->mlx.ptr, \
 							config->mlx.win_ray, config->mlx.mini_wall.ptr, \
 							y * MINIMAP_CELL_SIZE, x * MINIMAP_CELL_SIZE);
-	else if (current_cell == '0')
+	else
 		mlx_put_image_to_window(config->mlx.ptr, \
 							config->mlx.win_ray, config->mlx.mini_void.ptr, \
 							y * MINIMAP_CELL_SIZE, x * MINIMAP_CELL_SIZE);
-	else if (map_char_is_player(current_cell))
-		mlx_put_image_to_window(config->mlx.ptr, \
-							config->mlx.win_ray, config->mlx.mini_player.ptr, \
-							y * MINIMAP_CELL_SIZE + (MINIMAP_CELL_SIZE / 2) - 4,
-							x * MINIMAP_CELL_SIZE + (MINIMAP_CELL_SIZE / 2) - 4);
 }
 
 void	draw_ray_map(t_main *config)
@@ -49,8 +44,23 @@ void	draw_ray_map(t_main *config)
 	}
 }
 
+void	draw_player_pos(t_main *config)
+{
+	int	pos_x;
+	int	pos_y;
+
+	pos_x = (int)(config->player.pos_x * MINIMAP_CELL_SIZE - \
+													MINIMAP_PLAYER_SIZE / 2);
+	pos_y = (int)(config->player.pos_y * MINIMAP_CELL_SIZE - \
+													MINIMAP_PLAYER_SIZE / 2);
+	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win_ray, \
+		config->mlx.mini_player.ptr, pos_x, pos_y);
+	ft_printf("%s\n", PI);
+}
+
 int	draw_ray(t_main *config)
 {
 	draw_ray_map(config);
+	draw_player_pos(config);
 	return (0);
 }

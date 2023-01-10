@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.hook.ray.c                                     :+:      :+:    :+:   */
+/*   move.dir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 15:02:27 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/10 14:38:16 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/10 15:17:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	key_press_ray(int key_pressed, t_mlx *mlx)
+void	key_press_move_left(t_main *config)
 {
-	debug_print(RENDER_KEY_PRESS, (void *)&key_pressed);
-	if (key_pressed == KEY_ESC)
-		end_hook(mlx);
-	return (0);
+	config->player.pos.x -= PLAYER_STEP;
+	draw_ray(config);
 }
 
-void	init_mlx_hook_ray(t_main *config)
+void	key_press_move_right(t_main *config)
 {
-	t_mlx	*mlx;
+	config->player.pos.x += PLAYER_STEP;
+	draw_ray(config);
+}
 
-	mlx = &config->mlx;
-	mlx_hook(mlx->win_ray, 33, (1L << 17), end_hook, mlx);
-	mlx_hook(mlx->win_ray, 2, (1L << 0), key_press_3d, config);
-	mlx_do_key_autorepeaton(mlx->ptr);
-	return ;
+void	key_press_move_up(t_main *config)
+{
+	config->player.pos.y -= PLAYER_STEP;
+	draw_ray(config);
+}
+
+void	key_press_move_down(t_main *config)
+{
+	config->player.pos.y += PLAYER_STEP;
+	draw_ray(config);
 }

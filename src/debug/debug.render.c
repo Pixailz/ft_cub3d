@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 19:26:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:16:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,19 @@ void	debug_print_key(int key_code)
 		ft_putstr_fd("( ??? )", DEBUG_FD);
 }
 
+void	debug_print_player_stat(t_player *player)
+{
+	dprintf(DEBUG_FD, "player pos (x:%.2f,y:%.2f)\n", \
+												player->pos.x, player->pos.y);
+	dprintf(DEBUG_FD, "player angle (angle:%.2f)\n", player->angle);
+}
+
 void	debug_print_render(int mode, void *ptr)
 {
 	if (mode == RENDER_SCREEN_SIZE)
 		debug_print_screen_size(ptr);
 	if (mode == RENDER_KEY_PRESS || mode == RENDER_KEY_RELEASE)
 		debug_print_key(*(int *)ptr);
+	if (mode == RENDER_PLAYER)
+		debug_print_player_stat((t_player *)ptr);
 }

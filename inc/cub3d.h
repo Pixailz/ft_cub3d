@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 14:40:32 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:25:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include "libft.h"
 # include <errno.h>
 # include <string.h>
+/* sqrt()
+ * double
+ * float
+ */
+# include <math.h>
 
 /* ########################################################################## */
 
@@ -153,7 +158,8 @@ enum e_debug_type
 	PARSE_GET_MAP_SURROUDED,
 	RENDER_SCREEN_SIZE,
 	RENDER_KEY_PRESS,
-	RENDER_KEY_RELEASE
+	RENDER_KEY_RELEASE,
+	RENDER_PLAYER
 };
 
 enum e_param_type
@@ -299,6 +305,12 @@ enum e_param_type
  * ERRN_32 =
  */
 
+typedef struct s_pos
+{
+	float	x;
+	float	y;
+}			t_pos;
+
 typedef struct s_error
 {
 	t_return_value	malloc;
@@ -354,8 +366,7 @@ typedef struct s_parse
 
 typedef struct s_player
 {
-	float	pos_x;
-	float	pos_y;
+	t_pos	pos;
 	float	angle;
 }				t_player;
 
@@ -390,6 +401,7 @@ void			debug_print_surrounded(char **splitted);
 
 // debug/debug.render.c
 void			debug_print_key(int key_code);
+void			debug_print_player_stat(t_player *player);
 void			debug_print_render(int mode, void *ptr);
 void			debug_print_screen_size(void *ptr);
 
@@ -514,8 +526,12 @@ void			draw_3d_map(t_main *config);
 // utils/draw.ray.c
 int				draw_ray(t_main *config);
 void			draw_map_point(t_main *config, char current_cell, int x, int y);
+void			draw_player_angle(t_main *config);
 void			draw_player_pos(t_main *config);
 void			draw_ray_map(t_main *config);
+
+// utils/draw_line.c
+void			draw_line(t_mlx *mlx, t_pos begin, t_pos end, int color);
 
 // utils/file.c
 void			free_file(t_file *file);
@@ -548,7 +564,11 @@ void			init_mlx_hook_3d(t_main *config);
 int				key_press_ray(int key_pressed, t_mlx *mlx);
 void			init_mlx_hook_ray(t_main *config);
 
-// utils/move.c
+// utils/move.angle.c
+void			key_press_move_angle_left(t_main *config);
+void			key_press_move_angle_right(t_main *config);
+
+// utils/move.dir.c
 void			key_press_move_down(t_main *config);
 void			key_press_move_left(t_main *config);
 void			key_press_move_right(t_main *config);
@@ -559,6 +579,7 @@ void			free_parsing(t_parse *parsing);
 void			init_parsing(t_parse *parsing);
 
 // utils/rendering.c
+float			get_player_angle(char player_char);
 t_return_value	init_rendering(t_main *config);
 t_return_value	start_rendering(t_main *config);
 void			get_player_pos(t_main *config);

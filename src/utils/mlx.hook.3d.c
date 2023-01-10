@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 14:39:44 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:11:35 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ int	key_press_3d(int key_pressed, t_main *config)
 		key_press_move_left(config);
 	else if (key_pressed == KEY_D)
 		key_press_move_right(config);
+	else if (key_pressed == KEY_W)
+		key_press_move_up(config);
+	else if (key_pressed == KEY_S)
+		key_press_move_down(config);
+	else if (key_pressed == KEY_LEFT)
+		key_press_move_angle_left(config);
+	else if (key_pressed == KEY_RIGHT)
+		key_press_move_angle_right(config);
 	return (0);
 }
 

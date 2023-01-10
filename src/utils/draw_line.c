@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.hook.ray.c                                     :+:      :+:    :+:   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 15:02:27 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/10 15:13:50 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/10 15:28:54 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	key_press_ray(int key_pressed, t_mlx *mlx)
+void	draw_line(t_mlx *mlx, t_pos begin, t_pos end, int color)
 {
-	debug_print(RENDER_KEY_PRESS, (void *)&key_pressed);
-	if (key_pressed == KEY_ESC)
-		end_hook(mlx);
-	return (0);
-}
+	double	delta_x;
+	double	delta_y;
+	int		pixels;
 
-void	init_mlx_hook_ray(t_main *config)
-{
-	t_mlx	*mlx;
-
-	mlx = &config->mlx;
-	mlx_hook(mlx->win_ray, 33, (1L << 17), end_hook, mlx);
-	mlx_hook(mlx->win_ray, 2, (1L << 0), key_press_3d, config);
-	mlx_do_key_autorepeaton(mlx->ptr);
-	return ;
+	delta_x = end.x - begin.x;
+	delta_y = end.y - begin.y;
+	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+	delta_x /= pixels;
+	delta_y /= pixels;
+	while (pixels)
+	{
+		mlx_pixel_put(mlx->ptr, mlx->win_3d, begin.x, begin.y, color);
+		begin.x += delta_x;
+		begin.y += delta_y;
+		pixels--;
+	}
 }

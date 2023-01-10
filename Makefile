@@ -83,6 +83,7 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/config.c \
 				   src/utils/draw.3d.c \
 				   src/utils/draw.ray.c \
+				   src/utils/draw_line.c \
 				   src/utils/file.c \
 				   src/utils/ft_cub3d_split.c \
 				   src/utils/ft_free_char_pointer.c \
@@ -90,7 +91,8 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/mlx.c \
 				   src/utils/mlx.hook.3d.c \
 				   src/utils/mlx.hook.ray.c \
-				   src/utils/move.c \
+				   src/utils/move.angle.c \
+				   src/utils/move.dir.c \
 				   src/utils/parsing.c \
 				   src/utils/rendering.c \
 				   src/utils/texture.c

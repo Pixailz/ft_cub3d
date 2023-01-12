@@ -57,19 +57,17 @@ SRC_C			:= src/debug/debug.c \
 				   src/debug/debug.render.line.c \
 				   src/draw/line.c \
 				   src/draw/minimap.c \
-				   src/error/args/args.already_provided.c \
-				   src/error/args/args.c \
-				   src/error/args/args.have_empty.c \
-				   src/error/args/args.map.c \
-				   src/error/args/args.wrong_color.c \
-				   src/error/args/args.wrong_path.c \
-				   src/error/args/args.wrong_sep.c \
 				   src/error/error.c \
-				   src/error/error.malloc.c \
-				   src/error/error.mlx.c \
-				   src/error/error.parsing.c \
-				   src/error/error.print.c \
-				   src/error/error.texture.c \
+				   src/error/print.c \
+				   src/error/print.malloc.c \
+				   src/error/print.params.c \
+				   src/error/print.params.color.c \
+				   src/error/print.params.known.c \
+				   src/error/print.texture.c \
+				   src/error/print.texture.known.c \
+				   src/error/set.c \
+				   src/error/set.params.c \
+				   src/error/set.texture.c \
 				   src/main.c \
 				   src/parse/map/check.c \
 				   src/parse/map/check.surrounded.c \
@@ -88,6 +86,7 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/ft_free_char_pointer.c \
 				   src/utils/get_line.c \
 				   src/utils/mlx.c \
+				   src/utils/mlx.free.c \
 				   src/utils/mlx.hook.3d.c \
 				   src/utils/move.angle.c \
 				   src/utils/move.dir.c \

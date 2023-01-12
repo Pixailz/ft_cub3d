@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 01:05:48 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:39:18 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_r_value	load_texture(t_mlx_texture *text, char *file_path, void *mlx)
 													&text->len_x, &text->len_y);
 	if (!text->ptr)
 		return (1);
+	text->buff = mlx_get_data_addr(text->ptr, \
+								&text->bpp, &text->size_line, &text->endian);
 	return (0);
 }
 
@@ -39,29 +41,29 @@ t_r_value	load_textures(t_main *config)
 {
 	if (load_texture(&config->mlx.textures.north, \
 			config->parsing.textures.north_file.path, config->mlx.ptr))
-		return (set_error(0, ERRN_05));
+		set_error_known(1, ERRN_03, NORTH);
 	if (load_texture(&config->mlx.textures.south, \
 			config->parsing.textures.south_file.path, config->mlx.ptr))
-		return (set_error(0, ERRN_06));
+		set_error_known(1, ERRN_03, SOUTH);
 	if (load_texture(&config->mlx.textures.west, \
 			config->parsing.textures.west_file.path, config->mlx.ptr))
-		return (set_error(0, ERRN_07));
+		set_error_known(1, ERRN_03, WEST);
 	if (load_texture(&config->mlx.textures.east, \
 			config->parsing.textures.east_file.path, config->mlx.ptr))
-		return (set_error(0, ERRN_08));
+		set_error_known(1, ERRN_03, EAST);
 	if (load_texture(&config->mlx.textures.mini_wall, \
 			MINIMAP_WALL_PATH, config->mlx.ptr))
-		return (set_error(0, ERRN_08));
+		set_error_known(1, ERRN_03, MINI_VOID);
 	if (load_texture(&config->mlx.textures.mini_void, \
 			MINIMAP_VOID_PATH, config->mlx.ptr))
-		return (set_error(0, ERRN_08));
+		set_error_known(1, ERRN_03, MINI_WALL);
 	if (load_texture(&config->mlx.textures.mini_player, \
 			MINIMAP_PLAYER_PATH, config->mlx.ptr))
-		return (set_error(0, ERRN_08));
-	return (0);
+		set_error_known(1, ERRN_03, MINI_PLAYER);
+	return (have_error(4));
 }
 
-void	free_textures(t_textures	*textures)
+void	free_textures(t_textures *textures)
 {
 	textures->floor[0] = 0;
 	textures->floor[1] = 0;

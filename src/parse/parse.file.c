@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:33:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:22:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	parse_file_name(char *filename)
 {
 	int				file_name_len;
-	t_r_value	return_value;
+	t_r_value		return_value;
 
 	file_name_len = ft_strlen(filename) - 4;
 	return_value = 0;
@@ -73,6 +73,8 @@ int	parse_file(char *filename, t_parse *parsing)
 	return_value = parse_file_params(parsing);
 	if (return_value && return_value != -1)
 		return (return_value);
+	if (have_error(2))
+		return (1);
 	debug_print(PARSE_PARAMS_DONE, NULL);
 	return_value = parse_map(parsing);
 	return (return_value);

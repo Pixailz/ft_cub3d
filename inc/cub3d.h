@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 22:32:05 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:42:00 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,53 +63,48 @@
 # define ERRN_LENGTH					32
 # define PADDING						16
 
+# define ERRN_MALLOC_STR_01		"inside gnl"
 
-# define ERRN_MALLOC_STR_01	"inside gnl"
-# define ERRN_MALLOC_STR_02	"init failed"
-# define ERRN_MALLOC_STR_03	"window, 3D, init failed"
-# define ERRN_MALLOC_STR_04	"window, RayCasting, init failed"
-# define ERRN_MALLOC_STR_05	"load texture (NO)"
-# define ERRN_MALLOC_STR_06	"load texture (SO)"
-# define ERRN_MALLOC_STR_07	"load texture (WE)"
-# define ERRN_MALLOC_STR_08	"load texture (EA)"
+# define ERRN_PARAMS_STR_01		"file path too short"
+# define ERRN_PARAMS_STR_02		"wrong file extension"
+# define ERRN_PARAMS_STR_04		"empty file (argv[1])"
+# define ERRN_PARAMS_STR_05		"unknown parameter"
+# define ERRN_PARAMS_STR_06		"parameter already provided"
+# define ERRN_PARAMS_STR_07		"wrong parameter seperator (spaces(' '), only)"
+# define ERRN_PARAMS_STR_08		"parameter cannot be empty"
+# define ERRN_PARAMS_STR_10		"wrong color format"
+# define ERRN_PARAMS_STR_11		"non numeric number provided"
+# define ERRN_PARAMS_STR_12		"wrong number"
+# define ERRN_PARAMS_STR_13		"no map provided"
+# define ERRN_PARAMS_STR_14		"contain empty line ('\\n' only)"
+# define ERRN_PARAMS_STR_15		"wrong char in map"
+# define ERRN_PARAMS_STR_16		"not surrounded"
+# define ERRN_PARAMS_STR_17		"map have multiple player"
+# define ERRN_PARAMS_STR_18		"don't have player"
 
-# define ERRN_PARAMS_STR_01	"file path too short"
-# define ERRN_PARAMS_STR_02	"wrong file extension"
-# define ERRN_PARAMS_STR_04	"empty file (argv[1])"
-# define ERRN_PARAMS_STR_05	"unknown parameter"
-# define ERRN_PARAMS_STR_06	"parameter already provided"
-# define ERRN_PARAMS_STR_07	"wrong parameter seperator (spaces(' '), only)"
-# define ERRN_PARAMS_STR_08	"parameter cannot be empty"
-# define ERRN_PARAMS_STR_10	"wrong color format"
-# define ERRN_PARAMS_STR_11	"non numeric number provided"
-# define ERRN_PARAMS_STR_12	"wrong number"
-# define ERRN_PARAMS_STR_13	"no map provided"
-# define ERRN_PARAMS_STR_14	"contain empty line ('\\n' only)"
-# define ERRN_PARAMS_STR_15	"wrong char in map"
-# define ERRN_PARAMS_STR_16	"not surrounded"
-# define ERRN_PARAMS_STR_17	"map have multiple player"
-# define ERRN_PARAMS_STR_18	"don't have player"
+# define ERRN_TEXTURE_STR_01	"init mlx failed"
+# define ERRN_TEXTURE_STR_02	"init window failed"
+# define ERRN_TEXTURE_STR_03	"load texture, not a valid xpm file"
 
 // KEYBOARD
 	// DEFAULT
-# define KEY_A	0x61
-# define KEY_W	0x77
-# define KEY_S	0x73
-# define KEY_D	0x64
+# define KEY_A							0x61
+# define KEY_W							0x77
+# define KEY_S							0x73
+# define KEY_D							0x64
 
 	// ARROWa
-# define KEY_RIGHT	0xff53
-# define KEY_LEFT	0xff51
+# define KEY_RIGHT						0xff53
+# define KEY_LEFT						0xff51
 
 	// EXTRA
-# define KEY_ESC	0xff1b
+# define KEY_ESC						0xff1b
 
-# define KNOW_TYPE_MASK					0xfe0
-# define MAP_ERROR_MASK					0x3f000
-# define MLX_ERROR_MASK					0x7e
-# define PARAM_TYPE_
+# define PARAMS_ERROR_WITH_ARG_MASK		0xfe0
+# define PARAMS_ERROR_MAP_MASK			0x3f000
+# define TEXTURE_ERROR_WITH_ARG_MASK	0x6
 
-typedef unsigned int					t_r_value;
+typedef unsigned long					t_r_value;
 
 enum	e_errno
 {
@@ -175,9 +170,10 @@ typedef enum e_param_type
 	EAST		= 1 << 3,
 	FLOOR		= 1 << 4,
 	CEIL		= 1 << 5,
-	MINI_VOID	= 1 << 6,
-	MINI_WALL	= 1 << 7,
-	MINI_PLAYER	= 1 << 8
+	MAIN_WINDOW	= 1 << 6,
+	MINI_VOID	= 1 << 7,
+	MINI_WALL	= 1 << 8,
+	MINI_PLAYER	= 1 << 9
 }			t_param_type;
 
 /* ########################################################################## */
@@ -318,9 +314,9 @@ typedef enum e_param_type
  * ERRN_03 = MLX_SOUTH_TEXT
  * ERRN_04 = MLX_WEST_TEXT
  * ERRN_05 = MLX_EAST_TEXT
- * ERRN_06 =
- * ERRN_07 =
- * ERRN_08 =
+ * ERRN_06 = MLX_MINI_VOID_TEXT
+ * ERRN_07 = MLX_MINI_WALL_TEXT
+ * ERRN_08 = MLX_MINI_PLAYER_TEXT
  * ERRN_09 =
  * ERRN_10 =
  * ERRN_11 =
@@ -406,6 +402,10 @@ typedef struct s_line
 typedef struct s_mlx_texture
 {
 	void		*ptr;
+	char		*buff;
+	int			bpp;
+	int			endian;
+	int			size_line;
 	int			len_x;
 	int			len_y;
 }			t_mlx_texture;
@@ -508,60 +508,57 @@ void		draw_player_angle(t_main *config);
 void		draw_player_pos(t_main *config);
 void		draw_ray_map(t_main *config);
 
-// error/args/args.already_provided.c
-void		error_print_args_already_provided(t_r_value return_value);
-void		set_error_already_provided(int line_type, t_r_value *return_value);
-
-// error/args/args.c
-t_r_value	set_error_params_args(int line_type, t_r_value return_value);
-void		error_print_params(t_error *error);
-void		error_print_params_known_type(t_error *error);
-
-// error/args/args.have_empty.c
-void		error_print_args_have_empty(t_r_value return_value);
-void		set_error_have_empty(int line_type, t_r_value *return_value);
-
-// error/args/args.map.c
-void		error_print_args_map(t_error *error);
-
-// error/args/args.wrong_color.c
-void		error_print_args_color_format(t_r_value return_value);
-void		error_print_args_color_non_numeric(t_r_value return_value);
-void		error_print_args_color_wrong_number(t_r_value return_value);
-void		error_print_args_wrong_color(t_error *error);
-void		set_error_wrong_color(int line_type, t_error *error);
-
-// error/args/args.wrong_path.c
-void		error_print_args_wrong_path(t_r_value return_value);
-void		set_error_wrong_path(int line_type, t_r_value *return_value);
-
-// error/args/args.wrong_sep.c
-void		error_print_args_wrong_sep(t_r_value return_value);
-void		set_error_wrong_sep(int line_type, t_r_value *return_value);
-
 // error/error.c
 t_bool		have_error(int mode);
 t_error		*get_error(void);
-t_r_value	set_error(unsigned char mode, t_r_value return_value);
 
-// error/error.malloc.c
-void		error_print_malloc(t_r_value return_value);
-
-// error/error.mlx.c
-void		error_print_mlx(t_r_value return_value);
-
-// error/error.parsing.c
-int			error_parsing(int return_code);
-void		error_parsing_args(int return_code);
-void		error_parsing_map(int return_code);
-void		error_parsing_params(int return_code);
-void		error_parsing_texture_type(int line_type);
-
-// error/error.print.c
+// error/print.c
 t_r_value	error_print(t_main *config);
 
-// error/error.texture.c
-void		error_print_texture(t_r_value return_value);
+// error/print.malloc.c
+void		error_print_malloc(t_r_value return_value);
+
+// error/print.params.c
+void		error_print_params(t_error *error);
+void		error_print_params_map(t_error *error);
+
+// error/print.params.color.c
+void		error_print_params_color_format(t_r_value return_value);
+void		error_print_params_color_non_numeric(t_r_value return_value);
+void		error_print_params_color_wrong_number(t_r_value return_value);
+void		error_print_params_wrong_color(t_error *error);
+
+// error/print.params.known.c
+void		error_print_params_already_provided(t_r_value return_value);
+void		error_print_params_have_empty(t_r_value return_value);
+void		error_print_params_known(t_error *error);
+void		error_print_params_wrong_path(t_r_value return_value);
+void		error_print_params_wrong_sep(t_r_value return_value);
+
+// error/print.texture.c
+void		error_print_texture(t_error *error);
+
+// error/print.texture.known.c
+void		error_print_texture_known(t_error *error);
+void		error_print_texture_load(t_error *error);
+void		error_print_texture_window(t_error *error);
+
+// error/set.c
+t_r_value	set_error(unsigned char mode, t_r_value return_value);
+t_r_value	set_error_known(int mode, t_r_value err_no, int type);
+t_r_value	set_error_known_params_args(t_r_value err_no, int type);
+t_r_value	set_error_known_texture_args(t_r_value err_no, int type);
+
+// error/set.params.c
+void		set_error_already_provided(int type, t_r_value *return_value);
+void		set_error_have_empty(int type, t_r_value *return_value);
+void		set_error_wrong_color(t_r_value err_no, int type, t_r_value *param_args);
+void		set_error_wrong_path(int type, t_r_value *return_value);
+void		set_error_wrong_sep(int type, t_r_value *return_value);
+
+// error/set.texture.c
+t_r_value	set_error_mlx_texture(t_param_type type, t_r_value *return_value);
+t_r_value	set_error_mlx_window(t_param_type type, t_r_value *return_value);
 
 // main.c
 
@@ -602,12 +599,12 @@ int			parse_line(char **line, t_parse *parsing);
 t_bool		parse_is_line_already_taken(int already_taken, int line_type);
 
 // parse/parse.line.color.c
-int			check_line_color(char *ptr, int line_type, t_parse *parsing);
-int			parse_line_color(char *line, int line_type, t_parse *parsing);
+int			check_line_color(char *ptr, int type, t_parse *parsing);
+int			parse_line_color(char *line, int type, t_parse *parsing);
 
 // parse/parse.line.texture.c
 t_bool		ft_is_space(const char c);
-t_r_value	parse_line_texture(char *line, int line_type, t_parse *parsing);
+t_r_value	parse_line_texture(char *line, int type, t_parse *parsing);
 
 // utils/check_permission.c
 int			check_permission(char *filename);
@@ -637,9 +634,13 @@ char		*parse_get_line(int file);
 
 // utils/mlx.c
 t_r_value	init_mlx(t_main *config);
-void		free_mlx(t_mlx *mlx);
-void		free_mlx_textures(t_mlx *mlx);
+void		init_mlx_texture(t_mlx_texture *text);
 void		init_mlx_textures(t_mlx_textures *textures);
+
+// utils/mlx.free.c
+void		free_mlx(t_mlx *mlx);
+void		free_mlx_texture(void *mlx, t_mlx_texture *text);
+void		free_mlx_textures(t_mlx *mlx);
 
 // utils/mlx.hook.3d.c
 int			end_hook(t_mlx *mlx);
@@ -672,7 +673,7 @@ void		get_player_pos(t_main *config);
 // utils/texture.c
 t_r_value	load_texture(t_mlx_texture *text, char *file_path, void *mlx);
 t_r_value	load_textures(t_main *config);
-void		free_textures(t_textures		*textures);
+void		free_textures(t_textures *textures);
 void		init_textures(t_textures *texture);
 
 /* ########################################################################## */

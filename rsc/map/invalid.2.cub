@@ -1,6 +1,6 @@
-NO ./rsc/xpm/default_32x32_north.xpm
-SO ./rsc/xpm/default_32x32_south.xpm
-WE ./rsc/xpm/default_32x32_west.xpm
+NO ./rsc/xpm/default_32x32_north.xp
+SO ./rsc/xpm/default_32x32_south.xp
+WE ./rsc/xpm/default_32x32_west.xp
 EA ./path_to_the_east_textur
 
 F 220,100

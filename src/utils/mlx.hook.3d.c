@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 21:44:36 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:48:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_mlx_hook(t_main *config)
 
 	mlx = &config->mlx;
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
-	mlx_hook(mlx->win, 2, (1L << 0), key_press_3d, config);
+	mlx_hook(mlx->win, 2, (1L << 0), key_press, config);
 	mlx_do_key_autorepeaton(mlx->ptr);
 	return ;
 }

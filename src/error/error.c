@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 22:32:03 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:35:27 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,6 @@ t_error	*get_error(void)
 	static t_error	error = {0};
 
 	return (&error);
-}
-
-/* mode = 0		malloc
- * mode = 1		params
- * mode = 2		params_args
- * mode = 3		texture
- * mode = 4		texture_args
- */
-t_r_value	set_error(unsigned char mode, t_r_value return_value)
-{
-	t_error	*error;
-
-	error = get_error();
-	if (mode == 0)
-		error->malloc |= return_value;
-	else if (mode == 1)
-		error->params |= return_value;
-	else if (mode == 2)
-		error->params_args |= return_value;
-	else if (mode == 3)
-		error->texture |= return_value;
-	else if (mode == 4)
-		error->texture_args |= return_value;
-	return (return_value);
 }
 
 /* mode = 0		all

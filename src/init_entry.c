@@ -14,6 +14,7 @@
 
 void	init_entry(t_parse *main)
 {
+	main->map = NULL;
 	main->ceiling[0] = 0;
 	main->ceiling[1] = 0;
 	main->ceiling[2] = 0;

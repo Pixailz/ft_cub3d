@@ -9,7 +9,6 @@
 /*   Updated: 2022/12/23 16:33:07 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include <cub3d.h>
 
 int	check_permission(char *filename)
@@ -26,9 +25,12 @@ char	*get_line(int file)
 	int		last_char_index;
 
 	ptr = ft_get_next_line(file);
-	last_char_index = ft_strlen(ptr) - 1;
-	if (ptr[last_char_index] == '\n')
-		ptr[last_char_index] = 0;
+	if (ptr)
+	{
+		last_char_index = ft_strlen(ptr) - 1;
+		if (ptr[last_char_index] == '\n')
+			ptr[last_char_index] = 0;
+	}
 	debug_print(PARSE_LINE, (void *)ptr);
 	return (ptr);
 }
@@ -61,9 +63,28 @@ int	parse_file_params(int file, t_parse *main)
 	return (0);
 }
 
-int	parse_file_map(int file, t_parse *main)
+int	parse_file_map(t_parse *main)
 {
-	ft_printf("parameters done\n");
+	int r_value;
+	int w;
+	int h;
+	char **check_map;
+
+	w = 0;
+	h = 0;
+	get_map_size(main->map, &h, &w);
+	check_map = create_check_map(main->map);
+	if (!check_map)
+		return(15);
+	r_value = check_map_is_good(check_map);
+	if (r_value)
+	{
+		ft_free_char_pp(check_map);
+		return(12);
+	}
+	ft_free_char_pp(main->map);
+	init_check_map(check_map, h, w, ' ');
+	main->map = check_map;
 	return (-1);
 }
 
@@ -78,6 +99,7 @@ int	parse_file(char *filename, t_parse *main)
 	return_value = parse_file_params(file, main);
 	if (return_value && return_value != -1)
 		return (return_value);
-	return_value = parse_file_map(file, main);
+	return_value = parse_file_map(main);
 	return (return_value);
 }
+

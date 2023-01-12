@@ -16,5 +16,6 @@ int	free_entry(t_parse *main)
 {
 	if (main->file >= 0)
 		close(main->file);
+	ft_free_char_pp(main->map);
 	return (0);
 }

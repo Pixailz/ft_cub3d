@@ -51,6 +51,18 @@ void	parsing_error_parameters(int return_code)
 		ft_printf_fd(2, "Non numeric on color specifier");
 	else if (return_code == 11)
 		ft_printf_fd(2, "Wrong number for colors");
+	else if (return_code == 12)
+		ft_printf_fd(2, "Wrong map format");
+	else if (return_code == 13)
+		ft_printf_fd(2, "More than one player in map");
+	else if (return_code == 14)
+		ft_printf_fd(2, "Wrong char in map");
+	else if (return_code == 15)
+		ft_printf_fd(2, "Bad Alloc");
+	else if (return_code == 16)
+		ft_printf_fd(2, "No player in map");
+	else if (return_code == 17)
+		ft_printf_fd(2, "No map in file");
 	else if ((return_code & 0xff) == 0xff)
 		parsing_error_texture_type(return_code >> 8);
 }

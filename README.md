@@ -4,7 +4,7 @@
 
 # TODO
 
-- finish loading texture
+- replace singleton :'(
 
 # utils command
 

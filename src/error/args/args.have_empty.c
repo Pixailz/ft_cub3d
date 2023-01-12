@@ -6,15 +6,15 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 19:47:18 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	error_print_args_have_empty(t_return_value return_value)
+void	error_print_args_have_empty(t_r_value return_value)
 {
-	ft_putstr_fd(ERRN_ARGS_STR_08, 2);
+	ft_putstr_fd(ERRN_PARAMS_STR_08, 2);
 	if (return_value & ERRN_13)
 		ft_putstr_fd(" (NO)", 2);
 	if (return_value & ERRN_14)
@@ -30,7 +30,7 @@ void	error_print_args_have_empty(t_return_value return_value)
 	ft_putchar_fd('\n', 2);
 }
 
-void	set_error_have_empty(int line_type, t_return_value *return_value)
+void	set_error_have_empty(int line_type, t_r_value *return_value)
 {
 	if (line_type == NORTH)
 		*return_value |= ERRN_13;

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 14:13:40 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:53:58 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void	debug_print_errn_binary(const char *title, t_int64 to_bin)
 
 void	debug_print_errn(void)
 {
-	t_error	*error;
+	t_error	*err;
 
-	error = get_error();
-	debug_print_errn_binary("Malloc", error->malloc);
-	debug_print_errn_binary("Args", error->args);
-	debug_print_errn_binary("Texture", error->texture);
+	err = get_error();
+	debug_print_errn_binary("Malloc", err->malloc);
+	debug_print_errn_binary("Params", err->params);
+	debug_print_errn_binary("Params (args)", err->params_args);
+	debug_print_errn_binary("Texture", err->texture);
+	debug_print_errn_binary("Texture (args)", err->texture_args);
 }
 
 void	debug_print_error(int mode)

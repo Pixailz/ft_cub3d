@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.3d.c                                          :+:      :+:    :+:   */
+/*   debug.render.line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 21:22:45 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/11 21:59:59 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	draw_3d_map(t_main *config)
+void	debug_print_line_pos(t_line *line)
 {
-	int	counter;
-
-	counter = 0;
-	while (config->parsing.map[counter])
-	{
-		ft_printf_fd(1, "[%s]\n", config->parsing.map[counter]);
-		counter++;
-	}
-}
-
-int	draw_3d(t_main *config)
-{
-	draw_3d_map(config);
-	return (0);
+	dprintf(DEBUG_FD, "line.begin (x:%.2f,y:%.2f) | line.end (x:%.2f,y:%.2f)", \
+			line->begin.x, line->begin.y, \
+			line->end.x, line->end.y);
 }

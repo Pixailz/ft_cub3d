@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.ray.c                                         :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 16:07:11 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:05:58 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	draw_map_point(t_main *config, char current_cell, int x, int y)
 {
 	if (current_cell == '1')
 		mlx_put_image_to_window(config->mlx.ptr, \
-							config->mlx.win_ray, config->mlx.mini_wall.ptr, \
-							y * MINIMAP_CELL_SIZE, x * MINIMAP_CELL_SIZE);
+						config->mlx.win, config->mlx.textures.mini_wall.ptr, \
+						y * MINIMAP_CELL_SIZE, x * MINIMAP_CELL_SIZE);
 	else
 		mlx_put_image_to_window(config->mlx.ptr, \
-							config->mlx.win_ray, config->mlx.mini_void.ptr, \
-							y * MINIMAP_CELL_SIZE, x * MINIMAP_CELL_SIZE);
+						config->mlx.win, config->mlx.textures.mini_void.ptr, \
+						y * MINIMAP_CELL_SIZE, x * MINIMAP_CELL_SIZE);
 }
 
 void	draw_ray_map(t_main *config)
@@ -53,8 +53,8 @@ void	draw_player_pos(t_main *config)
 													MINIMAP_PLAYER_SIZE / 2);
 	pos_y = (int)(config->player.pos.y * MINIMAP_CELL_SIZE - \
 													MINIMAP_PLAYER_SIZE / 2);
-	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win_ray, \
-		config->mlx.mini_player.ptr, pos_x, pos_y);
+	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win, \
+		config->mlx.textures.mini_player.ptr, pos_x, pos_y);
 }
 
 void	draw_player_angle(t_main *config)
@@ -74,7 +74,8 @@ void	draw_player_angle(t_main *config)
 		end.y += PLAYER_ANGLE_SIZE;
 	else if (config->player.angle == 90)
 		end.y -= PLAYER_ANGLE_SIZE;
-	draw_line(config->mlx.ptr, config->mlx.win_ray, begin, end, PLAYER_ANGLE_COLOR);
+	draw_line(config->mlx.ptr, config->mlx.win, get_line(begin, end), \
+			PLAYER_ANGLE_COLOR);
 }
 
 int	draw_ray(t_main *config)

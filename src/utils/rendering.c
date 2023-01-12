@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 16:01:46 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_player_pos(t_main *config)
 	draw_ray(config);
 }
 
-t_return_value	init_rendering(t_main *config)
+t_r_value	init_rendering(t_main *config)
 {
 	if (init_mlx(config))
 		return (1);
@@ -61,7 +61,7 @@ t_return_value	init_rendering(t_main *config)
 	return (0);
 }
 
-t_return_value	start_rendering(t_main *config)
+t_r_value	start_rendering(t_main *config)
 {
 	if (init_rendering(config))
 	{

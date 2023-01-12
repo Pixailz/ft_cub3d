@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 20:34:36 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:12:38 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	parse_is_good_line(char *line, t_parse *parsing)
 	if (!line_type)
 		return (set_error(1, ERRN_05));
 	if (parse_is_line_already_taken(already_taken, line_type))
-		return (set_error_known_type(line_type, ERRN_06));
+		return (set_error_args(line_type, ERRN_06));
 	already_taken += line_type;
 	if (line_type <= EAST)
 		return_value = parse_line_texture(line, line_type, parsing);

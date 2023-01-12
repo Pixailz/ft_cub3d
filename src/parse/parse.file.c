@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:33:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 20:47:36 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	parse_file_name(char *filename)
 {
 	int				file_name_len;
-	t_return_value	return_value;
+	t_r_value	return_value;
 
 	file_name_len = ft_strlen(filename) - 4;
 	return_value = 0;
@@ -38,7 +38,7 @@ t_bool	parse_file_is_empty(char **line, int fd)
 	return (0);
 }
 
-t_return_value	parse_file_params(t_parse *parsing)
+t_r_value	parse_file_params(t_parse *parsing)
 {
 	char	*line;
 	int		return_value;

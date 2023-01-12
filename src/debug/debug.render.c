@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/10 15:16:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:59:48 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void	debug_print_render(int mode, void *ptr)
 		debug_print_key(*(int *)ptr);
 	if (mode == RENDER_PLAYER)
 		debug_print_player_stat((t_player *)ptr);
+	if (mode == RENDER_LINE)
+		debug_print_line_pos((t_line *)ptr);
 }

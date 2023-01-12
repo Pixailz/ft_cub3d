@@ -6,20 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 14:14:12 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:32:03 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	free_error(t_error *error)
-{
-	free(error);
-	error = FT_NULL;
-}
-
-/* mode = 0		init and return pointeur to error struct
- * mode = 1		free error struct
+/* init error struct
  */
 t_error	*get_error(void)
 {
@@ -29,10 +22,12 @@ t_error	*get_error(void)
 }
 
 /* mode = 0		malloc
- * mode = 1		args
- * mode = 2		texture
+ * mode = 1		params
+ * mode = 2		params_args
+ * mode = 3		texture
+ * mode = 4		texture_args
  */
-t_return_value	set_error(unsigned char mode, t_return_value return_value)
+t_r_value	set_error(unsigned char mode, t_r_value return_value)
 {
 	t_error	*error;
 
@@ -40,30 +35,47 @@ t_return_value	set_error(unsigned char mode, t_return_value return_value)
 	if (mode == 0)
 		error->malloc |= return_value;
 	else if (mode == 1)
-		error->args |= return_value;
+		error->params |= return_value;
 	else if (mode == 2)
+		error->params_args |= return_value;
+	else if (mode == 3)
 		error->texture |= return_value;
+	else if (mode == 4)
+		error->texture_args |= return_value;
 	return (return_value);
 }
 
+/* mode = 0		all
+ * mode = 1		malloc
+ * mode = 2		params
+ * mode = 3		params_args
+ * mode = 4		texture
+ * mode = 5		texture_args
+ */
 t_bool	have_error(int mode)
 {
 	t_error			*error;
-	t_return_value	result;
+	t_r_value		result;
 
 	error = get_error();
 	result = 0;
 	if (mode == 0)
 	{
 		result |= error->malloc;
-		result |= error->args;
+		result |= error->params;
+		result |= error->params_args;
 		result |= error->texture;
+		result |= error->texture_args;
 	}
 	else if (mode == 1)
 		result |= error->malloc;
 	else if (mode == 2)
-		result |= error->args;
+		result |= error->params;
 	else if (mode == 3)
+		result |= error->params_args;
+	else if (mode == 4)
 		result |= error->texture;
+	else if (mode == 5)
+		result |= error->texture_args;
 	return (result);
 }

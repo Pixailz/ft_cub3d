@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 19:46:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	error_print_args_wrong_path(t_return_value return_value)
+void	error_print_args_wrong_path(t_r_value return_value)
 {
 	ft_printf_fd(2, "%s", strerror(errno));
 	if (return_value & ERRN_19)
@@ -26,7 +26,7 @@ void	error_print_args_wrong_path(t_return_value return_value)
 	ft_putchar_fd('\n', 2);
 }
 
-void	set_error_wrong_path(int line_type, t_return_value *return_value)
+void	set_error_wrong_path(int line_type, t_r_value *return_value)
 {
 	if (line_type == NORTH)
 		*return_value |= ERRN_19;

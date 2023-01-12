@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:44:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/08 18:28:52 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_return_value	parse_entry(char *filename, t_parse *parsing)
+t_r_value	parse_entry(char *filename, t_parse *parsing)
 {
 	if (parse_file_name(filename))
 		return (1);

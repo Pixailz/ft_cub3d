@@ -54,6 +54,9 @@ SRC_C			:= src/debug/debug.c \
 				   src/debug/debug.map.c \
 				   src/debug/debug.parsing.c \
 				   src/debug/debug.render.c \
+				   src/debug/debug.render.line.c \
+				   src/draw/line.c \
+				   src/draw/minimap.c \
 				   src/error/args/args.already_provided.c \
 				   src/error/args/args.c \
 				   src/error/args/args.have_empty.c \
@@ -62,7 +65,6 @@ SRC_C			:= src/debug/debug.c \
 				   src/error/args/args.wrong_path.c \
 				   src/error/args/args.wrong_sep.c \
 				   src/error/error.c \
-				   src/error/error.line.c \
 				   src/error/error.malloc.c \
 				   src/error/error.mlx.c \
 				   src/error/error.parsing.c \
@@ -81,19 +83,16 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/check_permission.c \
 				   src/utils/close_file.c \
 				   src/utils/config.c \
-				   src/utils/draw.3d.c \
-				   src/utils/draw.ray.c \
-				   src/utils/draw_line.c \
 				   src/utils/file.c \
 				   src/utils/ft_cub3d_split.c \
 				   src/utils/ft_free_char_pointer.c \
 				   src/utils/get_line.c \
 				   src/utils/mlx.c \
 				   src/utils/mlx.hook.3d.c \
-				   src/utils/mlx.hook.ray.c \
 				   src/utils/move.angle.c \
 				   src/utils/move.dir.c \
 				   src/utils/parsing.c \
+				   src/utils/player.c \
 				   src/utils/rendering.c \
 				   src/utils/texture.c
 # OBJ

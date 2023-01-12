@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 14:08:42 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,20 @@ void	error_print_params_wrong_path(t_r_value return_value)
 	ft_putchar_fd('\n', 2);
 }
 
-void	error_print_params_known(t_error *error)
+void	error_print_params_known(t_error err)
 {
 	t_r_value	err_no;
 
-	err_no = error->params;
+	err_no = err.params;
 	ft_putstr_fd("Params:\n", 2);
 	if (err_no & ERRN_06)
-		error_print_params_already_provided(error->params_args);
+		error_print_params_already_provided(err.params_args);
 	if (err_no & ERRN_07)
-		error_print_params_wrong_sep(error->params_args);
+		error_print_params_wrong_sep(err.params_args);
 	if (err_no & ERRN_08)
-		error_print_params_have_empty(error->params_args);
+		error_print_params_have_empty(err.params_args);
 	if (err_no & ERRN_09)
-		error_print_params_wrong_path(error->params_args);
+		error_print_params_wrong_path(err.params_args);
 	if (err_no & ERRN_10 || err_no & ERRN_11 || err_no & ERRN_12)
-		error_print_params_wrong_color(error);
+		error_print_params_wrong_color(err);
 }

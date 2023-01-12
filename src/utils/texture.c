@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 01:05:48 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 17:39:18 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:16:12 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,26 @@ t_r_value	load_textures(t_main *config)
 {
 	if (load_texture(&config->mlx.textures.north, \
 			config->parsing.textures.north_file.path, config->mlx.ptr))
-		set_error_known(1, ERRN_03, NORTH);
+		set_error_known(&config->err, 1, ERRN_03, NORTH);
 	if (load_texture(&config->mlx.textures.south, \
 			config->parsing.textures.south_file.path, config->mlx.ptr))
-		set_error_known(1, ERRN_03, SOUTH);
+		set_error_known(&config->err, 1, ERRN_03, SOUTH);
 	if (load_texture(&config->mlx.textures.west, \
 			config->parsing.textures.west_file.path, config->mlx.ptr))
-		set_error_known(1, ERRN_03, WEST);
+		set_error_known(&config->err, 1, ERRN_03, WEST);
 	if (load_texture(&config->mlx.textures.east, \
 			config->parsing.textures.east_file.path, config->mlx.ptr))
-		set_error_known(1, ERRN_03, EAST);
+		set_error_known(&config->err, 1, ERRN_03, EAST);
 	if (load_texture(&config->mlx.textures.mini_wall, \
 			MINIMAP_WALL_PATH, config->mlx.ptr))
-		set_error_known(1, ERRN_03, MINI_VOID);
+		set_error_known(&config->err, 1, ERRN_03, MINI_VOID);
 	if (load_texture(&config->mlx.textures.mini_void, \
 			MINIMAP_VOID_PATH, config->mlx.ptr))
-		set_error_known(1, ERRN_03, MINI_WALL);
+		set_error_known(&config->err, 1, ERRN_03, MINI_WALL);
 	if (load_texture(&config->mlx.textures.mini_player, \
 			MINIMAP_PLAYER_PATH, config->mlx.ptr))
-		set_error_known(1, ERRN_03, MINI_PLAYER);
-	return (have_error(4));
+		set_error_known(&config->err, 1, ERRN_03, MINI_PLAYER);
+	return (have_error(config->err, 4));
 }
 
 void	free_textures(t_textures *textures)

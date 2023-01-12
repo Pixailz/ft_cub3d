@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 18:02:06 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ t_bool	ft_is_space(const char c)
 	return (c == ' ');
 }
 
-t_r_value	parse_line_texture(char *line, int type, t_parse *parsing)
+t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parsing)
 {
 	char	*ptr;
 	int		file;
 
 	if (line[2] != ' ' && line[2] != 0)
-		return (set_error_known(0, ERRN_07, type));
+		return (set_error_known(err, 0, ERRN_07, type));
 	else if (ft_is_str(line + 2, ft_is_space))
-		return (set_error_known(0, ERRN_08, type));
+		return (set_error_known(err, 0, ERRN_08, type));
 	ptr = line + 2;
 	while (ft_is_space(*ptr))
 		ptr++;
 	file = check_permission(ptr);
 	if (file < 0)
-		set_error_known(0, ERRN_09, type);
+		set_error_known(err, 0, ERRN_09, type);
 	else
 	{
 		if (type == NORTH)

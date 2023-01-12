@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 17:42:00 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,6 +464,7 @@ typedef struct s_main
 	t_parse		parsing;
 	t_mlx		mlx;
 	t_player	player;
+	t_error		err;
 }				t_main;
 
 /* ########################################################################## */
@@ -476,9 +477,9 @@ typedef struct s_main
 void		debug_print(int mode, void *ptr);
 
 // debug/debug.error.c
-void		debug_print_errn(void);
+void		debug_print_errn(t_error *err);
 void		debug_print_errn_binary(const char *title, t_int64 to_bin);
-void		debug_print_error(int mode);
+void		debug_print_error(int mode, void *ptr);
 
 // debug/debug.map.c
 void		debug_print_coord_checked(int x, int y, char **map);
@@ -509,45 +510,45 @@ void		draw_player_pos(t_main *config);
 void		draw_ray_map(t_main *config);
 
 // error/error.c
-t_bool		have_error(int mode);
-t_error		*get_error(void);
+t_bool		have_error(t_error err, int mode);
+void		init_error(t_error *err);
 
 // error/print.c
-t_r_value	error_print(t_main *config);
+t_r_value	error_print(t_error err, t_main *config);
 
 // error/print.malloc.c
 void		error_print_malloc(t_r_value return_value);
 
 // error/print.params.c
-void		error_print_params(t_error *error);
-void		error_print_params_map(t_error *error);
+void		error_print_params(t_error err);
+void		error_print_params_map(t_r_value params);
 
 // error/print.params.color.c
 void		error_print_params_color_format(t_r_value return_value);
 void		error_print_params_color_non_numeric(t_r_value return_value);
 void		error_print_params_color_wrong_number(t_r_value return_value);
-void		error_print_params_wrong_color(t_error *error);
+void		error_print_params_wrong_color(t_error err);
 
 // error/print.params.known.c
 void		error_print_params_already_provided(t_r_value return_value);
 void		error_print_params_have_empty(t_r_value return_value);
-void		error_print_params_known(t_error *error);
+void		error_print_params_known(t_error err);
 void		error_print_params_wrong_path(t_r_value return_value);
 void		error_print_params_wrong_sep(t_r_value return_value);
 
 // error/print.texture.c
-void		error_print_texture(t_error *error);
+void		error_print_texture(t_error err);
 
 // error/print.texture.known.c
-void		error_print_texture_known(t_error *error);
-void		error_print_texture_load(t_error *error);
-void		error_print_texture_window(t_error *error);
+void		error_print_texture_known(t_error err);
+void		error_print_texture_load(t_error err);
+void		error_print_texture_window(t_error err);
 
 // error/set.c
-t_r_value	set_error(unsigned char mode, t_r_value return_value);
-t_r_value	set_error_known(int mode, t_r_value err_no, int type);
-t_r_value	set_error_known_params_args(t_r_value err_no, int type);
-t_r_value	set_error_known_texture_args(t_r_value err_no, int type);
+t_r_value	set_error(t_error *err, unsigned char mode, t_r_value return_value);
+t_r_value	set_error_known(t_error *err, int mode, t_r_value err_no, int type);
+t_r_value	set_error_known_params(t_error *err, t_r_value err_no, int type);
+t_r_value	set_error_known_texture(t_error *err, t_r_value err_no, int type);
 
 // error/set.params.c
 void		set_error_already_provided(int type, t_r_value *return_value);
@@ -563,8 +564,8 @@ t_r_value	set_error_mlx_window(t_param_type type, t_r_value *return_value);
 // main.c
 
 // parse/map/check.c
-int			check_map_content(char **map);
-int			check_map_player_char(char **map);
+int			check_map_content(char **map, t_error *err);
+int			check_map_player_char(char **map, t_error *err);
 t_bool		check_map_new_line(char **map);
 t_bool		check_map_wrong_char(char **map);
 
@@ -581,30 +582,30 @@ void		get_map_size(int *height, int *width, char **map);
 
 // parse/map/entry.c
 t_bool		get_map(t_parse *parsing);
-t_r_value	parse_map(t_parse *parsing);
+t_r_value	parse_map(t_error *err, t_parse *parsing);
 
 // parse/parse.entry.c
-t_r_value	parse_entry(char *filename, t_parse *parsing);
+t_r_value	parse_entry(t_error *err, char *filename, t_parse *parsing);
 
 // parse/parse.file.c
-int			parse_file(char *filename, t_parse *parsing);
-int			parse_file_name(char *filename);
-t_bool		parse_file_is_empty(char **line, int fd);
-t_r_value	parse_file_params(t_parse *parsing);
+int			parse_file(t_error *err, char *filename, t_parse *parsing);
+int			parse_file_name(t_error *err, char *filename);
+t_bool		parse_file_is_empty(t_error *err, char **line, int fd);
+t_r_value	parse_file_params(t_error *err, t_parse *parsing);
 
 // parse/parse.line.c
 int			parse_get_line_type(char *line);
-int			parse_is_good_line(char *line, t_parse *parsing);
-int			parse_line(char **line, t_parse *parsing);
+int			parse_is_good_line(t_error *err, char *line, t_parse *parsing);
+int			parse_line(t_error *err, char **line, t_parse *parsing);
 t_bool		parse_is_line_already_taken(int already_taken, int line_type);
 
 // parse/parse.line.color.c
-int			check_line_color(char *ptr, int type, t_parse *parsing);
-int			parse_line_color(char *line, int type, t_parse *parsing);
+int			check_line_color(t_error *err, char *ptr, int type, t_parse *parsing);
+int			parse_line_color(t_error *err, char *line, int type, t_parse *parsing);
 
 // parse/parse.line.texture.c
 t_bool		ft_is_space(const char c);
-t_r_value	parse_line_texture(char *line, int type, t_parse *parsing);
+t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
 
 // utils/check_permission.c
 int			check_permission(char *filename);
@@ -630,7 +631,7 @@ char		*ft_cub3d_get_word(char **str, char delim);
 void		ft_free_char_pointer(char *ptr);
 
 // utils/get_line.c
-char		*parse_get_line(int file);
+char		*parse_get_line(t_error *err, int file);
 
 // utils/mlx.c
 t_r_value	init_mlx(t_main *config);

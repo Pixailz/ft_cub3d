@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 21:26:12 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 22:29:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:09:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ t_bool	get_map(t_parse *parsing)
 	return (TRUE);
 }
 
-t_r_value	parse_map(t_parse *parsing)
+t_r_value	parse_map(t_error *err, t_parse *parsing)
 {
 	t_r_value	return_value;
 
 	if (!get_map(parsing))
-		return (set_error(1, ERRN_13));
-	return_value = check_map_content(parsing->map);
+		return (set_error(err, 1, ERRN_13));
+	return_value = check_map_content(parsing->map, err);
 	return (return_value);
 }

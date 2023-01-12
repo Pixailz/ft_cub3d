@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 21:53:58 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ void	debug_print_errn_binary(const char *title, t_int64 to_bin)
 	ft_putchar_fd('\n', DEBUG_FD);
 }
 
-void	debug_print_errn(void)
+void	debug_print_errn(t_error *err)
 {
-	t_error	*err;
-
-	err = get_error();
 	debug_print_errn_binary("Malloc", err->malloc);
 	debug_print_errn_binary("Params", err->params);
 	debug_print_errn_binary("Params (args)", err->params_args);
@@ -36,8 +33,8 @@ void	debug_print_errn(void)
 	debug_print_errn_binary("Texture (args)", err->texture_args);
 }
 
-void	debug_print_error(int mode)
+void	debug_print_error(int mode, void *ptr)
 {
 	if (mode == ERROR_PRINT_ERRN)
-		debug_print_errn();
+		debug_print_errn((t_error *)ptr);
 }

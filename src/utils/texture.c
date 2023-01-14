@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 01:05:48 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 14:44:34 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:21:52 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_textures(t_textures *texture)
 t_r_value	load_texture(t_mlx_texture *text, char *file_path, void *mlx)
 {
 	text->ptr = mlx_xpm_file_to_image(mlx, file_path, \
-													&text->len_x, &text->len_y);
+													&text->len.x, &text->len.y);
 	if (!text->ptr)
 		return (1);
 	text->buff = mlx_get_data_addr(text->ptr, \

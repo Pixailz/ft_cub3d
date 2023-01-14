@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 20:29:11 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:56:38 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 float	get_player_angle(char player_char)
 {
 	if (player_char == 'N')
-		return (PI2);
-	else if (player_char == 'S')
 		return (PI3);
+	else if (player_char == 'S')
+		return (PI4);
 	else if (player_char == 'W')
 		return (PI);
 	else
@@ -59,6 +59,7 @@ t_r_value	init_rendering(t_main *config)
 	get_player_pos(config);
 	adjust_delta(&config->player);
 	draw_base(config);
+	cast_ray_entry(config);
 	return (0);
 }
 

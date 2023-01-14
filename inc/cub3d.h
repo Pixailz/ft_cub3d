@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 14:44:25 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:04:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@
 # define PLAYER_ANGLE_SIZE				21
 # define PLAYER_ANGLE_COLOR				0x00ff00
 # define MAX_DOF						8
+# define FOV							60
 # define BIT_PREC						6
 # define MATRIX_OFFSET					10
 
@@ -81,7 +82,7 @@
 # define MINI_WALL_PATH				"./rsc/xpm/minimap_wall_32x32.xpm"
 # define MINI_VOID_PATH				"./rsc/xpm/minimap_void_32x32.xpm"
 # define MINI_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
-# define MINI_HIT_PATH			"./rsc/xpm/minimap_hit_4x4.xpm"
+# define MINI_HIT_PATH				"./rsc/xpm/minimap_hit_2x2.xpm"
 
 # define PADDING_CHAR					"   "
 
@@ -122,6 +123,7 @@
 # define KEY_W							0x77
 # define KEY_S							0x73
 # define KEY_D							0x64
+# define KEY_R							0x72
 
 	// ARROW
 # define KEY_RIGHT						0xff53
@@ -422,35 +424,23 @@ typedef struct s_error
 	t_r_value	texture_args;
 }					t_error;
 
-typedef struct s_pos
+typedef struct s_f_pos
 {
 	float	x;
 	float	y;
-}			t_pos;
+}			t_f_pos;
+
+typedef struct s_i_pos
+{
+	int	x;
+	int	y;
+}		t_i_pos;
 
 typedef struct s_line
 {
-	t_pos	begin;
-	t_pos	end;
+	t_f_pos	begin;
+	t_f_pos	end;
 }				t_line;
-
-typedef struct s_ray
-{
-	int		nbr;
-	int		id;
-	t_bool	hit;
-	int		depth_of_field;
-	t_pos	pos;
-	t_pos	offset;
-	t_pos	save;
-	float	dist;
-	float	angle;
-	float	a_tan;
-	float	n_tan;
-	int		max_x;
-	int		max_y;
-	int		max_p;
-}				t_ray;
 
 typedef struct s_mlx_texture
 {
@@ -459,9 +449,26 @@ typedef struct s_mlx_texture
 	int			bpp;
 	int			endian;
 	int			size_line;
-	int			len_x;
-	int			len_y;
+	t_i_pos		len;
 }			t_mlx_texture;
+
+typedef struct s_ray
+{
+	int				nbr;
+	int				id;
+	t_bool			hit;
+	int				depth_of_field;
+	t_f_pos			pos;
+	t_f_pos			offset;
+	t_f_pos			save;
+	float			dist;
+	float			angle;
+	float			a_tan;
+	float			n_tan;
+	t_i_pos			max;
+	t_i_pos			t;
+	t_mlx_texture	img_use;
+}					t_ray;
 
 typedef struct s_mlx_textures
 {
@@ -479,8 +486,7 @@ typedef struct s_mlx
 {
 	void			*ptr;
 	void			*win;
-	int				screen_x;
-	int				screen_y;
+	t_i_pos			screen;
 	t_mlx_textures	textures;
 }					t_mlx;
 
@@ -503,8 +509,7 @@ typedef struct s_textures
 typedef struct s_map
 {
 	t_file		file;
-	int			matrix_x;
-	int			matrix_y;
+	t_i_pos		size;
 	char		**matrix;
 }				t_map;
 
@@ -516,8 +521,8 @@ typedef struct s_parse
 
 typedef struct s_player
 {
-	t_pos	pos;
-	t_pos	delta;
+	t_f_pos	pos;
+	t_f_pos	delta;
 	float	angle;
 }				t_player;
 
@@ -570,7 +575,7 @@ void		debug_print_line_pos(t_line *line);
 void		draw_base(t_main *config);
 
 // draw/line.c
-t_line		get_line(t_pos begin, t_pos end);
+t_line		get_line(t_f_pos begin, t_f_pos end);
 void		draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
 
 // draw/minimap.c
@@ -581,6 +586,7 @@ void		draw_player_angle(t_main *config);
 void		draw_player_pos(t_main *config);
 
 // draw/ray.c
+void		draw_fov(t_main *config);
 void		draw_ray_hit(t_main *config);
 
 // error/error.c
@@ -685,6 +691,7 @@ t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
 // ray/cast.c
 void		cast_ray_entry(t_main *config);
 void		cast_rays(float angle, t_main *config);
+void		choose_ray(t_main *config);
 
 // ray/horizontal.c
 void		cast_ray_down(t_ray *ray, t_player player);
@@ -698,7 +705,7 @@ void		init_ray(float player_angle, t_ray *ray);
 float		get_a_tan(float ray_angle);
 float		get_dist(t_player player, t_ray ray);
 float		get_n_tan(float ray_angle);
-t_bool		ray_hit(t_ray *ray, t_map map);
+t_bool		ray_hit(t_ray *ray, t_map map, int to_add);
 void		increase_offset(t_ray *ray);
 
 // ray/vertical.c
@@ -758,14 +765,14 @@ void		move(int key_code, t_main *config);
 
 // utils/move.angle.c
 void		adjust_delta(t_player *player);
-void		key_press_move_angle_left(t_main *config);
-void		key_press_move_angle_right(t_main *config);
+void		key_press_move_angle_left(t_player *player);
+void		key_press_move_angle_right(t_player *player);
 
 // utils/move.dir.c
-void		key_press_move_down(t_main *config);
-void		key_press_move_left(t_main *config);
-void		key_press_move_right(t_main *config);
-void		key_press_move_up(t_main *config);
+void		key_press_move_down(t_player *player);
+void		key_press_move_left(t_player *player);
+void		key_press_move_right(t_player *player);
+void		key_press_move_up(t_player *player);
 
 // utils/parsing.c
 void		free_parsing(t_parse *parsing);

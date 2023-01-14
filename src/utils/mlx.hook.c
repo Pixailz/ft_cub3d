@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 01:02:36 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:05:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ t_bool	is_movement_key(int key_code)
 void	move(int key_code, t_main *config)
 {
 	if (key_code == KEY_A)
-		key_press_move_left(config);
+		key_press_move_left(&config->player);
 	else if (key_code == KEY_D)
-		key_press_move_right(config);
+		key_press_move_right(&config->player);
 	else if (key_code == KEY_W)
-		key_press_move_up(config);
+		key_press_move_up(&config->player);
 	else if (key_code == KEY_S)
-		key_press_move_down(config);
+		key_press_move_down(&config->player);
 	else if (key_code == KEY_LEFT)
-		key_press_move_angle_left(config);
+		key_press_move_angle_left(&config->player);
 	else if (key_code == KEY_RIGHT)
-		key_press_move_angle_right(config);
+		key_press_move_angle_right(&config->player);
 	draw_base(config);
 	cast_ray_entry(config);
 }

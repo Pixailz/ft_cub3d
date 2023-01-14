@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:38:16 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 20:40:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:48:54 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ void	adjust_delta(t_player *player)
 	player->delta.y = sin(player->angle) * MINI_CELL_SIZE * PLAYER_STEP;
 }
 
-void	key_press_move_angle_left(t_main *config)
+void	key_press_move_angle_left(t_player *player)
 {
-	t_player	*player;
-
-	player = &config->player;
 	player->angle -= 0.1;
 	if (player->angle < 0)
 		player->angle += PI2;
@@ -30,11 +27,8 @@ void	key_press_move_angle_left(t_main *config)
 	debug_print(RENDER_PLAYER, (void *)player);
 }
 
-void	key_press_move_angle_right(t_main *config)
+void	key_press_move_angle_right(t_player *player)
 {
-	t_player	*player;
-
-	player = &config->player;
 	player->angle += 0.1;
 	if (player->angle > PI2)
 		player->angle -= PI2;

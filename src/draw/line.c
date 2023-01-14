@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:13:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 02:23:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:13:50 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_line	get_line(t_pos begin, t_pos end)
+t_line	get_line(t_f_pos begin, t_f_pos end)
 {
 	t_line	line;
 

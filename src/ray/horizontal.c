@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 14:34:20 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:01:06 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	cast_ray_horizontal(t_ray *ray, t_player player, t_map map)
 	{
 		ray->pos.x = player.pos.x;
 		ray->pos.y = player.pos.y;
-		ray->depth_of_field = MAX_DOF;
+		ray->depth_of_field = map.size.y + MATRIX_OFFSET;
 	}
-	while (ray->depth_of_field < MAX_DOF)
+	while (ray->depth_of_field < map.size.y + MATRIX_OFFSET)
 	{
-		ray->max_x = (int)(ray->pos.x) >> BIT_PREC;
-		ray->max_y = (int)(ray->pos.y) >> BIT_PREC;
-		if (!ray_hit(ray, map))
+		ray->max.x = (int)(ray->pos.x) >> BIT_PREC;
+		ray->max.y = (int)(ray->pos.y) >> BIT_PREC;
+		if (!ray_hit(ray, map, map.size.y + MATRIX_OFFSET))
 			increase_offset(ray);
 	}
 	debug_print(RAY_HORIZONTAL, (void *)ray);

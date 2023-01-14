@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 20:11:37 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:17:52 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ t_bool	check_is_surrounded_map(t_map *map)
 	get_map_size(map);
 	map_dup = dup_map_surrounded(*map);
 	counter_1 = 1;
-	while (counter_1 < map->matrix_y + 3)
+	while (counter_1 < map->size.y + 3)
 	{
 		counter_2 = 0;
-		while (++counter_2 < map->matrix_x + 3)
+		while (++counter_2 < map->size.x + 3)
 		{
 			if (map_dup[counter_1][counter_2] == VOID_CHAR && \
 				!check_is_surrounded_char_4(counter_1, counter_2, map_dup))

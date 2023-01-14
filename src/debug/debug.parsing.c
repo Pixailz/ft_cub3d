@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 20:46:33 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:16:28 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	debug_print_surrounded(char **splitted)
 
 void	debug_print_map_size(t_map *map)
 {
-	ft_printf_fd(DEBUG_FD, "map_size x:%d,y%d\n", map->matrix_x, map->matrix_y);
+	ft_printf_fd(DEBUG_FD, "map_size x:%d,y%d\n", map->size.x, map->size.y);
 }
 
 void	debug_print_parse(int mode, void *ptr)

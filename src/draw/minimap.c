@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 21:13:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:17:31 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_map(t_main *config)
 
 void	draw_player_pos(t_main *config)
 {
-	t_pos	pos;
+	t_f_pos	pos;
 
 	pos.x = get_ratio(config->player.pos.x) - MINI_PLAYER_SIZE / 2;
 	pos.y = get_ratio(config->player.pos.y) - MINI_PLAYER_SIZE / 2;
@@ -58,9 +58,9 @@ void	draw_player_pos(t_main *config)
 
 void	draw_player_angle(t_main *config)
 {
-	t_pos	begin;
-	t_pos	end;
-	t_pos	delta;
+	t_f_pos	begin;
+	t_f_pos	end;
+	t_f_pos	delta;
 
 	begin.x = get_ratio(config->player.pos.x);
 	begin.y = get_ratio(config->player.pos.y);

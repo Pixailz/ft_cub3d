@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:49:39 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 14:34:08 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:20:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ float	get_dist(t_player player, t_ray ray)
 	return (dist);
 }
 
-t_bool	ray_hit(t_ray *ray, t_map map)
+t_bool	ray_hit(t_ray *ray, t_map map, int to_add)
 {
-	if (ray->max_x >= 0 && ray->max_y >= 0)
+	if (ray->max.x >= 0 && ray->max.y >= 0)
 	{
-		if (ray->max_x < map.matrix_x && ray->max_y < map.matrix_y)
+		if (ray->max.x < map.size.x && ray->max.y < map.size.y)
 		{
-			if (map.matrix[ray->max_y][ray->max_x] == WALL_CHAR)
+			if (map.matrix[ray->max.y][ray->max.x] == WALL_CHAR)
 			{
-				ray->depth_of_field = MAX_DOF;
+				ray->depth_of_field = to_add;
 				ray->hit = 1;
 				return (TRUE);
 			}

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:44:25 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,63 @@
 /* CONFIG */
 /* ###### */
 
-# define DR								0.0174533
-
-# define WINDOW_TITLE					"Supa Cub3D"
-# define FULL_SCREEN					0
-# define DEFAULT_SCREEN_X				1200
-# define DEFAULT_SCREEN_Y				800
-
-# define PLAYER_STEP					0.25
-# define PLAYER_ANGLE_SIZE				16
-# define PLAYER_ANGLE_COLOR				0x00ff00
-
-# define MINIMAP_CELL_SIZE				32
-# define MINIMAP_PLAYER_SIZE			8
-# define MINIMAP_WALL_PATH				"./rsc/xpm/minimap_wall_32x32.xpm"
-# define MINIMAP_VOID_PATH				"./rsc/xpm/minimap_void_32x32.xpm"
-# define MINIMAP_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
-
+// DEBUG
 # ifndef DEBUG
 #  define DEBUG							1
+# endif
+
+# ifndef VERBOSE
+#  define VERBOSE						1
 # endif
 
 # ifndef DEBUG_FD
 #  define DEBUG_FD						420
 # endif
 
+// MATH
+# define DR								0.0174533
+# define PI								3.1415926535
+// 2xPI
+# define PI2							6.2831853072
+// (3xPI)/2
+# define PI3							4.7123889804
+// PI/2
+# define PI4							1.5707963268
+
+# define ADJUST_DELTA					5
+
+// MLX
+# define WINDOW_TITLE					"Supa Cub3D"
+# define FULL_SCREEN					0
+# define DEFAULT_SCREEN_X				1200
+# define DEFAULT_SCREEN_Y				800
+
+// RAYTRACING
+# define CELL_SIZE						64
+
+// PLAYER
+# define PLAYER_STEP					0.25
+# define PLAYER_ANGLE_SIZE				21
+# define PLAYER_ANGLE_COLOR				0x00ff00
+# define MAX_DOF						8
+# define BIT_PREC						6
+# define MATRIX_OFFSET					10
+
+// minimap
+# define MINI_PLAYER_SIZE			8
+# define MINI_CELL_SIZE				32
+# define MINI_WALL_PATH				"./rsc/xpm/minimap_wall_32x32.xpm"
+# define MINI_VOID_PATH				"./rsc/xpm/minimap_void_32x32.xpm"
+# define MINI_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
+# define MINI_HIT_PATH			"./rsc/xpm/minimap_hit_4x4.xpm"
+
+# define PADDING_CHAR					"   "
+
 # define GOOD_CHAR_MAP					" 10NSWE"
 # define VOID_CHAR						'.'
+# define WALL_CHAR						'1'
+# define EMPTY_CHAR						'0'
+# define PLAYER_CHAR					'P'
 # define ERRN_LENGTH					32
 # define PADDING						16
 
@@ -93,15 +123,16 @@
 # define KEY_S							0x73
 # define KEY_D							0x64
 
-	// ARROWa
+	// ARROW
 # define KEY_RIGHT						0xff53
 # define KEY_LEFT						0xff51
 
 	// EXTRA
 # define KEY_ESC						0xff1b
 
-# define PARAMS_ERROR_WITH_ARG_MASK		0xfe0
-# define PARAMS_ERROR_MAP_MASK			0x3f000
+# define ERROR_MASK_INPUT_USER			0x1f
+# define ERROR_MASK_KNOWN		0xfe0
+# define ERROR_MASK_MAP			0x3f000
 # define TEXTURE_ERROR_WITH_ARG_MASK	0x6
 
 typedef unsigned long					t_r_value;
@@ -154,11 +185,14 @@ enum e_debug_type
 	PARSE_GET_MAP_SPLITTED,
 	PARSE_MAP_COORD_CHECKED,
 	PARSE_GET_MAP_SURROUDED,
+	PARSE_MAP_SIZE,
 	RENDER_SCREEN_SIZE,
 	RENDER_KEY_PRESS,
 	RENDER_KEY_RELEASE,
 	RENDER_PLAYER,
 	RENDER_LINE,
+	RAY_HORIZONTAL,
+	RAY_VERTICAL
 };
 
 typedef enum e_param_type
@@ -173,7 +207,8 @@ typedef enum e_param_type
 	MAIN_WINDOW	= 1 << 6,
 	MINI_VOID	= 1 << 7,
 	MINI_WALL	= 1 << 8,
-	MINI_PLAYER	= 1 << 9
+	MINI_PLAYER	= 1 << 9,
+	MINI_HIT	= 1 << 10
 }			t_param_type;
 
 /* ########################################################################## */
@@ -317,7 +352,7 @@ typedef enum e_param_type
  * ERRN_06 = MLX_MINI_VOID_TEXT
  * ERRN_07 = MLX_MINI_WALL_TEXT
  * ERRN_08 = MLX_MINI_PLAYER_TEXT
- * ERRN_09 =
+ * ERRN_09 = MLX_MINI_HIT_TEXT
  * ERRN_10 =
  * ERRN_11 =
  * ERRN_12 =
@@ -399,6 +434,24 @@ typedef struct s_line
 	t_pos	end;
 }				t_line;
 
+typedef struct s_ray
+{
+	int		nbr;
+	int		id;
+	t_bool	hit;
+	int		depth_of_field;
+	t_pos	pos;
+	t_pos	offset;
+	t_pos	save;
+	float	dist;
+	float	angle;
+	float	a_tan;
+	float	n_tan;
+	int		max_x;
+	int		max_y;
+	int		max_p;
+}				t_ray;
+
 typedef struct s_mlx_texture
 {
 	void		*ptr;
@@ -419,6 +472,7 @@ typedef struct s_mlx_textures
 	t_mlx_texture	mini_wall;
 	t_mlx_texture	mini_void;
 	t_mlx_texture	mini_player;
+	t_mlx_texture	mini_hit;
 }					t_mlx_textures;
 
 typedef struct s_mlx
@@ -446,16 +500,24 @@ typedef struct s_textures
 	t_file			east_file;
 }			t_textures;
 
+typedef struct s_map
+{
+	t_file		file;
+	int			matrix_x;
+	int			matrix_y;
+	char		**matrix;
+}				t_map;
+
 typedef struct s_parse
 {
-	t_file		map_file;
-	char		**map;
+	t_map		map;
 	t_textures	textures;
 }				t_parse;
 
 typedef struct s_player
 {
 	t_pos	pos;
+	t_pos	delta;
 	float	angle;
 }				t_player;
 
@@ -464,6 +526,7 @@ typedef struct s_main
 	t_parse		parsing;
 	t_mlx		mlx;
 	t_player	player;
+	t_ray		ray;
 	t_error		err;
 }				t_main;
 
@@ -485,9 +548,14 @@ void		debug_print_error(int mode, void *ptr);
 void		debug_print_coord_checked(int x, int y, char **map);
 
 // debug/debug.parsing.c
+void		debug_print_map_size(t_map *map);
 void		debug_print_parse(int mode, void *ptr);
 void		debug_print_splitted(char **splitted);
 void		debug_print_surrounded(char **splitted);
+
+// debug/debug.ray.c
+void		debug_print_ray(int mode, void *ptr);
+void		debug_print_ray_info(char *title, t_ray ray);
 
 // debug/debug.render.c
 void		debug_print_key(int key_code);
@@ -498,16 +566,22 @@ void		debug_print_screen_size(void *ptr);
 // debug/debug.render.line.c
 void		debug_print_line_pos(t_line *line);
 
+// draw/base.c
+void		draw_base(t_main *config);
+
 // draw/line.c
 t_line		get_line(t_pos begin, t_pos end);
 void		draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
 
 // draw/minimap.c
-int			draw_ray(t_main *config);
-void		draw_map_point(t_main *config, char current_cell, int x, int y);
+void		draw_map(t_main *config);
+void		draw_map_point(t_main *config, char current_cell, int y, int x);
+void		draw_minimap(t_main *config);
 void		draw_player_angle(t_main *config);
 void		draw_player_pos(t_main *config);
-void		draw_ray_map(t_main *config);
+
+// draw/ray.c
+void		draw_ray_hit(t_main *config);
 
 // error/error.c
 t_bool		have_error(t_error err, int mode);
@@ -520,6 +594,7 @@ t_r_value	error_print(t_error err, t_main *config);
 void		error_print_malloc(t_r_value return_value);
 
 // error/print.params.c
+void		error_print_base(t_r_value params);
 void		error_print_params(t_error err);
 void		error_print_params_map(t_r_value params);
 
@@ -564,21 +639,21 @@ t_r_value	set_error_mlx_window(t_param_type type, t_r_value *return_value);
 // main.c
 
 // parse/map/check.c
-int			check_map_content(char **map, t_error *err);
-int			check_map_player_char(char **map, t_error *err);
-t_bool		check_map_new_line(char **map);
-t_bool		check_map_wrong_char(char **map);
+int			check_map_content(t_map *map, t_error *err);
+int			check_map_player_char(t_map map, t_error *err);
+t_bool		check_map_new_line(t_map map);
+t_bool		check_map_wrong_char(t_map map);
 
 // parse/map/check.surrounded.c
 t_bool		check_is_surrounded_char_4(int x, int y, char **map);
 t_bool		check_is_surrounded_char_8(int x, int y, char **map);
-t_bool		check_is_surrounded_map(char **map);
+t_bool		check_is_surrounded_map(t_map *map);
 
 // parse/map/check_utils.c
-char		**dup_map(char **map);
+char		**dup_map_surrounded(t_map map);
 char		*dup_map_get_line(int width, char *line);
 t_bool		map_char_is_player(char c);
-void		get_map_size(int *height, int *width, char **map);
+void		get_map_size(t_map *map);
 
 // parse/map/entry.c
 t_bool		get_map(t_parse *parsing);
@@ -607,6 +682,30 @@ int			parse_line_color(t_error *err, char *line, int type, t_parse *parsing);
 t_bool		ft_is_space(const char c);
 t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
 
+// ray/cast.c
+void		cast_ray_entry(t_main *config);
+void		cast_rays(float angle, t_main *config);
+
+// ray/horizontal.c
+void		cast_ray_down(t_ray *ray, t_player player);
+void		cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
+void		cast_ray_up(t_ray *ray, t_player player);
+
+// ray/init.c
+void		init_ray(float player_angle, t_ray *ray);
+
+// ray/utils.1.c
+float		get_a_tan(float ray_angle);
+float		get_dist(t_player player, t_ray ray);
+float		get_n_tan(float ray_angle);
+t_bool		ray_hit(t_ray *ray, t_map map);
+void		increase_offset(t_ray *ray);
+
+// ray/vertical.c
+void		cast_ray_left(t_ray *ray, t_player player);
+void		cast_ray_rigth(t_ray *ray, t_player player);
+void		cast_ray_vertical(t_ray *ray, t_player player, t_map map);
+
 // utils/check_permission.c
 int			check_permission(char *filename);
 
@@ -630,8 +729,15 @@ char		*ft_cub3d_get_word(char **str, char delim);
 // utils/ft_free_char_pointer.c
 void		ft_free_char_pointer(char *ptr);
 
+// utils/ft_padding.c
+t_size		ft_put_padded(int fd, t_size lvl);
+t_size		ft_put_padded_str(int fd, t_size lvl, const char *str);
+
 // utils/get_line.c
 char		*parse_get_line(t_error *err, int file);
+
+// utils/get_ratio.c
+float		get_ratio(float nbr);
 
 // utils/mlx.c
 t_r_value	init_mlx(t_main *config);
@@ -643,12 +749,15 @@ void		free_mlx(t_mlx *mlx);
 void		free_mlx_texture(void *mlx, t_mlx_texture *text);
 void		free_mlx_textures(t_mlx *mlx);
 
-// utils/mlx.hook.3d.c
+// utils/mlx.hook.c
 int			end_hook(t_mlx *mlx);
-int			key_press(int key_pressed, t_main *config);
+int			key_press(int key_code, t_main *config);
+t_bool		is_movement_key(int key_code);
 void		init_mlx_hook(t_main *config);
+void		move(int key_code, t_main *config);
 
 // utils/move.angle.c
+void		adjust_delta(t_player *player);
 void		key_press_move_angle_left(t_main *config);
 void		key_press_move_angle_right(t_main *config);
 

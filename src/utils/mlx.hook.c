@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.hook.3d.c                                      :+:      :+:    :+:   */
+/*   mlx.hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 13:48:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 01:02:36 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,39 @@ int	end_hook(t_mlx *mlx)
 	return (0);
 }
 
-int	key_press(int key_pressed, t_main *config)
+t_bool	is_movement_key(int key_code)
 {
-	debug_print(RENDER_KEY_PRESS, (void *)&key_pressed);
-	if (key_pressed == KEY_ESC)
-		end_hook(&config->mlx);
-	else if (key_pressed == KEY_A)
+	if (key_code == KEY_A || key_code == KEY_D || key_code == KEY_W || \
+		key_code == KEY_S || key_code == KEY_LEFT || key_code == KEY_RIGHT)
+		return (TRUE);
+	return (FALSE);
+}
+
+void	move(int key_code, t_main *config)
+{
+	if (key_code == KEY_A)
 		key_press_move_left(config);
-	else if (key_pressed == KEY_D)
+	else if (key_code == KEY_D)
 		key_press_move_right(config);
-	else if (key_pressed == KEY_W)
+	else if (key_code == KEY_W)
 		key_press_move_up(config);
-	else if (key_pressed == KEY_S)
+	else if (key_code == KEY_S)
 		key_press_move_down(config);
-	else if (key_pressed == KEY_LEFT)
+	else if (key_code == KEY_LEFT)
 		key_press_move_angle_left(config);
-	else if (key_pressed == KEY_RIGHT)
+	else if (key_code == KEY_RIGHT)
 		key_press_move_angle_right(config);
+	draw_base(config);
+	cast_ray_entry(config);
+}
+
+int	key_press(int key_code, t_main *config)
+{
+	debug_print(RENDER_KEY_PRESS, (void *)&key_code);
+	if (is_movement_key(key_code))
+		move(key_code, config);
+	else if (key_code == KEY_ESC)
+		return (end_hook(&config->mlx));
 	return (0);
 }
 

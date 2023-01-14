@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 22:16:35 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 02:53:39 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/14 14:48:27 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	init_player(t_player *player)
+void	init_ray(float player_angle, t_ray *ray)
 {
-	player->pos.x = -1;
-	player->pos.y = -1;
-	player->angle = -1;
-	player->delta.x = -1;
-	player->delta.y = -1;
+	ray->angle = player_angle;
+	// if (ray->angle < 0)
+	// 	ray->angle += PI2;
+	// if (ray->angle > PI2)
+	// 	ray->angle -= PI2;
+	ray->a_tan = get_a_tan(player_angle);
+	ray->n_tan = get_n_tan(player_angle);
+	ray->nbr = 0;
+	ray->dist = 100000;
 }

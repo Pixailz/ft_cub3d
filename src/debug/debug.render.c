@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 21:59:48 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:24:12 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	debug_print_screen_size(void *ptr)
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)ptr;
-	ft_printf_fd(DEBUG_FD, "screen_size 3D {x=%d,y=%d}", mlx->screen_x, \
+	ft_printf_fd(DEBUG_FD, "screen_size 3D {x=%d,y=%d}\n", mlx->screen_x, \
 		mlx->screen_y);
 }
 
@@ -40,13 +40,19 @@ void	debug_print_key(int key_code)
 		ft_putstr_fd("(LEFT)", DEBUG_FD);
 	else
 		ft_putstr_fd("( ??? )", DEBUG_FD);
+	ft_putchar_fd('\n', DEBUG_FD);
 }
 
 void	debug_print_player_stat(t_player *player)
 {
-	dprintf(DEBUG_FD, "player pos (x:%.2f,y:%.2f)\n", \
-												player->pos.x, player->pos.y);
-	dprintf(DEBUG_FD, "player angle (angle:%.2f)\n", player->angle);
+	if (VERBOSE >= 2)
+	{
+		dprintf(DEBUG_FD, "player.pos.x\t(%.2f)\n", player->pos.x);
+		dprintf(DEBUG_FD, "player.pos.y\t(%.2f)\n", player->pos.y);
+		dprintf(DEBUG_FD, "player angle\t(%.2f)\n", player->angle);
+		dprintf(DEBUG_FD, "player.delta.x\t(%.2f)\n", player->delta.x);
+		dprintf(DEBUG_FD, "player.delta.y\t(%.2f)\n", player->delta.y);
+	}
 }
 
 void	debug_print_render(int mode, void *ptr)

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 17:38:54 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:29:11 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,39 @@
 float	get_player_angle(char player_char)
 {
 	if (player_char == 'N')
-		return (90);
+		return (PI2);
 	else if (player_char == 'S')
-		return (270);
+		return (PI3);
 	else if (player_char == 'W')
-		return (180);
+		return (PI);
 	else
 		return (0);
 }
 
 void	get_player_pos(t_main *config)
 {
-	int	x;
-	int	y;
+	char	**matrix;
+	int		x;
+	int		y;
 
 	y = 0;
-	while (config->parsing.map[y])
+	matrix = config->parsing.map.matrix;
+	while (config->parsing.map.matrix[y])
 	{
 		x = 0;
-		while (config->parsing.map[y][x])
+		while (matrix[y][x])
 		{
-			if (map_char_is_player(config->parsing.map[y][x]))
+			if (map_char_is_player(matrix[y][x]))
 			{
-				config->player.angle = \
-									get_player_angle(config->parsing.map[y][x]);
-				config->player.pos.x = x + .5;
-				config->player.pos.y = y + .5;
+				config->player.angle = get_player_angle(matrix[y][x]);
+				config->player.pos.x = x * CELL_SIZE + CELL_SIZE / 2;
+				config->player.pos.y = y * CELL_SIZE + CELL_SIZE / 2;
 			}
 			x++;
 		}
 		y++;
 	}
-	if (DEBUG)
-		debug_print(RENDER_PLAYER, (void *)&config->player);
-	draw_ray(config);
+	debug_print(RENDER_PLAYER, (void *)&config->player);
 }
 
 t_r_value	init_rendering(t_main *config)
@@ -58,6 +57,8 @@ t_r_value	init_rendering(t_main *config)
 	if (load_textures(config))
 		return (1);
 	get_player_pos(config);
+	adjust_delta(&config->player);
+	draw_base(config);
 	return (0);
 }
 

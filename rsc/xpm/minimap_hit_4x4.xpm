@@ -1,0 +1,9 @@
+/* XPM */
+static char * minimap_hit_4x4_xpm[] = {
+"4 4 2 1",
+" 	c None",
+".	c #FFFF00",
+" .. ",
+"....",
+"....",
+" .. "};

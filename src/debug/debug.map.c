@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:04:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/09 15:23:25 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/13 03:37:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	debug_print_coord_checked(int x, int y, char **map)
 {
-	if (DEBUG)
+	if (DEBUG && VERBOSE >= 2)
 	{
 		ft_printf_fd(DEBUG_FD, "(%d,%d;[%c]):\n", x, y, map[x][y]);
 		ft_printf_fd(DEBUG_FD, "[%c]", map[x - 1][y - 1]);

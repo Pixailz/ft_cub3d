@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:33:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:12:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:00:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ t_r_value	parse_file_params(t_error *err, t_parse *parsing)
 	char	*line;
 	int		return_value;
 
-	if (parse_file_is_empty(err, &line, parsing->map_file.fd))
+	if (parse_file_is_empty(err, &line, parsing->map.file.fd))
 		return (1);
 	if (parse_line(err, &line, parsing))
 		return (1);
 	while (TRUE)
 	{
-		line = parse_get_line(err, parsing->map_file.fd);
+		line = parse_get_line(err, parsing->map.file.fd);
 		return_value = parse_line(err, &line, parsing);
 		free(line);
 		if (return_value == 1)
@@ -67,8 +67,8 @@ int	parse_file(t_error *err, char *filename, t_parse *parsing)
 	int		return_value;
 
 	return_value = 0;
-	parsing->map_file.fd = check_permission(filename);
-	if (parsing->map_file.fd < 0)
+	parsing->map.file.fd = check_permission(filename);
+	if (parsing->map.file.fd < 0)
 		return (set_error(err, 1, ERRN_03));
 	return_value = parse_file_params(err, parsing);
 	if (return_value && return_value != -1)

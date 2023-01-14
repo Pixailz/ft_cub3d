@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:13:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/11 22:06:34 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 02:23:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_line	get_line(t_pos begin, t_pos end)
 	line.begin.y = begin.y;
 	line.end.x = end.x;
 	line.end.y = end.y;
-	debug_print(DEBUG_FD, (void *)&line);
 	return (line);
 }
 
@@ -35,7 +34,7 @@ void	draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color)
 	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
 	delta_x /= pixels;
 	delta_y /= pixels;
-	while (pixels)
+	while (pixels != 0)
 	{
 		mlx_pixel_put(mlx_ptr, win_ptr, line.begin.x, line.begin.y, color);
 		line.begin.x += delta_x;

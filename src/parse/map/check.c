@@ -6,39 +6,39 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:05:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:07:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_bool	check_map_new_line(char **map)
+t_bool	check_map_new_line(t_map map)
 {
 	int	counter;
 
 	counter = 0;
-	while (map[counter])
+	while (map.matrix[counter])
 	{
-		if (!ft_strncmp(map[counter], "\0", 1))
+		if (!ft_strncmp(map.matrix[counter], "\0", 1))
 			return (TRUE);
 		counter++;
 	}
 	return (FALSE);
 }
 
-t_bool	check_map_wrong_char(char **map)
+t_bool	check_map_wrong_char(t_map map)
 {
 	int		counter_1;
 	int		counter_2;
 
 	counter_1 = 0;
 	counter_2 = 0;
-	while (map[counter_1])
+	while (map.matrix[counter_1])
 	{
 		counter_2 = 0;
-		while (map[counter_1][counter_2])
+		while (map.matrix[counter_1][counter_2])
 		{
-			if (!ft_strchr(GOOD_CHAR_MAP, map[counter_1][counter_2++]))
+			if (!ft_strchr(GOOD_CHAR_MAP, map.matrix[counter_1][counter_2++]))
 				return (TRUE);
 		}
 		counter_1++;
@@ -46,7 +46,7 @@ t_bool	check_map_wrong_char(char **map)
 	return (FALSE);
 }
 
-int	check_map_player_char(char **map, t_error *err)
+int	check_map_player_char(t_map map, t_error *err)
 {
 	int	counter_1;
 	int	counter_2;
@@ -55,12 +55,12 @@ int	check_map_player_char(char **map, t_error *err)
 	counter_1 = 0;
 	counter_2 = 0;
 	already_seen = 0;
-	while (map[counter_1])
+	while (map.matrix[counter_1])
 	{
 		counter_2 = 0;
-		while (map[counter_1][counter_2])
+		while (map.matrix[counter_1][counter_2])
 		{
-			if (map_char_is_player(map[counter_1][counter_2]))
+			if (map_char_is_player(map.matrix[counter_1][counter_2]))
 			{
 				if (already_seen++)
 					return (set_error(err, 1, ERRN_17));
@@ -74,16 +74,16 @@ int	check_map_player_char(char **map, t_error *err)
 	return (0);
 }
 
-int	check_map_content(char **map, t_error *err)
+int	check_map_content(t_map *map, t_error *err)
 {
-	debug_print(PARSE_GET_MAP_SPLITTED, (void *)map);
-	if (check_map_new_line(map))
+	debug_print(PARSE_GET_MAP_SPLITTED, (void *)map->matrix);
+	if (check_map_new_line(*map))
 		return (set_error(err, 1, ERRN_14));
-	if (check_map_wrong_char(map))
+	if (check_map_wrong_char(*map))
 		return (set_error(err, 1, ERRN_15));
 	if (!check_is_surrounded_map(map))
 		return (set_error(err, 1, ERRN_16));
-	if (check_map_player_char(map, err))
+	if (check_map_player_char(*map, err))
 		return (1);
 	return (-1);
 }

@@ -53,10 +53,13 @@ SRC_C			:= src/debug/debug.c \
 				   src/debug/debug.error.c \
 				   src/debug/debug.map.c \
 				   src/debug/debug.parsing.c \
+				   src/debug/debug.ray.c \
 				   src/debug/debug.render.c \
 				   src/debug/debug.render.line.c \
+				   src/draw/base.c \
 				   src/draw/line.c \
 				   src/draw/minimap.c \
+				   src/draw/ray.c \
 				   src/error/error.c \
 				   src/error/print.c \
 				   src/error/print.malloc.c \
@@ -78,16 +81,23 @@ SRC_C			:= src/debug/debug.c \
 				   src/parse/parse.line.c \
 				   src/parse/parse.line.color.c \
 				   src/parse/parse.line.texture.c \
+				   src/ray/cast.c \
+				   src/ray/horizontal.c \
+				   src/ray/init.c \
+				   src/ray/utils.1.c \
+				   src/ray/vertical.c \
 				   src/utils/check_permission.c \
 				   src/utils/close_file.c \
 				   src/utils/config.c \
 				   src/utils/file.c \
 				   src/utils/ft_cub3d_split.c \
 				   src/utils/ft_free_char_pointer.c \
+				   src/utils/ft_padding.c \
 				   src/utils/get_line.c \
+				   src/utils/get_ratio.c \
 				   src/utils/mlx.c \
 				   src/utils/mlx.free.c \
-				   src/utils/mlx.hook.3d.c \
+				   src/utils/mlx.hook.c \
 				   src/utils/move.angle.c \
 				   src/utils/move.dir.c \
 				   src/utils/parsing.c \

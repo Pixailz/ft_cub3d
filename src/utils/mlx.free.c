@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 13:47:57 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:40:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	free_mlx_textures(t_mlx *mlx)
 	free_mlx_texture(mlx->ptr, &textures->mini_wall);
 	free_mlx_texture(mlx->ptr, &textures->mini_void);
 	free_mlx_texture(mlx->ptr, &textures->mini_player);
+	free_mlx_texture(mlx->ptr, &textures->mini_hit);
 }
 
 void	free_mlx(t_mlx *mlx)

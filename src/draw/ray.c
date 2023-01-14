@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 22:16:35 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/13 02:53:39 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/13 20:38:47 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/14 14:49:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	init_player(t_player *player)
+void	draw_ray_hit(t_main *config)
 {
-	player->pos.x = -1;
-	player->pos.y = -1;
-	player->angle = -1;
-	player->delta.x = -1;
-	player->delta.y = -1;
+	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win, \
+							config->mlx.textures.mini_hit.ptr, \
+							get_ratio(config->ray.pos.x), \
+							get_ratio(config->ray.pos.y));
+	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win, \
+							config->mlx.textures.mini_hit.ptr, \
+							get_ratio(config->ray.save.x), \
+							get_ratio(config->ray.save.y));
 }

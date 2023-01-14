@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:53:55 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 19:24:24 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:23:06 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,25 @@ t_bool	map_char_is_player(char c)
 	return (FALSE);
 }
 
-void	get_map_size(int *height, int *width, char **map)
+void	get_map_size(t_map *map)
 {
-	int	max_width;
+	int	max_x;
 
-	max_width = 0;
-	*height = 0;
-	while (map[*height])
+	max_x = 0;
+	map->matrix_y = 0;
+	while (map->matrix[map->matrix_y])
 	{
-		*width = 0;
-		while (map[*height][*width])
+		map->matrix_x = 0;
+		while (map->matrix[map->matrix_y][map->matrix_x])
 		{
-			(*width)++;
-			if (max_width < *width)
-				max_width = *width;
+			map->matrix_x++;
+			if (max_x < map->matrix_x)
+				max_x = map->matrix_x;
 		}
-		(*height)++;
+		map->matrix_y++;
 	}
-	*width = max_width;
+	map->matrix_x = max_x;
+	debug_print(PARSE_MAP_SIZE, (void *)map);
 }
 
 char	*dup_map_get_line(int width, char *line)
@@ -65,25 +66,23 @@ char	*dup_map_get_line(int width, char *line)
 	return (formated_line);
 }
 
-char	**dup_map(char **map)
+char	**dup_map_surrounded(t_map map)
 {
 	int		counter;
-	int		height;
-	int		width;
 	char	**duplicated;
 
-	get_map_size(&height, &width, map);
-	duplicated = (char **)ft_calloc(sizeof(char *), height + 5);
-	duplicated[0] = (char *)ft_calloc(sizeof(char), width + 5);
-	duplicated[1] = (char *)ft_calloc(sizeof(char), width + 5);
-	ft_memset((void *)duplicated[0], VOID_CHAR, width + 4);
-	ft_memset((void *)duplicated[1], VOID_CHAR, width + 4);
-	duplicated[height + 2] = ft_strdup(duplicated[0]);
-	duplicated[height + 3] = ft_strdup(duplicated[0]);
+	duplicated = (char **)ft_calloc(sizeof(char *), map.matrix_y + 5);
+	duplicated[0] = (char *)ft_calloc(sizeof(char), map.matrix_x + 5);
+	duplicated[1] = (char *)ft_calloc(sizeof(char), map.matrix_x + 5);
+	ft_memset((void *)duplicated[0], VOID_CHAR, map.matrix_x + 4);
+	ft_memset((void *)duplicated[1], VOID_CHAR, map.matrix_x + 4);
+	duplicated[map.matrix_y + 2] = ft_strdup(duplicated[0]);
+	duplicated[map.matrix_y + 3] = ft_strdup(duplicated[0]);
 	counter = 2;
-	while (counter < height + 2)
+	while (counter < map.matrix_y + 2)
 	{
-		duplicated[counter] = dup_map_get_line(width, map[counter - 2]);
+		duplicated[counter] = \
+						dup_map_get_line(map.matrix_x, map.matrix[counter - 2]);
 		counter++;
 	}
 	debug_print(PARSE_GET_MAP_SURROUDED, (void *)duplicated);

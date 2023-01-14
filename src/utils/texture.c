@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 01:05:48 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:16:12 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:44:34 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,17 @@ t_r_value	load_textures(t_main *config)
 			config->parsing.textures.east_file.path, config->mlx.ptr))
 		set_error_known(&config->err, 1, ERRN_03, EAST);
 	if (load_texture(&config->mlx.textures.mini_wall, \
-			MINIMAP_WALL_PATH, config->mlx.ptr))
+			MINI_WALL_PATH, config->mlx.ptr))
 		set_error_known(&config->err, 1, ERRN_03, MINI_VOID);
 	if (load_texture(&config->mlx.textures.mini_void, \
-			MINIMAP_VOID_PATH, config->mlx.ptr))
+			MINI_VOID_PATH, config->mlx.ptr))
 		set_error_known(&config->err, 1, ERRN_03, MINI_WALL);
 	if (load_texture(&config->mlx.textures.mini_player, \
-			MINIMAP_PLAYER_PATH, config->mlx.ptr))
+			MINI_PLAYER_PATH, config->mlx.ptr))
 		set_error_known(&config->err, 1, ERRN_03, MINI_PLAYER);
+	if (load_texture(&config->mlx.textures.mini_hit, \
+			MINI_HIT_PATH, config->mlx.ptr))
+		set_error_known(&config->err, 1, ERRN_03, MINI_HIT);
 	return (have_error(config->err, 4));
 }
 

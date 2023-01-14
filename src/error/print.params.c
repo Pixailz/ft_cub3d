@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/12 23:04:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,39 @@ void	error_print_params_map(t_r_value params)
 		ft_putendl_fd(ERRN_PARAMS_STR_18, 2);
 }
 
+void	error_print_base(t_r_value params)
+{
+	ft_put_padded_str(2, 2, "Base:");
+	if (params & ERRN_01)
+		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_01);
+	if (params & ERRN_02)
+		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_02);
+	if (params & ERRN_03)
+	{
+		ft_put_padded(2, 2);
+		ft_printf_fd(2, "%s (argv[1])\n", strerror(errno));
+	}
+	if (params & ERRN_04)
+		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_04);
+	if (params & ERRN_05)
+		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_05);
+}
+
 void	error_print_params(t_error err)
 {
-	t_r_value	have_error_with_args;
+	t_r_value	have_base_error;
+	t_r_value	have_known_error;
 	t_r_value	have_map_error;
 
-	have_error_with_args = err.params & PARAMS_ERROR_WITH_ARG_MASK;
-	have_map_error = err.params & PARAMS_ERROR_MAP_MASK;
-	if (!have_error_with_args && !have_map_error)
-		ft_putstr_fd("Params:\n", 2);
-	if (err.params & ERRN_01)
-		ft_putstr_fd(ERRN_PARAMS_STR_01, 2);
-	if (err.params & ERRN_02)
-		ft_putstr_fd(ERRN_PARAMS_STR_02, 2);
-	if (err.params & ERRN_03)
-		ft_printf_fd(2, "%s (argv[1])", strerror(errno));
-	if (err.params & ERRN_04)
-		ft_putstr_fd(ERRN_PARAMS_STR_04, 2);
-	if (err.params & ERRN_05)
-		ft_putstr_fd(ERRN_PARAMS_STR_05, 2);
-	if (have_error_with_args)
+	have_base_error = err.params & ERROR_MASK_INPUT_USER;
+	have_known_error = err.params & ERROR_MASK_KNOWN;
+	have_map_error = err.params & ERROR_MASK_MAP;
+	if (have_base_error)
+		error_print_base(err.params);
+	if (have_known_error)
 		error_print_params_known(err);
 	if (have_map_error)
 		error_print_params_map(err.params);
-	if (!have_error_with_args && !have_map_error)
+	if (have_base_error || have_known_error || have_map_error)
 		ft_putchar_fd('\n', 2);
 }

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:04:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:23:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:19:27 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	debug_print(int mode, void *ptr)
 		return ;
 	if (mode == ERROR_PRINT_ERRN)
 		debug_print_error(mode, ptr);
-	else if (mode >= PARSE_RETURN_VALUE && mode <= PARSE_GET_MAP_SURROUDED)
+	else if (mode >= PARSE_RETURN_VALUE && mode <= PARSE_MAP_SIZE)
 		debug_print_parse(mode, ptr);
 	else if (mode >= RENDER_SCREEN_SIZE && mode <= RENDER_LINE)
 		debug_print_render(mode, ptr);
-	ft_printf_fd(DEBUG_FD, "\n");
+	else if (mode >= RAY_HORIZONTAL && mode <= RAY_VERTICAL)
+		debug_print_ray(mode, ptr);
 }

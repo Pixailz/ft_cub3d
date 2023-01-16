@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 00:36:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 01:53:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:53:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_r_value	init_rendering(t_main *config)
 		return (1);
 	get_player_pos(config);
 	adjust_delta(&config->player);
-	draw_base(config);
 	draw_scene(config);
 	return (0);
 }

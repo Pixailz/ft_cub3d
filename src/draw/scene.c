@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:20:31 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 03:35:54 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:18:17 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,20 @@ void	draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene)
 	}
 }
 
+void	reset_scene(t_mlx *mlx)
+{
+	mlx_destroy_image(mlx->ptr, mlx->textures.scene.ptr);
+	mlx->textures.scene.ptr = mlx_new_image(mlx->ptr, \
+											mlx->screen.x, mlx->screen.y);
+	mlx->textures.scene.buff = mlx_get_data_addr(mlx->textures.scene.ptr, \
+		&mlx->textures.scene.bpp, &mlx->textures.scene.size_line, \
+		&mlx->textures.scene.endian);
+}
+
 void	draw_scene(t_main *config)
 {
+	if (RAYCAST_ENABLE)
+		draw_minimap(config);
 	if ((int)(config->player.pos.x / CELL_SIZE) >= 0 && \
 		(int)(config->player.pos.y) / CELL_SIZE >= 0 && \
 		(int)(config->player.pos.x / CELL_SIZE) < config->parsing.map.size.x && \
@@ -65,4 +77,5 @@ void	draw_scene(t_main *config)
 	cast_ray_entry(config);
 	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win, \
 		config->mlx.textures.scene.ptr, 0, 0);
+	reset_scene(&config->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:03:13 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:23:41 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_print_params_color_format(t_r_value return_value)
 {
+	ft_put_padded(2, 2);
 	ft_putstr_fd(ERRN_PARAMS_STR_10, 2);
 	if (return_value & ERRN_23)
 		ft_putstr_fd(" (F)", 2);
@@ -24,6 +25,7 @@ void	error_print_params_color_format(t_r_value return_value)
 
 void	error_print_params_color_non_numeric(t_r_value return_value)
 {
+	ft_put_padded(2, 2);
 	ft_putstr_fd(ERRN_PARAMS_STR_11, 2);
 	if (return_value & ERRN_25)
 		ft_putstr_fd(" (F)", 2);
@@ -34,6 +36,7 @@ void	error_print_params_color_non_numeric(t_r_value return_value)
 
 void	error_print_params_color_wrong_number(t_r_value return_value)
 {
+	ft_put_padded(2, 2);
 	ft_putstr_fd(ERRN_PARAMS_STR_12, 2);
 	if (return_value & ERRN_27)
 		ft_putstr_fd(" (F)", 2);

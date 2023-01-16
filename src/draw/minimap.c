@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 00:09:42 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:13:31 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	draw_player_angle(t_main *config)
 	delta.y = sin(config->player.angle) * PLAYER_ANGLE_SIZE;
 	end.x = begin.x + delta.x;
 	end.y = begin.y + delta.y;
-	draw_line(config->mlx.ptr, config->mlx.win_raycasting, get_line(begin, end), \
-			PLAYER_ANGLE_COLOR);
+	draw_line(config->mlx.ptr, config->mlx.win_raycasting, \
+									get_line(begin, end), PLAYER_ANGLE_COLOR);
 }
 
 void	draw_minimap(t_main *config)

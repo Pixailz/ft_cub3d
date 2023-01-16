@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 00:08:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:15:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	free_mlx(t_mlx *mlx)
 {
 	free_mlx_textures(mlx);
 	mlx_destroy_window(mlx->ptr, mlx->win);
-	mlx_destroy_window(mlx->ptr, mlx->win_raycasting);
+	if (RAYCAST_ENABLE)
+		mlx_destroy_window(mlx->ptr, mlx->win_raycasting);
 	mlx_destroy_display(mlx->ptr);
 	free(mlx->ptr);
 	mlx->ptr = FT_NULL;

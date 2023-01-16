@@ -1,7 +1,7 @@
-NO ./rsc/xpm/default_32x32_north.xpm
-SO ./rsc/xpm/default_32x32_south.xpm
-WE ./rsc/xpm/default_32x32_west.xpm
-EA ./rsc/xpm/default_32x32_east.xpm
+NO ./rsc/xpm/default_64x64_north.xpm
+SO ./rsc/xpm/default_64x64_south.xpm
+WE ./rsc/xpm/default_64x64_west.xpm
+EA ./rsc/xpm/default_64x64_east.xpm
 
 F 220,100,0
 C 225,30,0

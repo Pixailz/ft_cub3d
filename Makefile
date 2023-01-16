@@ -56,7 +56,6 @@ SRC_C			:= src/debug/debug.c \
 				   src/debug/debug.ray.c \
 				   src/debug/debug.render.c \
 				   src/debug/debug.render.line.c \
-				   src/draw/base.c \
 				   src/draw/line.c \
 				   src/draw/minimap.c \
 				   src/draw/ray.c \

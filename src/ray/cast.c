@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 03:17:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:10:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	cast_rays(t_main *config)
 {
 	config->ray.hit = 0;
 	config->ray.a_tan = get_a_tan(config->ray.angle);
-	config->ray.n_tan = get_n_tan(config->ray.angle);
 	cast_ray_horizontal(&config->ray, config->player, config->parsing.map);
+	config->ray.n_tan = get_n_tan(config->ray.angle);
 	cast_ray_vertical(&config->ray, config->player, config->parsing.map);
 	choose_ray(config);
 	get_text(config);

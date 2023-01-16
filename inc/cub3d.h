@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 03:31:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:14:50 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 // DEBUG
 # ifndef DEBUG
-#  define DEBUG							0
+#  define DEBUG							1
 # endif
 
 # ifndef VERBOSE
@@ -60,24 +60,24 @@
 
 // MLX
 # define WINDOW_TITLE					"Supa Cub3D"
-# define RAYCASTING_TITLE				"Supa Cub3D - RayCasting"
+# define RAYCAST_ENABLE					0
+# define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
 # define FULL_SCREEN					0
 # define DEFAULT_SCREEN_X				1800
 # define DEFAULT_SCREEN_Y				900
-# define DEFAULT_RAYCASTING_SCREEN_X	900
-# define DEFAULT_RAYCASTING_SCREEN_Y	600
+# define DEFAULT_RAYCAST_SCREEN_X		900
+# define DEFAULT_RAYCAST_SCREEN_Y		600
 
 // RAYTRACING
-# define CELL_SIZE						32
+# define CELL_SIZE						64
 
 // PLAYER
 # define PLAYER_STEP					0.25
 # define PLAYER_ANGLE_SIZE				21
 # define PLAYER_ANGLE_COLOR				0x00ff00
-# define MAX_DOF						8
 # define FOV							60
-# define BIT_PREC						5
-# define MATRIX_OFFSET					0
+# define BIT_PREC						6
+# define MATRIX_OFFSET					10
 
 // minimap
 # define MINI_PLAYER_SIZE			8
@@ -87,10 +87,10 @@
 # define MINI_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
 # define MINI_HIT_PATH				"./rsc/xpm/minimap_hit_2x2.xpm"
 
-# define PADDING_CHAR					"[+]"
+# define PADDING_CHAR					"   "
 
 # define GOOD_CHAR_MAP					" 10NSWE"
-# define VOID_CHAR						'.'
+# define VOID_CHAR						' '
 # define WALL_CHAR						'1'
 # define EMPTY_CHAR						'0'
 # define PLAYER_CHAR					'P'
@@ -203,18 +203,19 @@ enum e_debug_type
 
 typedef enum e_param_type
 {
-	OTHER		= 0,
-	NORTH		= 1,
-	SOUTH		= 1 << 1,
-	WEST		= 1 << 2,
-	EAST		= 1 << 3,
-	FLOOR		= 1 << 4,
-	CEIL		= 1 << 5,
-	MAIN_WINDOW	= 1 << 6,
-	MINI_VOID	= 1 << 7,
-	MINI_WALL	= 1 << 8,
-	MINI_PLAYER	= 1 << 9,
-	MINI_HIT	= 1 << 10
+	OTHER			= 0,
+	NORTH			= 1,
+	SOUTH			= 1 << 1,
+	WEST			= 1 << 2,
+	EAST			= 1 << 3,
+	FLOOR			= 1 << 4,
+	CEIL			= 1 << 5,
+	MAIN_WINDOW		= 1 << 6,
+	RAYCAST_WINDOW	= 1 << 7,
+	MINI_VOID		= 1 << 8,
+	MINI_WALL		= 1 << 9,
+	MINI_PLAYER		= 1 << 10,
+	MINI_HIT		= 1 << 11
 }			t_param_type;
 
 /* ########################################################################## */
@@ -316,7 +317,7 @@ typedef enum e_param_type
  * TEXTURES
  * ERRN_00 = ALL_GOOD
  * ERRN_01 = MLX_INIT_FAILED
- * ERRN_02 = MLX_WINDOW_MAIN_FAILED
+ * ERRN_02 = MLX_WINDOW_FAILED
  * ERRN_03 = MLX_LOAD_IMAGE_FAILED
  * ERRN_04 = MLX_LOAD_SCENE_FAILED
  * ERRN_05 =
@@ -351,15 +352,15 @@ typedef enum e_param_type
  * TEXTURES_ARGS
  * ERRN_00 = ALL_GOOD
  * ERRN_01 = MLX_MAIN_WINDOW
- * ERRN_02 = MLX_NORTH_TEXT
- * ERRN_03 = MLX_SOUTH_TEXT
- * ERRN_04 = MLX_WEST_TEXT
- * ERRN_05 = MLX_EAST_TEXT
- * ERRN_06 = MLX_MINI_VOID_TEXT
- * ERRN_07 = MLX_MINI_WALL_TEXT
- * ERRN_08 = MLX_MINI_PLAYER_TEXT
- * ERRN_09 = MLX_MINI_HIT_TEXT
- * ERRN_10 =
+ * ERRN_02 = MLX_RAYCAST_WINDOW
+ * ERRN_03 = MLX_NORTH_TEXT
+ * ERRN_04 = MLX_SOUTH_TEXT
+ * ERRN_05 = MLX_WEST_TEXT
+ * ERRN_06 = MLX_EAST_TEXT
+ * ERRN_07 = MLX_MINI_VOID_TEXT
+ * ERRN_08 = MLX_MINI_WALL_TEXT
+ * ERRN_09 = MLX_MINI_PLAYER_TEXT
+ * ERRN_10 = MLX_MINI_HIT_TEXT
  * ERRN_11 =
  * ERRN_12 =
  * ERRN_13 =
@@ -460,20 +461,20 @@ typedef struct s_ray
 {
 	int				nbr;
 	int				nbr_ray;
-	t_bool			hit;
 	int				depth_of_field;
+	t_bool			hit;
+	t_i_pos			max;
 	t_f_pos			pos;
 	t_f_pos			offset;
 	t_f_pos			save;
-	double			dist;
+	t_f_pos			t;
 	float			angle;
 	float			a_tan;
 	float			n_tan;
-	t_i_pos			max;
-	t_f_pos			t;
 	float			ty_step;
 	float			ty_offset;
 	int				t_height;
+	double			dist;
 	t_mlx_texture	*img_use;
 }					t_ray;
 
@@ -580,9 +581,6 @@ void		debug_print_screen_size(void *ptr);
 // debug/debug.render.line.c
 void		debug_print_line_pos(t_line *line);
 
-// draw/base.c
-void		draw_base(t_main *config);
-
 // draw/line.c
 t_line		get_line(t_f_pos begin, t_f_pos end);
 void		draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
@@ -602,6 +600,7 @@ void		draw_ray_hit(t_main *config);
 void		draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
 void		draw_scene(t_main *config);
 void		ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color);
+void		reset_scene(t_mlx *mlx);
 
 // draw/text.c
 void		fix_fisheyes(t_ray *ray, t_player player);
@@ -771,6 +770,7 @@ float		get_ratio(float nbr);
 t_r_value	init_mlx(t_main *config);
 void		init_mlx_texture(t_mlx_texture *text);
 void		init_mlx_textures(t_mlx_textures *textures);
+void		init_mlx_window(t_mlx *mlx, t_error *err);
 
 // utils/mlx.free.c
 void		free_mlx(t_mlx *mlx);

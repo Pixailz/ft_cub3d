@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 01:53:28 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:53:14 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	move(int key_code, t_main *config)
 		key_press_move_angle_left(&config->player);
 	else if (key_code == KEY_RIGHT)
 		key_press_move_angle_right(&config->player);
-	draw_base(config);
 	draw_scene(config);
 }
 

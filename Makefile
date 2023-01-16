@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/08 23:19:50 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/16 03:38:28 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ TARGET			:= cub3D
 RM				:= rm -rf
 CC				:= gcc
 MAKE			:= make -C
-VERSION			:= 0.0.0
+VERSION			:= 1.0.0
 $(eval export MAIN=1)
 
 ifneq ($(PADDING),45)
@@ -60,6 +60,8 @@ SRC_C			:= src/debug/debug.c \
 				   src/draw/line.c \
 				   src/draw/minimap.c \
 				   src/draw/ray.c \
+				   src/draw/scene.c \
+				   src/draw/text.c \
 				   src/error/error.c \
 				   src/error/print.c \
 				   src/error/print.malloc.c \

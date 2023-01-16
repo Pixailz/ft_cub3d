@@ -4,6 +4,11 @@
 
 # TODO
 
+- fix texture bug
+  - new_buff or reset scene buff
+- minimap ?
+- review parsing
+
 # utils command
 
 > create all texture needed

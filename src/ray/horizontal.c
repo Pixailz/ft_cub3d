@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 19:01:06 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 02:56:17 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void	cast_ray_horizontal(t_ray *ray, t_player player, t_map map)
 	debug_print(RAY_HORIZONTAL, (void *)ray);
 	ray->save.y = ray->pos.y;
 	ray->save.x = ray->pos.x;
-	ray->dist = get_dist(player, *ray);
+	ray->dist = get_dist(player.pos, ray->pos);
 }

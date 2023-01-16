@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 18:17:31 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:09:42 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	draw_map_point(t_main *config, char current_cell, int y, int x)
 {
 	if (current_cell == '1')
 		mlx_put_image_to_window(config->mlx.ptr, \
-						config->mlx.win, config->mlx.textures.mini_wall.ptr, \
+						config->mlx.win_raycasting, config->mlx.textures.mini_wall.ptr, \
 						x * CELL_SIZE / (CELL_SIZE / MINI_CELL_SIZE), \
 						y * CELL_SIZE / (CELL_SIZE / MINI_CELL_SIZE));
 	else
 		mlx_put_image_to_window(config->mlx.ptr, \
-						config->mlx.win, config->mlx.textures.mini_void.ptr, \
+						config->mlx.win_raycasting, config->mlx.textures.mini_void.ptr, \
 						x * CELL_SIZE / (CELL_SIZE / MINI_CELL_SIZE), \
 						y * CELL_SIZE / (CELL_SIZE / MINI_CELL_SIZE));
 }
@@ -52,7 +52,7 @@ void	draw_player_pos(t_main *config)
 
 	pos.x = get_ratio(config->player.pos.x) - MINI_PLAYER_SIZE / 2;
 	pos.y = get_ratio(config->player.pos.y) - MINI_PLAYER_SIZE / 2;
-	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win, \
+	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win_raycasting, \
 		config->mlx.textures.mini_player.ptr, pos.x, pos.y);
 }
 
@@ -68,7 +68,7 @@ void	draw_player_angle(t_main *config)
 	delta.y = sin(config->player.angle) * PLAYER_ANGLE_SIZE;
 	end.x = begin.x + delta.x;
 	end.y = begin.y + delta.y;
-	draw_line(config->mlx.ptr, config->mlx.win, get_line(begin, end), \
+	draw_line(config->mlx.ptr, config->mlx.win_raycasting, get_line(begin, end), \
 			PLAYER_ANGLE_COLOR);
 }
 

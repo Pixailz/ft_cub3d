@@ -6,20 +6,20 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:49:39 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 18:20:32 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:33:49 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-float	get_dist(t_player player, t_ray ray)
+double	get_dist(t_f_pos begin, t_f_pos end)
 {
-	float	diff_x;
-	float	diff_y;
-	float	dist;
+	double	diff_x;
+	double	diff_y;
+	double	dist;
 
-	diff_x = ray.pos.x - player.pos.x;
-	diff_y = ray.pos.y - player.pos.y;
+	diff_x = end.x - begin.x;
+	diff_y = end.y - begin.y;
 	dist = sqrt(diff_x * diff_x + diff_y * diff_y);
 	return (dist);
 }

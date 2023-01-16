@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 18:21:35 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 01:58:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_r_value	init_mlx(t_main *config)
 															WINDOW_TITLE);
 	if (!mlx->win)
 		return (set_error(&config->err, 0, ERRN_03));
+	mlx->win_raycasting = mlx_new_window(mlx->ptr, DEFAULT_RAYCASTING_SCREEN_X \
+						, DEFAULT_RAYCASTING_SCREEN_Y, RAYCASTING_TITLE);
 	init_mlx_hook(config);
 	return (0);
 }

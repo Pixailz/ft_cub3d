@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 19:04:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 03:31:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@
 
 // DEBUG
 # ifndef DEBUG
-#  define DEBUG							1
+#  define DEBUG							0
 # endif
 
 # ifndef VERBOSE
-#  define VERBOSE						1
+#  define VERBOSE						2
 # endif
 
 # ifndef DEBUG_FD
@@ -60,12 +60,15 @@
 
 // MLX
 # define WINDOW_TITLE					"Supa Cub3D"
+# define RAYCASTING_TITLE				"Supa Cub3D - RayCasting"
 # define FULL_SCREEN					0
-# define DEFAULT_SCREEN_X				1200
-# define DEFAULT_SCREEN_Y				800
+# define DEFAULT_SCREEN_X				1800
+# define DEFAULT_SCREEN_Y				900
+# define DEFAULT_RAYCASTING_SCREEN_X	900
+# define DEFAULT_RAYCASTING_SCREEN_Y	600
 
 // RAYTRACING
-# define CELL_SIZE						64
+# define CELL_SIZE						32
 
 // PLAYER
 # define PLAYER_STEP					0.25
@@ -73,8 +76,8 @@
 # define PLAYER_ANGLE_COLOR				0x00ff00
 # define MAX_DOF						8
 # define FOV							60
-# define BIT_PREC						6
-# define MATRIX_OFFSET					10
+# define BIT_PREC						5
+# define MATRIX_OFFSET					0
 
 // minimap
 # define MINI_PLAYER_SIZE			8
@@ -84,7 +87,7 @@
 # define MINI_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
 # define MINI_HIT_PATH				"./rsc/xpm/minimap_hit_2x2.xpm"
 
-# define PADDING_CHAR					"   "
+# define PADDING_CHAR					"[+]"
 
 # define GOOD_CHAR_MAP					" 10NSWE"
 # define VOID_CHAR						'.'
@@ -115,7 +118,8 @@
 
 # define ERRN_TEXTURE_STR_01	"init mlx failed"
 # define ERRN_TEXTURE_STR_02	"init window failed"
-# define ERRN_TEXTURE_STR_03	"load texture, not a valid xpm file"
+# define ERRN_TEXTURE_STR_03	"load texture"
+# define ERRN_TEXTURE_STR_04	"load scene"
 
 // KEYBOARD
 	// DEFAULT
@@ -313,8 +317,8 @@ typedef enum e_param_type
  * ERRN_00 = ALL_GOOD
  * ERRN_01 = MLX_INIT_FAILED
  * ERRN_02 = MLX_WINDOW_MAIN_FAILED
- * ERRN_03 = MLX_XPM_TO_IMAGE_FAILED
- * ERRN_04 =
+ * ERRN_03 = MLX_LOAD_IMAGE_FAILED
+ * ERRN_04 = MLX_LOAD_SCENE_FAILED
  * ERRN_05 =
  * ERRN_06 =
  * ERRN_07 =
@@ -455,19 +459,22 @@ typedef struct s_mlx_texture
 typedef struct s_ray
 {
 	int				nbr;
-	int				id;
+	int				nbr_ray;
 	t_bool			hit;
 	int				depth_of_field;
 	t_f_pos			pos;
 	t_f_pos			offset;
 	t_f_pos			save;
-	float			dist;
+	double			dist;
 	float			angle;
 	float			a_tan;
 	float			n_tan;
 	t_i_pos			max;
-	t_i_pos			t;
-	t_mlx_texture	img_use;
+	t_f_pos			t;
+	float			ty_step;
+	float			ty_offset;
+	int				t_height;
+	t_mlx_texture	*img_use;
 }					t_ray;
 
 typedef struct s_mlx_textures
@@ -480,12 +487,14 @@ typedef struct s_mlx_textures
 	t_mlx_texture	mini_void;
 	t_mlx_texture	mini_player;
 	t_mlx_texture	mini_hit;
+	t_mlx_texture	scene;
 }					t_mlx_textures;
 
 typedef struct s_mlx
 {
 	void			*ptr;
 	void			*win;
+	void			*win_raycasting;
 	t_i_pos			screen;
 	t_mlx_textures	textures;
 }					t_mlx;
@@ -498,8 +507,8 @@ typedef struct s_file
 
 typedef struct s_textures
 {
-	short			floor[3];
-	short			ceiling[3];
+	t_int4			floor;
+	t_int4			ceiling;
 	t_file			north_file;
 	t_file			south_file;
 	t_file			west_file;
@@ -588,6 +597,18 @@ void		draw_player_pos(t_main *config);
 // draw/ray.c
 void		draw_fov(t_main *config);
 void		draw_ray_hit(t_main *config);
+
+// draw/scene.c
+void		draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
+void		draw_scene(t_main *config);
+void		ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color);
+
+// draw/text.c
+void		fix_fisheyes(t_ray *ray, t_player player);
+void		get_text(t_main *config);
+void		push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene);
+void		push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter);
+void		set_texture_height(t_ray *ray, t_mlx_texture scene);
 
 // error/error.c
 t_bool		have_error(t_error err, int mode);
@@ -690,7 +711,7 @@ t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
 
 // ray/cast.c
 void		cast_ray_entry(t_main *config);
-void		cast_rays(float angle, t_main *config);
+void		cast_rays(t_main *config);
 void		choose_ray(t_main *config);
 
 // ray/horizontal.c
@@ -699,11 +720,11 @@ void		cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
 void		cast_ray_up(t_ray *ray, t_player player);
 
 // ray/init.c
-void		init_ray(float player_angle, t_ray *ray);
+void		init_ray(int nbr_ray, t_ray *ray);
 
 // ray/utils.1.c
+double		get_dist(t_f_pos begin, t_f_pos end);
 float		get_a_tan(float ray_angle);
-float		get_dist(t_player player, t_ray ray);
 float		get_n_tan(float ray_angle);
 t_bool		ray_hit(t_ray *ray, t_map map, int to_add);
 void		increase_offset(t_ray *ray);
@@ -788,6 +809,7 @@ t_r_value	start_rendering(t_main *config);
 void		get_player_pos(t_main *config);
 
 // utils/texture.c
+t_r_value	load_scene(t_main *config);
 t_r_value	load_texture(t_mlx_texture *text, char *file_path, void *mlx);
 t_r_value	load_textures(t_main *config);
 void		free_textures(t_textures *textures);

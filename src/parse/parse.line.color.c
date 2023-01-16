@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/12 20:03:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 01:43:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int	check_line_color(t_error *err, char *ptr, int type, t_parse *parsing)
 		tmp_number = ft_patoi(color[counter], &has_overflow);
 		if (has_overflow || tmp_number < 0 || tmp_number > 255)
 			set_error_known(err, 0, ERRN_12, type);
+		counter++;
 		if (type == FLOOR)
-			parsing->textures.floor[counter++] = tmp_number;
+			ft_int4_chg(&parsing->textures.floor, counter, tmp_number);
 		else
-			parsing->textures.ceiling[counter++] = tmp_number;
+			ft_int4_chg(&parsing->textures.ceiling, counter, tmp_number);
 	}
 	ft_free_char_pp(color);
 	return (0);

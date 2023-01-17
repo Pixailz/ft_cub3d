@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/17 20:16:21 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/18 00:15:38 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -481,95 +481,6 @@ t_r_value		set_error_mlx_texture(t_param_type type, t_r_value *return_value);
 t_r_value		set_error_mlx_window(t_param_type type, t_r_value *return_value);
 
 // main.c
-
-// parse/map/check.c
-int				check_map_content(t_map *map, t_error *err);
-int				check_map_player_char(t_map map, t_error *err);
-t_bool			check_map_new_line(t_map map);
-t_bool			check_map_wrong_char(t_map map);
-
-// parse/map/check.surrounded.c
-t_bool			check_is_surrounded_char_4(int x, int y, char **map);
-t_bool			check_is_surrounded_char_8(int x, int y, char **map);
-t_bool			check_is_surrounded_map(t_map *map);
-
-// parse/map/check_utils.c
-char			**dup_map_surrounded(t_map map);
-char			*dup_map_get_line(int width, char *line);
-t_bool			map_char_is_player(char c);
-void			get_map_size(t_map *map);
-
-// parse/map/entry.c
-t_bool			get_map(t_parse *parsing);
-t_r_value		parse_map(t_error *err, t_parse *parsing);
-
-// parse/parse.entry.c
-t_r_value		parse_entry(t_error *err, char *filename, t_parse *parsing);
-
-// parse/parse.file.c
-int				parse_file(t_error *err, char *filename, t_parse *parsing);
-int				parse_file_name(t_error *err, char *filename);
-t_bool			parse_file_is_empty(t_error *err, char **line, int fd);
-t_r_value		parse_file_params(t_error *err, t_parse *parsing);
-
-// parse/parse.line.c
-int				parse_get_line_type(char *line);
-int				parse_is_good_line(t_error *err, char *line, t_parse *parsing);
-int				parse_line(t_error *err, char **line, t_parse *parsing);
-t_bool			parse_is_line_already_taken(int already_taken, int line_type);
-
-// parse/parse.line.color.c
-int				check_line_color(t_error *err, char *ptr, int type, t_parse *parsing);
-int				parse_line_color(t_error *err, char *line, int type, t_parse *parsing);
-
-// parse/parse.line.texture.c
-t_bool			ft_is_space(const char c);
-t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
-
-// ray/cast.c
-void			cast_ray_entry(t_main *config);
-void			cast_rays(t_main *config);
-void			choose_ray(t_main *config);
-
-// ray/horizontal.c
-void			cast_ray_down(t_ray *ray, t_player player);
-void			cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
-void			cast_ray_up(t_ray *ray, t_player player);
-
-// ray/utils.1.c
-double			get_a_tan(double ray_angle);
-double			get_dist(t_d_pos begin, t_d_pos end);
-double			get_n_tan(double ray_angle);
-t_bool			ray_hit(t_ray *ray, t_map map, int to_add);
-void			increase_offset(t_ray *ray);
-
-// ray/vertical.c
-void			cast_ray_left(t_ray *ray, t_player player);
-void			cast_ray_rigth(t_ray *ray, t_player player);
-void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
-
-// utils/check_permission.c
-int				check_permission(char *filename);
-
-// utils/close_file.c
-void			close_file(int fd);
-
-// utils/config.c
-void			free_config(t_main *config);
-void			init_config(t_main *config);
-
-// utils/file.c
-void			free_file(t_file *file);
-void			init_file(t_file *file);
-void			set_file(t_file *file, char *path, int fd);
-
-// utils/ft_cub3d_split.c
-char			**ft_cub3d_split(char *str, char delim);
-char			**ft_cub3d_split_get_words(char *str, char delim, int len_tab);
-char			*ft_cub3d_get_word(char **str, char delim);
-
-// utils/ft_free_char_pointer.c
-void			ft_free_char_pointer(char *ptr);
 
 // utils/ft_padding.c
 t_size			ft_put_padded(int fd, t_size lvl);

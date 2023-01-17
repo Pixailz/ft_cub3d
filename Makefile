@@ -6,13 +6,13 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/16 03:38:28 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/18 00:12:56 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # **************************************************************************** #
 # config
-CFLAGS			:= -Wall -Wextra
+CFLAGS			:= -Wall -Wextra -g3
 TARGET			:= cub3D
 RM				:= rm -rf
 CC				:= gcc
@@ -21,7 +21,7 @@ VERSION			:= 1.0.0
 $(eval export MAIN=1)
 
 ifneq ($(PADDING),45)
-PADDING			:= 45
+PADDING			:= 65
 endif
 
 ifeq ($(DEBUG),)
@@ -205,7 +205,7 @@ $(MINI_LIBX):
 
 $(TARGET):				$(LIBFT) $(MINI_LIBX) $(OBJ_C)
 	@printf "$(green_plus) $(font_color)Creation of $(bold)$@$(reset)\n"
-	@$(CC) $(CFLAGS) -o $@ $(OBJ_C) $(LIBS) $(LDFLAGS)
+	@$(CC) -g3 $(CFLAGS) -o $@ $(OBJ_C) $(LIBS) $(LDFLAGS)
 
 setup:					call_logo $(OBJ_SUBDIR) $(BIN_DIR)
 

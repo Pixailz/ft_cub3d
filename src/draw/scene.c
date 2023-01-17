@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:20:31 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 23:03:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:59:24 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ void	reset_scene(t_mlx *mlx)
 
 void	draw_scene(t_main *config)
 {
+	t_ray	ray;
+
+	ray = config->ray;
 	if (RAYCAST_ENABLE)
-		draw_minimap(config);
-	if (config->player.pos.x / CELL_SIZE >= 0 && \
-		config->player.pos.y / CELL_SIZE >= 0 && \
-		config->player.pos.x / CELL_SIZE < config->parsing.map.size.x && \
-		config->player.pos.y / CELL_SIZE < config->parsing.map.size.y && \
-		config->parsing.map.matrix[(int)(config->player.pos.y / CELL_SIZE)] \
-			[(int)(config->player.pos.x / CELL_SIZE)] != VOID_CHAR)
+		draw_raycast(config);
+	if (config->player.pos.x / ray.text_size >= 0 && \
+		config->player.pos.y / ray.text_size >= 0 && \
+		config->player.pos.x / ray.text_size < config->parsing.map.size.x && \
+		config->player.pos.y / ray.text_size < config->parsing.map.size.y)
 	{
 		draw_background(config->parsing.textures.floor, \
 				config->parsing.textures.ceiling, &config->mlx.textures.scene);

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:02:14 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 18:02:42 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:33:17 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,5 @@ t_r_value	set_error_mlx_texture(t_param_type type, t_r_value *return_value)
 		*return_value |= ERRN_08;
 	if (type == MINI_PLAYER)
 		*return_value |= ERRN_09;
-	if (type == MINI_HIT)
-		*return_value |= ERRN_10;
 	return (*return_value);
 }

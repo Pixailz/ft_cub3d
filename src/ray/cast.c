@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/17 00:13:18 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:59:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	choose_ray(t_main *config)
 			config->ray.img_use = &config->mlx.textures.east;
 		else
 			config->ray.img_use = &config->mlx.textures.west;
-		config->ray.t.x = (int)(config->ray.save.y) % CELL_SIZE;
+		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
 	}
 	else
 	{
@@ -34,7 +34,7 @@ void	choose_ray(t_main *config)
 			config->ray.img_use = &config->mlx.textures.south;
 		else
 			config->ray.img_use = &config->mlx.textures.north;
-		config->ray.t.x = (int)(config->ray.save.x) % CELL_SIZE;
+		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
 	}
 }
 

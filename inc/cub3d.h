@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/17 01:31:26 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:08:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,62 +47,89 @@
 # endif
 
 // MATH
+	// ONE DEGREE
 # define DR								0.0174533
+	// PI, THE ONLY ONE
 # define PI								3.1415926535
-// 2xPI
+	// 2xPI
 # define PI2							6.2831853072
-// (3xPI)/2
+	// (3xPI)/2
 # define PI3							4.7123889804
-// PI/2
+	// PI/2
 # define PI4							1.5707963268
 
-# define ADJUST_DELTA					10
+// CONFIG
 
-// MLX
-# define WINDOW_TITLE					"Supa Cub3D"
-# define RAYCAST_ENABLE					1
-# define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
-# define FULL_SCREEN					1
-# define DEFAULT_SCREEN_X				1024
-# define DEFAULT_SCREEN_Y				576
-// # define DEFAULT_SCREEN_X				1600
-// # define DEFAULT_SCREEN_Y				900
-// # define DEFAULT_SCREEN_X				5000
-// # define DEFAULT_SCREEN_Y				5000
-# define DEFAULT_RAYCAST_SCREEN_X		800
-# define DEFAULT_RAYCAST_SCREEN_Y		480
-
-// RAYTRACING
-# define CELL_SIZE						64
-
-// PLAYER
+	// BASE
 # define PLAYER_STEP					0.25
-# define PLAYER_ANGLE_SIZE				21
-# define PLAYER_ANGLE_COLOR				0x00ff00
-# define FOV							60
-# define BIT_PREC						6
+# define FOV							65
+
+	// MATRIX
 # define MATRIX_OFFSET					10
-
-// minimap
-# define MINI_PLAYER_SIZE			8
-# define MINI_CELL_SIZE				32
-# define MINI_WALL_PATH				"./rsc/xpm/minimap_wall_32x32.xpm"
-# define MINI_VOID_PATH				"./rsc/xpm/minimap_void_32x32.xpm"
-# define MINI_PLAYER_PATH			"./rsc/xpm/minimap_player_8x8.xpm"
-# define MINI_HIT_PATH				"./rsc/xpm/minimap_hit_2x2.xpm"
-
-# define PADDING_CHAR					"   "
-
 # define GOOD_CHAR_MAP					" 10NSWE"
 # define VOID_CHAR						' '
 # define WALL_CHAR						'1'
 # define EMPTY_CHAR						'0'
 # define PLAYER_CHAR					'P'
-# define ERRN_LENGTH					32
-# define PADDING						16
 
+		// WINDOW
+# define WINDOW_TITLE					"Supa Cub3D"
+# define FULL_SCREEN					0
+# define SCREEN_SIZE_X					1024
+# define SCREEN_SIZE_Y					576
+// # define SCREEN_SIZE_X				1600
+// # define SCREEN_SIZE_Y				900
+// # define SCREEN_SIZE_X				5000
+// # define SCREEN_SIZE_Y				5000
+
+		// KEYBOARD
+			// DEFAULT
+# define KEY_A							0x61
+# define KEY_W							0x77
+# define KEY_S							0x73
+# define KEY_D							0x64
+# define KEY_R							0x72
+
+			// ARROW
+# define KEY_RIGHT						0xff53
+# define KEY_LEFT						0xff51
+
+			// EXTRA
+# define KEY_ESC						0xff1b
+
+	// RAYCAST
+
+# define PLAYER_ANGLE_SIZE				16
+# define PLAYER_ANGLE_COLOR				0x00ff00
+
+		// WINDOW
+# define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
+# define RAYCAST_ENABLE					1
+# define RAYCAST_SCREEN_SIZE_X			800
+# define RAYCAST_SCREEN_SIZE_Y			480
+
+		// TEXTURE
+# define RAYCAST_WALL_PATH				"./rsc/xpm/raycasting/wall_x16.xpm"
+# define RAYCAST_VOID_PATH				"./rsc/xpm/raycasting/void_x16.xpm"
+# define RAYCAST_PLAYER_PATH			"./rsc/xpm/raycasting/player_x4.xpm"
+# define RAYCAST_HIT_COLOR				0xffff00
+
+// ERRNO
+# define ERRN_LENGTH					32
+
+	// MASK
+# define ERRN_MASK_INPUT_USER			0x1f
+# define ERRN_MASK_KNOWN				0xfe0
+# define ERRN_MASK_MAP					0x3f000
+# define ERRN_MASK_TEXTURE_ARG			0x6
+
+	// STRING
+# define PADDING_CHAR					"   "
+
+		// MALLOC
 # define ERRN_MALLOC_STR_01		"inside gnl"
 
+		// PARAMS
 # define ERRN_PARAMS_STR_01		"file path too short"
 # define ERRN_PARAMS_STR_02		"wrong file extension"
 # define ERRN_PARAMS_STR_04		"empty file (argv[1])"
@@ -120,30 +147,17 @@
 # define ERRN_PARAMS_STR_17		"map have multiple player"
 # define ERRN_PARAMS_STR_18		"don't have player"
 
+		// TEXTURE
 # define ERRN_TEXTURE_STR_01	"init mlx failed"
 # define ERRN_TEXTURE_STR_02	"init window failed"
 # define ERRN_TEXTURE_STR_03	"load texture"
 # define ERRN_TEXTURE_STR_04	"load scene"
 
-// KEYBOARD
-	// DEFAULT
-# define KEY_A							0x61
-# define KEY_W							0x77
-# define KEY_S							0x73
-# define KEY_D							0x64
-# define KEY_R							0x72
+/* ########################################################################## */
 
-	// ARROW
-# define KEY_RIGHT						0xff53
-# define KEY_LEFT						0xff51
-
-	// EXTRA
-# define KEY_ESC						0xff1b
-
-# define ERROR_MASK_INPUT_USER			0x1f
-# define ERROR_MASK_KNOWN		0xfe0
-# define ERROR_MASK_MAP			0x3f000
-# define TEXTURE_ERROR_WITH_ARG_MASK	0x6
+/* ########################################################################## */
+/* STRUCT / DEFINE */
+/* ############### */
 
 typedef unsigned long					t_r_value;
 
@@ -218,211 +232,8 @@ typedef enum e_param_type
 	RAYCAST_WINDOW	= 1 << 7,
 	MINI_VOID		= 1 << 8,
 	MINI_WALL		= 1 << 9,
-	MINI_PLAYER		= 1 << 10,
-	MINI_HIT		= 1 << 11
-}			t_param_type;
-
-/* ########################################################################## */
-
-/* ########################################################################## */
-/* STRUCT */
-/* ###### */
-
-/* MALLOC
- * ERRN_00 = ALL_GOOD
- * ERRN_01 = MALLOC_INSIDE_GNL
- * ERRN_02 =
- * ERRN_03 =
- * ERRN_04 =
- * ERRN_05 =
- * ERRN_06 =
- * ERRN_07 =
- * ERRN_08 =
- * ERRN_08 =
- * ERRN_09 =
- * ERRN_10 =
- * ERRN_11 =
- * ERRN_12 =
- * ERRN_13 =
- * ERRN_14 =
- * ERRN_15 =
- * ERRN_16 =
- *
- * PARAMS
- * ERRN_00 = ALL_GOOD
- * ERRN_01 = ARGS_FILE_NAME_TOO_SHORT
- * ERRN_02 = ARGS_FILE_WRONG_EXTENSION
- * ERRN_03 = ARGS_PATH_PERMISSION_DENIED-NOT_FOUND
- * ERRN_04 = PARAMS_ARG_1_EMPTY_FILE
- * ERRN_05 = PARAMS_UNKNOWN
- * ERRN_06 = PARAMS_HAVE_ALREADY_PROVIDED
- * ERRN_07 = PARAMS_HAVE_WRONG_SEP
- * ERRN_08 = PARAMS_HAVE_EMPTY
- * ERRN_09 = PARAMS_HAVE_WRONG_PATH
- * ERRN_10 = PARAMS_WRONG_COLOR_FORMAT
- * ERRN_11 = PARAMS_WRONG_COLOR_NON_NUMBER
- * ERRN_12 = PARAMS_WRONG_COLOR_WRONG_NUMBER
- * ERRN_13 = PARAMS_MAP_EMPTY
- * ERRN_14 = PARAMS_MAP_NEW_LINE
- * ERRN_15 = PARAMS_MAP_WRONG_CHAR
- * ERRN_16 = PARAMS_MAP_NOT_SURROUNDED
- * ERRN_17 = PARAMS_MAP_MULTIPLE_PLAYER
- * ERRN_18 = PARAMS_MAP_NO_PLAYER
- * ERRN_19 =
- * ERRN_20 =
- * ERRN_21 =
- * ERRN_22 =
- * ERRN_23 =
- * ERRN_24 =
- * ERRN_25 =
- * ERRN_26 =
- * ERRN_27 =
- * ERRN_28 =
- * ERRN_29 =
- * ERRN_30 =
- * ERRN_31 =
- * ERRN_32 =
- *
- * # PARAMS_ARGS
- * ERRN_00 = ALL_GOOD
- * ERRN_01 = PARAMS_NORTH_ALREADY_PROVIDED
- * ERRN_02 = PARAMS_SOUTH_ALREADY_PROVIDED
- * ERRN_03 = PARAMS_WEST_ALREADY_PROVIDED
- * ERRN_04 = PARAMS_EAST_ALREADY_PROVIDED
- * ERRN_05 = PARAMS_FLOOR_ALREADY_PROVIDED
- * ERRN_06 = PARAMS_CEILING_ALREADY_PROVIDED
- * ERRN_07 = PARAMS_NORTH_WRONG_SEP
- * ERRN_08 = PARAMS_SOUTH_WRONG_SEP
- * ERRN_09 = PARAMS_WEST_WRONG_SEP
- * ERRN_10 = PARAMS_EAST_WRONG_SEP
- * ERRN_11 = PARAMS_FLOOR_WRONG_SEP
- * ERRN_12 = PARAMS_CEILING_WRONG_SEP
- * ERRN_13 = PARAMS_NORTH_HAVE_EMPTY
- * ERRN_14 = PARAMS_SOUTH_HAVE_EMPTY
- * ERRN_15 = PARAMS_WEST_HAVE_EMPTY
- * ERRN_16 = PARAMS_EAST_HAVE_EMPTY
- * ERRN_17 = PARAMS_FLOOR_HAVE_EMPTY
- * ERRN_18 = PARAMS_CEILING_HAVE_EMPTY
- * ERRN_19 = PARAMS_NORTH_WRONG_PATH
- * ERRN_20 = PARAMS_SOUTH_WRONG_PATH
- * ERRN_21 = PARAMS_WEST_WRONG_PATH
- * ERRN_22 = PARAMS_EAST_WRONG_PATH
- * ERRN_23 = PARAMS_FLOOR_WRONG_COLOR_FORMAT
- * ERRN_24 = PARAMS_CEIL_WRONG_COLOR_FORMAT
- * ERRN_25 = PARAMS_FLOOR_WRONG_COLOR_NON_NUMBER
- * ERRN_26 = PARAMS_CEIL_WRONG_COLOR_NON_NUMBER
- * ERRN_27 = PARAMS_FLOOR_WRONG_COLOR_WRONG_NUMBER
- * ERRN_28 = PARAMS_CEIL_WRONG_COLOR_WRONG_NUMBER
- * ERRN_29 =
- * ERRN_30 =
- * ERRN_31 =
- * ERRN_32 =
- *
- * TEXTURES
- * ERRN_00 = ALL_GOOD
- * ERRN_01 = MLX_INIT_FAILED
- * ERRN_02 = MLX_WINDOW_FAILED
- * ERRN_03 = MLX_LOAD_IMAGE_FAILED
- * ERRN_04 = MLX_LOAD_SCENE_FAILED
- * ERRN_05 =
- * ERRN_06 =
- * ERRN_07 =
- * ERRN_08 =
- * ERRN_09 =
- * ERRN_10 =
- * ERRN_11 =
- * ERRN_12 =
- * ERRN_13 =
- * ERRN_14 =
- * ERRN_15 =
- * ERRN_16 =
- * ERRN_17 =
- * ERRN_18 =
- * ERRN_19 =
- * ERRN_20 =
- * ERRN_21 =
- * ERRN_22 =
- * ERRN_23 =
- * ERRN_24 =
- * ERRN_25 =
- * ERRN_26 =
- * ERRN_27 =
- * ERRN_28 =
- * ERRN_29 =
- * ERRN_30 =
- * ERRN_31 =
- * ERRN_32 =
- *
- * TEXTURES_ARGS
- * ERRN_00 = ALL_GOOD
- * ERRN_01 = MLX_MAIN_WINDOW
- * ERRN_02 = MLX_RAYCAST_WINDOW
- * ERRN_03 = MLX_NORTH_TEXT
- * ERRN_04 = MLX_SOUTH_TEXT
- * ERRN_05 = MLX_WEST_TEXT
- * ERRN_06 = MLX_EAST_TEXT
- * ERRN_07 = MLX_MINI_VOID_TEXT
- * ERRN_08 = MLX_MINI_WALL_TEXT
- * ERRN_09 = MLX_MINI_PLAYER_TEXT
- * ERRN_10 = MLX_MINI_HIT_TEXT
- * ERRN_11 =
- * ERRN_12 =
- * ERRN_13 =
- * ERRN_14 =
- * ERRN_15 =
- * ERRN_16 =
- * ERRN_17 =
- * ERRN_18 =
- * ERRN_19 =
- * ERRN_20 =
- * ERRN_21 =
- * ERRN_22 =
- * ERRN_23 =
- * ERRN_24 =
- * ERRN_25 =
- * ERRN_26 =
- * ERRN_27 =
- * ERRN_28 =
- * ERRN_29 =
- * ERRN_30 =
- * ERRN_31 =
- * ERRN_32 =
- *
- * ""TEMPLATE""
- * ERRN_00 = ALL_GOOD
- * ERRN_01 =
- * ERRN_02 =
- * ERRN_03 =
- * ERRN_04 =
- * ERRN_05 =
- * ERRN_06 =
- * ERRN_07 =
- * ERRN_08 =
- * ERRN_09 =
- * ERRN_10 =
- * ERRN_11 =
- * ERRN_12 =
- * ERRN_13 =
- * ERRN_14 =
- * ERRN_15 =
- * ERRN_16 =
- * ERRN_17 =
- * ERRN_18 =
- * ERRN_19 =
- * ERRN_20 =
- * ERRN_21 =
- * ERRN_22 =
- * ERRN_23 =
- * ERRN_24 =
- * ERRN_25 =
- * ERRN_26 =
- * ERRN_27 =
- * ERRN_28 =
- * ERRN_29 =
- * ERRN_30 =
- * ERRN_31 =
- * ERRN_32 =
- */
+	MINI_PLAYER		= 1 << 10
+}	t_param_type;
 
 typedef struct s_error
 {
@@ -466,6 +277,10 @@ typedef struct s_ray
 	int				nbr;
 	int				nbr_ray;
 	int				depth_of_field;
+	int				bit_prec;
+	int				text_size;
+	int				raycast_cell_size;
+	int				raycast_player_size;
 	t_bool			hit;
 	t_i_pos			max;
 	t_d_pos			pos;
@@ -488,10 +303,9 @@ typedef struct s_mlx_textures
 	t_mlx_texture	south;
 	t_mlx_texture	west;
 	t_mlx_texture	east;
-	t_mlx_texture	mini_wall;
-	t_mlx_texture	mini_void;
-	t_mlx_texture	mini_player;
-	t_mlx_texture	mini_hit;
+	t_mlx_texture	raycast_wall;
+	t_mlx_texture	raycast_void;
+	t_mlx_texture	raycast_player;
 	t_mlx_texture	scene;
 }					t_mlx_textures;
 
@@ -556,265 +370,271 @@ typedef struct s_main
 /* ##### */
 
 // debug/debug.c
-void		debug_print(int mode, void *ptr);
+void			debug_print(int mode, void *ptr);
 
 // debug/debug.error.c
-void		debug_print_errn(t_error *err);
-void		debug_print_errn_binary(const char *title, t_int64 to_bin);
-void		debug_print_error(int mode, void *ptr);
+void			debug_print_errn(t_error *err);
+void			debug_print_errn_binary(const char *title, t_int64 to_bin);
+void			debug_print_error(int mode, void *ptr);
 
 // debug/debug.map.c
-void		debug_print_coord_checked(int x, int y, char **map);
+void			debug_print_coord_checked(int x, int y, char **map);
 
 // debug/debug.parsing.c
-void		debug_print_map_size(t_map *map);
-void		debug_print_parse(int mode, void *ptr);
-void		debug_print_splitted(char **splitted);
-void		debug_print_surrounded(char **splitted);
+void			debug_print_map_size(t_map *map);
+void			debug_print_parse(int mode, void *ptr);
+void			debug_print_splitted(char **splitted);
+void			debug_print_surrounded(char **splitted);
 
 // debug/debug.ray.c
-void		debug_print_ray(int mode, void *ptr);
-void		debug_print_ray_info(char *title, t_ray ray);
+void			debug_print_ray(int mode, void *ptr);
+void			debug_print_ray_info(char *title, t_ray ray);
 
 // debug/debug.render.c
-void		debug_print_key(int key_code);
-void		debug_print_player_stat(t_player *player);
-void		debug_print_render(int mode, void *ptr);
-void		debug_print_screen_size(void *ptr);
+void			debug_print_key(int key_code);
+void			debug_print_player_stat(t_player *player);
+void			debug_print_render(int mode, void *ptr);
+void			debug_print_screen_size(void *ptr);
 
 // debug/debug.render.line.c
-void		debug_print_line_pos(t_line *line);
+void			debug_print_line_pos(t_line *line);
 
 // draw/line.c
-t_line		get_line(t_d_pos begin, t_d_pos end);
-void		draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
-
-// draw/minimap.c
-void		draw_map(t_main *config);
-void		draw_map_point(t_main *config, char current_cell, int y, int x);
-void		draw_minimap(t_main *config);
-void		draw_player_angle(t_main *config);
-void		draw_player_pos(t_main *config);
+t_line			get_line(t_d_pos begin, t_d_pos end);
+void			draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
 
 // draw/ray.c
-void		draw_fov(t_main *config);
-void		draw_ray_hit(t_main *config);
+void			draw_fov(t_main *config);
+void			draw_ray_hit(t_main *config);
+
+// draw/raycast.c
+void			draw_map(t_main *config);
+void			draw_map_point(t_main *config, char current_cell, int y, int x);
+void			draw_player_angle(t_main *config);
+void			draw_player_pos(t_main *config);
+void			draw_raycast(t_main *config);
 
 // draw/scene.c
-void		draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
-void		draw_scene(t_main *config);
-void		ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color);
-void		reset_scene(t_mlx *mlx);
+void			draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
+void			draw_scene(t_main *config);
+void			ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color);
+void			reset_scene(t_mlx *mlx);
 
 // draw/text.c
-void		fix_fisheyes(t_ray *ray, t_player player);
-void		get_text(t_main *config);
-void		push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene);
-void		push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter);
-void		set_texture_height(t_ray *ray, t_mlx_texture scene);
+void			fix_fisheyes(t_ray *ray, t_player player);
+void			get_text(t_main *config);
+void			push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene);
+void			push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter);
+void			set_texture_height(t_ray *ray, t_mlx_texture scene);
 
 // error/error.c
-t_bool		have_error(t_error err, int mode);
-void		init_error(t_error *err);
+t_bool			have_error(t_error err, int mode);
+void			init_error(t_error *err);
 
 // error/print.c
-t_r_value	error_print(t_error err, t_main *config);
+t_r_value		error_print(t_error err, t_main *config);
 
 // error/print.malloc.c
-void		error_print_malloc(t_r_value return_value);
+void			error_print_malloc(t_r_value return_value);
 
 // error/print.params.c
-void		error_print_base(t_r_value params);
-void		error_print_params(t_error err);
-void		error_print_params_map(t_r_value params);
+void			error_print_base(t_r_value params);
+void			error_print_params(t_error err);
+void			error_print_params_map(t_r_value params);
 
 // error/print.params.color.c
-void		error_print_params_color_format(t_r_value return_value);
-void		error_print_params_color_non_numeric(t_r_value return_value);
-void		error_print_params_color_wrong_number(t_r_value return_value);
-void		error_print_params_wrong_color(t_error err);
+void			error_print_params_color_format(t_r_value return_value);
+void			error_print_params_color_non_numeric(t_r_value return_value);
+void			error_print_params_color_wrong_number(t_r_value return_value);
+void			error_print_params_wrong_color(t_error err);
 
 // error/print.params.known.c
-void		error_print_params_already_provided(t_r_value return_value);
-void		error_print_params_have_empty(t_r_value return_value);
-void		error_print_params_known(t_error err);
-void		error_print_params_wrong_path(t_r_value return_value);
-void		error_print_params_wrong_sep(t_r_value return_value);
+void			error_print_params_already_provided(t_r_value return_value);
+void			error_print_params_have_empty(t_r_value return_value);
+void			error_print_params_known(t_error err);
+void			error_print_params_wrong_path(t_r_value return_value);
+void			error_print_params_wrong_sep(t_r_value return_value);
 
 // error/print.texture.c
-void		error_print_texture(t_error err);
+void			error_print_texture(t_error err);
 
 // error/print.texture.known.c
-void		error_print_texture_known(t_error err);
-void		error_print_texture_load(t_error err);
-void		error_print_texture_window(t_error err);
+void			error_print_texture_known(t_error err);
+void			error_print_texture_load(t_error err);
+void			error_print_texture_window(t_error err);
 
 // error/set.c
-t_r_value	set_error(t_error *err, unsigned char mode, t_r_value return_value);
-t_r_value	set_error_known(t_error *err, int mode, t_r_value err_no, int type);
-t_r_value	set_error_known_params(t_error *err, t_r_value err_no, int type);
-t_r_value	set_error_known_texture(t_error *err, t_r_value err_no, int type);
+t_r_value		set_error(t_error *err, unsigned char mode, t_r_value return_value);
+t_r_value		set_error_known(t_error *err, int mode, t_r_value err_no, int type);
+t_r_value		set_error_known_params(t_error *err, t_r_value err_no, int type);
+t_r_value		set_error_known_texture(t_error *err, t_r_value err_no, int type);
 
 // error/set.params.c
-void		set_error_already_provided(int type, t_r_value *return_value);
-void		set_error_have_empty(int type, t_r_value *return_value);
-void		set_error_wrong_color(t_r_value err_no, int type, t_r_value *param_args);
-void		set_error_wrong_path(int type, t_r_value *return_value);
-void		set_error_wrong_sep(int type, t_r_value *return_value);
+void			set_error_already_provided(int type, t_r_value *return_value);
+void			set_error_have_empty(int type, t_r_value *return_value);
+void			set_error_wrong_color(t_r_value err_no, int type, t_r_value *param_args);
+void			set_error_wrong_path(int type, t_r_value *return_value);
+void			set_error_wrong_sep(int type, t_r_value *return_value);
 
 // error/set.texture.c
-t_r_value	set_error_mlx_texture(t_param_type type, t_r_value *return_value);
-t_r_value	set_error_mlx_window(t_param_type type, t_r_value *return_value);
+t_r_value		set_error_mlx_texture(t_param_type type, t_r_value *return_value);
+t_r_value		set_error_mlx_window(t_param_type type, t_r_value *return_value);
 
 // main.c
 
 // parse/map/check.c
-int			check_map_content(t_map *map, t_error *err);
-int			check_map_player_char(t_map map, t_error *err);
-t_bool		check_map_new_line(t_map map);
-t_bool		check_map_wrong_char(t_map map);
+int				check_map_content(t_map *map, t_error *err);
+int				check_map_player_char(t_map map, t_error *err);
+t_bool			check_map_new_line(t_map map);
+t_bool			check_map_wrong_char(t_map map);
 
 // parse/map/check.surrounded.c
-t_bool		check_is_surrounded_char_4(int x, int y, char **map);
-t_bool		check_is_surrounded_char_8(int x, int y, char **map);
-t_bool		check_is_surrounded_map(t_map *map);
+t_bool			check_is_surrounded_char_4(int x, int y, char **map);
+t_bool			check_is_surrounded_char_8(int x, int y, char **map);
+t_bool			check_is_surrounded_map(t_map *map);
 
 // parse/map/check_utils.c
-char		**dup_map_surrounded(t_map map);
-char		*dup_map_get_line(int width, char *line);
-t_bool		map_char_is_player(char c);
-void		get_map_size(t_map *map);
+char			**dup_map_surrounded(t_map map);
+char			*dup_map_get_line(int width, char *line);
+t_bool			map_char_is_player(char c);
+void			get_map_size(t_map *map);
 
 // parse/map/entry.c
-t_bool		get_map(t_parse *parsing);
-t_r_value	parse_map(t_error *err, t_parse *parsing);
+t_bool			get_map(t_parse *parsing);
+t_r_value		parse_map(t_error *err, t_parse *parsing);
 
 // parse/parse.entry.c
-t_r_value	parse_entry(t_error *err, char *filename, t_parse *parsing);
+t_r_value		parse_entry(t_error *err, char *filename, t_parse *parsing);
 
 // parse/parse.file.c
-int			parse_file(t_error *err, char *filename, t_parse *parsing);
-int			parse_file_name(t_error *err, char *filename);
-t_bool		parse_file_is_empty(t_error *err, char **line, int fd);
-t_r_value	parse_file_params(t_error *err, t_parse *parsing);
+int				parse_file(t_error *err, char *filename, t_parse *parsing);
+int				parse_file_name(t_error *err, char *filename);
+t_bool			parse_file_is_empty(t_error *err, char **line, int fd);
+t_r_value		parse_file_params(t_error *err, t_parse *parsing);
 
 // parse/parse.line.c
-int			parse_get_line_type(char *line);
-int			parse_is_good_line(t_error *err, char *line, t_parse *parsing);
-int			parse_line(t_error *err, char **line, t_parse *parsing);
-t_bool		parse_is_line_already_taken(int already_taken, int line_type);
+int				parse_get_line_type(char *line);
+int				parse_is_good_line(t_error *err, char *line, t_parse *parsing);
+int				parse_line(t_error *err, char **line, t_parse *parsing);
+t_bool			parse_is_line_already_taken(int already_taken, int line_type);
 
 // parse/parse.line.color.c
-int			check_line_color(t_error *err, char *ptr, int type, t_parse *parsing);
-int			parse_line_color(t_error *err, char *line, int type, t_parse *parsing);
+int				check_line_color(t_error *err, char *ptr, int type, t_parse *parsing);
+int				parse_line_color(t_error *err, char *line, int type, t_parse *parsing);
 
 // parse/parse.line.texture.c
-t_bool		ft_is_space(const char c);
-t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
+t_bool			ft_is_space(const char c);
+t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parsing);
 
 // ray/cast.c
-void		cast_ray_entry(t_main *config);
-void		cast_rays(t_main *config);
-void		choose_ray(t_main *config);
+void			cast_ray_entry(t_main *config);
+void			cast_rays(t_main *config);
+void			choose_ray(t_main *config);
 
 // ray/horizontal.c
-void		cast_ray_down(t_ray *ray, t_player player);
-void		cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
-void		cast_ray_up(t_ray *ray, t_player player);
+void			cast_ray_down(t_ray *ray, t_player player);
+void			cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
+void			cast_ray_up(t_ray *ray, t_player player);
 
 // ray/utils.1.c
-double		get_a_tan(double ray_angle);
-double		get_dist(t_d_pos begin, t_d_pos end);
-double		get_n_tan(double ray_angle);
-t_bool		ray_hit(t_ray *ray, t_map map, int to_add);
-void		increase_offset(t_ray *ray);
+double			get_a_tan(double ray_angle);
+double			get_dist(t_d_pos begin, t_d_pos end);
+double			get_n_tan(double ray_angle);
+t_bool			ray_hit(t_ray *ray, t_map map, int to_add);
+void			increase_offset(t_ray *ray);
 
 // ray/vertical.c
-void		cast_ray_left(t_ray *ray, t_player player);
-void		cast_ray_rigth(t_ray *ray, t_player player);
-void		cast_ray_vertical(t_ray *ray, t_player player, t_map map);
+void			cast_ray_left(t_ray *ray, t_player player);
+void			cast_ray_rigth(t_ray *ray, t_player player);
+void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 
 // utils/check_permission.c
-int			check_permission(char *filename);
+int				check_permission(char *filename);
 
 // utils/close_file.c
-void		close_file(int fd);
+void			close_file(int fd);
 
 // utils/config.c
-void		free_config(t_main *config);
-void		init_config(t_main *config);
+void			free_config(t_main *config);
+void			init_config(t_main *config);
 
 // utils/file.c
-void		free_file(t_file *file);
-void		init_file(t_file *file);
-void		set_file(t_file *file, char *path, int fd);
+void			free_file(t_file *file);
+void			init_file(t_file *file);
+void			set_file(t_file *file, char *path, int fd);
 
 // utils/ft_cub3d_split.c
-char		**ft_cub3d_split(char *str, char delim);
-char		**ft_cub3d_split_get_words(char *str, char delim, int len_tab);
-char		*ft_cub3d_get_word(char **str, char delim);
+char			**ft_cub3d_split(char *str, char delim);
+char			**ft_cub3d_split_get_words(char *str, char delim, int len_tab);
+char			*ft_cub3d_get_word(char **str, char delim);
 
 // utils/ft_free_char_pointer.c
-void		ft_free_char_pointer(char *ptr);
+void			ft_free_char_pointer(char *ptr);
 
 // utils/ft_padding.c
-t_size		ft_put_padded(int fd, t_size lvl);
-t_size		ft_put_padded_str(int fd, t_size lvl, const char *str);
+t_size			ft_put_padded(int fd, t_size lvl);
+t_size			ft_put_padded_str(int fd, t_size lvl, const char *str);
 
 // utils/get_line.c
-char		*parse_get_line(t_error *err, int file);
+char			*parse_get_line(t_error *err, int file);
 
 // utils/get_ratio.c
-float		get_ratio(float nbr);
+float			get_ratio(float nbr, t_ray ray);
+
+// utils/get_texture_size.c
+unsigned char	get_bit_prec(int lowest);
+void			get_lowest_size(t_i_pos *lowest, t_mlx_texture text);
+void			get_raycast_size(t_main *config);
+void			get_textures_size(t_main *config);
 
 // utils/mlx.c
-t_r_value	init_mlx(t_main *config);
-void		init_mlx_texture(t_mlx_texture *text);
-void		init_mlx_textures(t_mlx_textures *textures);
-void		init_mlx_window(t_mlx *mlx, t_error *err);
+t_r_value		init_mlx(t_main *config);
+void			init_mlx_texture(t_mlx_texture *text);
+void			init_mlx_textures(t_mlx_textures *textures);
+void			init_mlx_window(t_mlx *mlx, t_error *err);
 
 // utils/mlx.free.c
-void		free_mlx(t_mlx *mlx);
-void		free_mlx_texture(void *mlx, t_mlx_texture *text);
-void		free_mlx_textures(t_mlx *mlx);
+void			free_mlx(t_mlx *mlx);
+void			free_mlx_texture(void *mlx, t_mlx_texture *text);
+void			free_mlx_textures(t_mlx *mlx);
 
 // utils/mlx.hook.c
-int			end_hook(t_mlx *mlx);
-int			key_press(int key_code, t_main *config);
-t_bool		is_movement_key(int key_code);
-void		init_mlx_hook(t_main *config);
-void		move(int key_code, t_main *config);
+int				end_hook(t_mlx *mlx);
+int				key_press(int key_code, t_main *config);
+t_bool			is_movement_key(int key_code);
+void			init_mlx_hook(t_main *config);
+void			move(int key_code, t_main *config);
 
 // utils/move.angle.c
-void		adjust_delta(t_player *player);
-void		key_press_move_angle_left(t_player *player);
-void		key_press_move_angle_right(t_player *player);
+void			adjust_delta(t_player *player, int text_size);
+void			key_press_move_angle_left(t_player *player, int text_size);
+void			key_press_move_angle_right(t_player *player, int text_size);
 
 // utils/move.dir.c
-void		key_press_move_down(t_player *player);
-void		key_press_move_left(t_player *player);
-void		key_press_move_right(t_player *player);
-void		key_press_move_up(t_player *player);
+void			key_press_move_down(t_player *player);
+void			key_press_move_left(t_player *player, int text_size);
+void			key_press_move_right(t_player *player, int text_size);
+void			key_press_move_up(t_player *player);
 
 // utils/parsing.c
-void		free_parsing(t_parse *parsing);
-void		init_parsing(t_parse *parsing);
+void			free_parsing(t_parse *parsing);
+void			init_parsing(t_parse *parsing);
 
 // utils/player.c
-void		init_player(t_player *player);
+void			init_player(t_player *player);
 
 // utils/rendering.c
-float		get_player_angle(char player_char);
-t_r_value	init_rendering(t_main *config);
-t_r_value	start_rendering(t_main *config);
-void		get_player_pos(t_main *config);
+float			get_player_angle(char player_char);
+t_r_value		init_rendering(t_main *config);
+t_r_value		start_rendering(t_main *config);
+void			get_player_pos(t_main *config, int text_size);
 
 // utils/texture.c
-t_r_value	load_scene(t_main *config);
-t_r_value	load_texture(t_mlx_texture *text, char *file_path, void *mlx);
-t_r_value	load_textures(t_main *config);
-void		free_textures(t_textures *textures);
-void		init_textures(t_textures *texture);
+t_r_value		load_scene(t_main *config);
+t_r_value		load_texture(t_mlx_texture *text, char *file_path, void *mlx);
+t_r_value		load_textures(t_main *config);
+void			free_textures(t_textures *textures);
+void			init_textures(t_textures *texture);
 
 /* ########################################################################## */
 

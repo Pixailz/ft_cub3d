@@ -57,8 +57,8 @@ SRC_C			:= src/debug/debug.c \
 				   src/debug/debug.render.c \
 				   src/debug/debug.render.line.c \
 				   src/draw/line.c \
-				   src/draw/minimap.c \
 				   src/draw/ray.c \
+				   src/draw/raycast.c \
 				   src/draw/scene.c \
 				   src/draw/text.c \
 				   src/error/error.c \
@@ -95,6 +95,7 @@ SRC_C			:= src/debug/debug.c \
 				   src/utils/ft_padding.c \
 				   src/utils/get_line.c \
 				   src/utils/get_ratio.c \
+				   src/utils/get_texture_size.c \
 				   src/utils/mlx.c \
 				   src/utils/mlx.free.c \
 				   src/utils/mlx.hook.c \

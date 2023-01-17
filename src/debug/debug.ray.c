@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:15:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/14 19:01:35 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:59:04 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	debug_print_ray_info(char *title, t_ray ray)
 {
 	dprintf(DEBUG_FD, "%s: (x:%.2f,y:%.2f)\n", \
-						title, ray.pos.x / CELL_SIZE, ray.pos.y / CELL_SIZE);
+		title, ray.pos.x / ray.text_size, ray.pos.y / ray.text_size);
 }
 
 void	debug_print_ray(int mode, void *ptr)

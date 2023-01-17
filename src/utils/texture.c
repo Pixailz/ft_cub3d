@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 01:05:48 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 01:46:39 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:52:37 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,16 @@ t_r_value	load_textures(t_main *config)
 		set_error_known(&config->err, 1, ERRN_03, WEST);
 	if (load_texture(&mlx->textures.east, textures->east_file.path, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, EAST);
-	if (load_texture(&mlx->textures.mini_wall, MINI_WALL_PATH, mlx->ptr))
+	if (load_texture(&mlx->textures.raycast_wall, RAYCAST_WALL_PATH, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, MINI_VOID);
-	if (load_texture(&mlx->textures.mini_void, MINI_VOID_PATH, mlx->ptr))
+	if (load_texture(&mlx->textures.raycast_void, RAYCAST_VOID_PATH, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, MINI_WALL);
-	if (load_texture(&mlx->textures.mini_player, MINI_PLAYER_PATH, mlx->ptr))
+	if (load_texture(&mlx->textures.raycast_player, \
+												RAYCAST_PLAYER_PATH, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, MINI_PLAYER);
-	if (load_texture(&mlx->textures.mini_hit, MINI_HIT_PATH, mlx->ptr))
-		set_error_known(&config->err, 1, ERRN_03, MINI_HIT);
 	if (load_scene(config))
 		set_error(&config->err, 3, ERRN_04);
+	get_textures_size(config);
 	return (have_error(config->err, 4));
 }
 

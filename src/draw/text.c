@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/17 00:49:01 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:42:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	fix_fisheyes(t_ray *ray, t_player player)
 
 void	set_texture_height(t_ray *ray, t_mlx_texture scene)
 {
-	ray->t_height = (CELL_SIZE * scene.len.x) / ray->dist;
-	ray->ty_step = CELL_SIZE / (float)ray->t_height;
+	ray->t_height = (ray->text_size * scene.len.x) / ray->dist;
+	ray->ty_step = ray->text_size / (float)ray->t_height;
 	ray->ty_offset = 0;
 	if (ray->t_height > scene.len.y)
 	{
@@ -43,11 +43,11 @@ void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 	int		y;
 
 	tmp_rgb[2] = ray->img_use->buff[(int)ray->t.x * 4 + \
-											4 * (int)ray->t.y * CELL_SIZE + 2];
+									4 * (int)ray->t.y * ray->text_size + 2];
 	tmp_rgb[1] = ray->img_use->buff[(int)ray->t.x * 4 + \
-											4 * (int)ray->t.y * CELL_SIZE + 1];
+									4 * (int)ray->t.y * ray->text_size + 1];
 	tmp_rgb[0] = ray->img_use->buff[(int)ray->t.x * 4 + \
-											4 * (int)ray->t.y * CELL_SIZE];
+									4 * (int)ray->t.y * ray->text_size];
 	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
 	y = (int)(counter + scene->len.y / 2 - ray->t_height / 2);
 	ft_put_pixel(ray->nbr, y, scene, rgb);
@@ -61,7 +61,7 @@ void	push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene)
 	ray->t.y = ray->ty_offset * ray->ty_step;
 	while (counter < ray->t_height)
 	{
-		if ((int)ray->t.x * 4 + 4 * (int)ray->t.y * CELL_SIZE >= 0)
+		if ((int)ray->t.x * 4 + 4 * (int)ray->t.y * ray->text_size >= 0)
 			push_buff_scene_color(ray, scene, counter);
 		ray->t.y += ray->ty_step;
 		counter++;
@@ -74,8 +74,8 @@ void	get_text(t_main *config)
 	t_d_pos	begin;
 	t_d_pos	end;
 
-	begin.x = config->parsing.map.size.x * CELL_SIZE;
-	begin.y = config->parsing.map.size.y * CELL_SIZE;
+	begin.x = config->parsing.map.size.x * config->ray.text_size;
+	begin.y = config->parsing.map.size.y * config->ray.text_size;
 	end.x = 0;
 	end.y = 0;
 	dist = get_dist(begin, end);

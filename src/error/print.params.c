@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 15:21:21 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:52:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	error_print_params(t_error err)
 	t_r_value	have_known_error;
 	t_r_value	have_map_error;
 
-	have_base_error = err.params & ERROR_MASK_INPUT_USER;
-	have_known_error = err.params & ERROR_MASK_KNOWN;
-	have_map_error = err.params & ERROR_MASK_MAP;
+	have_base_error = err.params & ERRN_MASK_INPUT_USER;
+	have_known_error = err.params & ERRN_MASK_KNOWN;
+	have_map_error = err.params & ERRN_MASK_MAP;
 	if (have_base_error)
 		error_print_base(err.params);
 	if (have_known_error)

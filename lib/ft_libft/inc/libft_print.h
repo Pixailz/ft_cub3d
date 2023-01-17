@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:16:35 by brda-sil          #+#    #+#             */
-/*   Updated: 2022/11/09 03:33:31 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:12:49 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ size_t	ft_putchar_fd(char c, int fd);
 
 // ft_putendl_fd.c
 size_t	ft_putendl_fd(char const *s, int fd);
+
+// ft_puthex_fd.c
+int		ft_put_hex_fd(int n, char mode, int fd);
 
 // ft_putnbr_base_fd.c
 size_t	ft_putnbr_base_fd(t_int64 n, const char *base, int fd);

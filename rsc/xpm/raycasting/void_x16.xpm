@@ -1,5 +1,5 @@
 /* XPM */
-static char * minimap_void_16x16_xpm[] = {
+static char * void_x16_xpm[] = {
 "16 16 2 1",
 " 	c #FFFFFF",
 ".	c #000000",

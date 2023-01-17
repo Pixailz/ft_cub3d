@@ -1,5 +1,5 @@
 /* XPM */
-static char * minimap_wall_64x64_xpm[] = {
+static char * wall_x64_xpm[] = {
 "64 64 12 1",
 " 	c #575757",
 ".	c #565656",

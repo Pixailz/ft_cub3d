@@ -1,5 +1,5 @@
 /* XPM */
-static char * minimap_wall_8x8_xpm[] = {
+static char * wall_x8_xpm[] = {
 "8 8 2 1",
 " 	c #575757",
 ".	c #C0BFBF",

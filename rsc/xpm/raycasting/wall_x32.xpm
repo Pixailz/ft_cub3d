@@ -1,8 +1,8 @@
 /* XPM */
-static char * minimap_void_32x32_xpm[] = {
+static char * wall_x32_xpm[] = {
 "32 32 2 1",
-" 	c #FFFFFF",
-".	c #000000",
+" 	c #575757",
+".	c #C0BFBF",
 "                                ",
 "                                ",
 "  ............................  ",

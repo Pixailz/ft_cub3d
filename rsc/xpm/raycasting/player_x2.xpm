@@ -1,5 +1,5 @@
 /* XPM */
-static char * minimap_player_2x2_xpm[] = {
+static char * player_x2_xpm[] = {
 "2 2 2 1",
 " 	c #FF0000",
 ".	c #0026FF",

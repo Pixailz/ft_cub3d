@@ -1,5 +1,5 @@
 /* XPM */
-static char * minimap_void_64x64_xpm[] = {
+static char * void_x64_xpm[] = {
 "64 64 8 1",
 " 	c #FFFFFF",
 ".	c #F7F7F7",

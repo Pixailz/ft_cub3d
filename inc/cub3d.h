@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 18:14:50 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:31:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,21 @@
 // PI/2
 # define PI4							1.5707963268
 
-# define ADJUST_DELTA					5
+# define ADJUST_DELTA					10
 
 // MLX
 # define WINDOW_TITLE					"Supa Cub3D"
-# define RAYCAST_ENABLE					0
+# define RAYCAST_ENABLE					1
 # define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
-# define FULL_SCREEN					0
-# define DEFAULT_SCREEN_X				1800
-# define DEFAULT_SCREEN_Y				900
-# define DEFAULT_RAYCAST_SCREEN_X		900
-# define DEFAULT_RAYCAST_SCREEN_Y		600
+# define FULL_SCREEN					1
+# define DEFAULT_SCREEN_X				1024
+# define DEFAULT_SCREEN_Y				576
+// # define DEFAULT_SCREEN_X				1600
+// # define DEFAULT_SCREEN_Y				900
+// # define DEFAULT_SCREEN_X				5000
+// # define DEFAULT_SCREEN_Y				5000
+# define DEFAULT_RAYCAST_SCREEN_X		800
+# define DEFAULT_RAYCAST_SCREEN_Y		480
 
 // RAYTRACING
 # define CELL_SIZE						64
@@ -429,11 +433,11 @@ typedef struct s_error
 	t_r_value	texture_args;
 }					t_error;
 
-typedef struct s_f_pos
+typedef struct s_d_pos
 {
-	float	x;
-	float	y;
-}			t_f_pos;
+	double	x;
+	double	y;
+}	t_d_pos;
 
 typedef struct s_i_pos
 {
@@ -443,8 +447,8 @@ typedef struct s_i_pos
 
 typedef struct s_line
 {
-	t_f_pos	begin;
-	t_f_pos	end;
+	t_d_pos	begin;
+	t_d_pos	end;
 }				t_line;
 
 typedef struct s_mlx_texture
@@ -464,10 +468,10 @@ typedef struct s_ray
 	int				depth_of_field;
 	t_bool			hit;
 	t_i_pos			max;
-	t_f_pos			pos;
-	t_f_pos			offset;
-	t_f_pos			save;
-	t_f_pos			t;
+	t_d_pos			pos;
+	t_d_pos			offset;
+	t_d_pos			save;
+	t_d_pos			t;
 	float			angle;
 	float			a_tan;
 	float			n_tan;
@@ -531,8 +535,8 @@ typedef struct s_parse
 
 typedef struct s_player
 {
-	t_f_pos	pos;
-	t_f_pos	delta;
+	t_d_pos	pos;
+	t_d_pos	delta;
 	float	angle;
 }				t_player;
 
@@ -582,7 +586,7 @@ void		debug_print_screen_size(void *ptr);
 void		debug_print_line_pos(t_line *line);
 
 // draw/line.c
-t_line		get_line(t_f_pos begin, t_f_pos end);
+t_line		get_line(t_d_pos begin, t_d_pos end);
 void		draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
 
 // draw/minimap.c
@@ -718,13 +722,10 @@ void		cast_ray_down(t_ray *ray, t_player player);
 void		cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
 void		cast_ray_up(t_ray *ray, t_player player);
 
-// ray/init.c
-void		init_ray(int nbr_ray, t_ray *ray);
-
 // ray/utils.1.c
-double		get_dist(t_f_pos begin, t_f_pos end);
-float		get_a_tan(float ray_angle);
-float		get_n_tan(float ray_angle);
+double		get_a_tan(double ray_angle);
+double		get_dist(t_d_pos begin, t_d_pos end);
+double		get_n_tan(double ray_angle);
 t_bool		ray_hit(t_ray *ray, t_map map, int to_add);
 void		increase_offset(t_ray *ray);
 

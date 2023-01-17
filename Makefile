@@ -84,7 +84,6 @@ SRC_C			:= src/debug/debug.c \
 				   src/parse/parse.line.texture.c \
 				   src/ray/cast.c \
 				   src/ray/horizontal.c \
-				   src/ray/init.c \
 				   src/ray/utils.1.c \
 				   src/ray/vertical.c \
 				   src/utils/check_permission.c \

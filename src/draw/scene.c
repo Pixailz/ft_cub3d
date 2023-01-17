@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:20:31 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 18:18:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:03:41 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	draw_scene(t_main *config)
 {
 	if (RAYCAST_ENABLE)
 		draw_minimap(config);
-	if ((int)(config->player.pos.x / CELL_SIZE) >= 0 && \
-		(int)(config->player.pos.y) / CELL_SIZE >= 0 && \
-		(int)(config->player.pos.x / CELL_SIZE) < config->parsing.map.size.x && \
-		(int)(config->player.pos.y / CELL_SIZE) < config->parsing.map.size.y && \
+	if (config->player.pos.x / CELL_SIZE >= 0 && \
+		config->player.pos.y / CELL_SIZE >= 0 && \
+		config->player.pos.x / CELL_SIZE < config->parsing.map.size.x && \
+		config->player.pos.y / CELL_SIZE < config->parsing.map.size.y && \
 		config->parsing.map.matrix[(int)(config->player.pos.y / CELL_SIZE)] \
 			[(int)(config->player.pos.x / CELL_SIZE)] != VOID_CHAR)
 	{

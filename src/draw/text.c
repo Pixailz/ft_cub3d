@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 17:21:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 00:49:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 	t_int1	tmp_rgb[3];
 	int		y;
 
-	tmp_rgb[0] = ray->img_use->buff[(int)ray->t.x * 4 + \
+	tmp_rgb[2] = ray->img_use->buff[(int)ray->t.x * 4 + \
 											4 * (int)ray->t.y * CELL_SIZE + 2];
 	tmp_rgb[1] = ray->img_use->buff[(int)ray->t.x * 4 + \
 											4 * (int)ray->t.y * CELL_SIZE + 1];
-	tmp_rgb[2] = ray->img_use->buff[(int)ray->t.x * 4 + \
+	tmp_rgb[0] = ray->img_use->buff[(int)ray->t.x * 4 + \
 											4 * (int)ray->t.y * CELL_SIZE];
 	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
 	y = (int)(counter + scene->len.y / 2 - ray->t_height / 2);
@@ -71,8 +71,8 @@ void	push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene)
 void	get_text(t_main *config)
 {
 	double	dist;
-	t_f_pos	begin;
-	t_f_pos	end;
+	t_d_pos	begin;
+	t_d_pos	end;
 
 	begin.x = config->parsing.map.size.x * CELL_SIZE;
 	begin.y = config->parsing.map.size.y * CELL_SIZE;

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 18:10:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 00:13:18 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	choose_ray(t_main *config)
 void	cast_rays(t_main *config)
 {
 	config->ray.hit = 0;
+	if (config->ray.angle < 0)
+		config->ray.angle += PI2;
+	if (config->ray.angle > PI2)
+		config->ray.angle -= PI2;
 	config->ray.a_tan = get_a_tan(config->ray.angle);
 	cast_ray_horizontal(&config->ray, config->player, config->parsing.map);
 	config->ray.n_tan = get_n_tan(config->ray.angle);
@@ -57,11 +61,10 @@ void	cast_ray_entry(t_main *config)
 	first = 0;
 	to_add = DR / (config->mlx.screen.x / FOV);
 	config->ray.angle = config->player.angle - (DR * (FOV / 2));
-	init_ray(config->mlx.textures.scene.len.x, &config->ray);
+	config->ray.nbr = 0;
+	config->ray.nbr_ray = config->mlx.textures.scene.len.x;
 	while (config->ray.nbr < config->ray.nbr_ray)
 	{
-		if (config->ray.angle > config->player.angle + DR * (FOV / 2))
-			break ;
 		cast_rays(config);
 		if (!first)
 		{

@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:49:39 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 00:33:49 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 00:51:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-double	get_dist(t_f_pos begin, t_f_pos end)
+double	get_dist(t_d_pos begin, t_d_pos end)
 {
 	double	diff_x;
 	double	diff_y;
@@ -26,7 +26,7 @@ double	get_dist(t_f_pos begin, t_f_pos end)
 
 t_bool	ray_hit(t_ray *ray, t_map map, int to_add)
 {
-	if (ray->max.x >= 0 && ray->max.y >= 0)
+	if (ray->pos.x >= 0 && ray->pos.y >= 0)
 	{
 		if (ray->max.x < map.size.x && ray->max.y < map.size.y)
 		{
@@ -41,12 +41,12 @@ t_bool	ray_hit(t_ray *ray, t_map map, int to_add)
 	return (FALSE);
 }
 
-float	get_a_tan(float ray_angle)
+double	get_a_tan(double ray_angle)
 {
 	return (-1 / tan(ray_angle));
 }
 
-float	get_n_tan(float ray_angle)
+double	get_n_tan(double ray_angle)
 {
 	return (-tan(ray_angle));
 }

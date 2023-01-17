@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/17 20:08:30 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:16:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 
 	// BASE
 # define PLAYER_STEP					0.25
-# define FOV							65
+# define FOV							50
 
 	// MATRIX
 # define MATRIX_OFFSET					10

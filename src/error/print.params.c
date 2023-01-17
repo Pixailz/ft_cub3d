@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/17 17:52:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:21:46 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,4 @@ void	error_print_params(t_error err)
 		error_print_params_known(err);
 	if (have_map_error)
 		error_print_params_map(err.params);
-	if (have_base_error || have_known_error || have_map_error)
-		ft_putchar_fd('\n', 2);
 }

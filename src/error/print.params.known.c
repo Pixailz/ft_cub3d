@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/16 15:22:58 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:20:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	error_print_params_known(t_error err)
 	t_r_value	err_no;
 
 	err_no = err.params;
-	ft_put_padded_str(2, 1, "Params:\n");
+	ft_put_padded_str(2, 1, "Params:");
 	if (err_no & ERRN_06)
 		error_print_params_already_provided(err.params_args);
 	if (err_no & ERRN_07)

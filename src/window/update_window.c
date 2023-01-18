@@ -78,15 +78,15 @@ void	vertical_ray(t_ray *ray, t_player player, t_map map)
 	{
 		ray->rx = player.pos_x;
 		ray->ry = player.pos_y;
-		ray->dof = map.matrix_x + 10;
+		ray->dof = map.matrix_x + 6;
 	}
-	while (ray->dof < map.matrix_x + 10)
+	while (ray->dof < map.matrix_x + 6)
 	{
 		ray->mx = (int)(ray->rx) >> 6;
 		ray->my = (int)(ray->ry) >> 6;
 		if (ray->mx >= 0 && ray->my >= 0 &&  ray->mx < map.matrix_x  && ray->my < map.matrix_y && map.matrix[ray->my][ray->mx] == '1')
 		{
-			ray->dof = map.matrix_x + 10;
+			ray->dof = map.matrix_x + 6;
 			ray->hit = 1;
 		}
 		else
@@ -123,22 +123,22 @@ void	down_ray(t_ray *ray, t_player player)
 void	horizontal_ray(t_ray *ray, t_player player, t_map map)
 {
     ray->dof = 0;
-	ray->atan = -1/tan(ray->ra);
+    ray->atan = -1/tan(ray->ra);
     up_ray(ray, player);
     down_ray(ray, player);
     if (ray->ra == 0 || ray->ra == PI)
     {
 			ray->rx = player.pos_x;
 			ray->ry = player.pos_y;
-			ray->dof = map.matrix_y + 10;
+			ray->dof = map.matrix_y + 6;
 	}
-    while (ray->dof < map.matrix_y + 10)
+    while (ray->dof < map.matrix_y + 6)
 	{
 		ray->mx = (int)(ray->rx) >> 6;
 		ray->my = (int)(ray->ry) >> 6;
 		if (ray->mx >= 0 && ray->my >= 0 &&  ray->mx < map.matrix_x  && ray->my < map.matrix_y  && map.matrix[ray->my][ray->mx] == '1')
 		{
-			ray->dof = map.matrix_y + 10;
+			ray->dof = map.matrix_y + 6;
 			ray->hit = 1;
 		}
 		else
@@ -211,7 +211,7 @@ void fix_fisheyes(t_ray *ray, t_player player)
 void set_line_height(t_ray *ray, t_image scene)
 {
 	ray->line_h = (64 * scene.img_x) / ray->dist;
-	ray->ty_step = 64.0/(float)ray->line_h;
+	ray->ty_step = ray->img_use.img_y/(float)ray->line_h;
 	ray->ty_off = 0;
 	if (ray->line_h > scene.img_y)
 	{
@@ -223,7 +223,7 @@ void set_line_height(t_ray *ray, t_image scene)
 int	check_in_img(t_ray ray, t_image scene)
 {
 	(void)scene;
-	if ((int)ray.tx * 4 + 4 * (int)ray.ty * 64 < 0)
+	if ((int)ray.tx * 4 + 4 * (int)ray.ty * ray.img_use.img_x < 0)
 		return(0);
 	return(1);
 }
@@ -251,9 +251,9 @@ void draw_wall(t_map map, t_player player, t_image *scene)
 			{
 				if (check_in_img(ray, *scene))
 				{
-					ray.color[0] = ray.img_use.buff[(int)ray.tx * 4 + 4 * (int)ray.ty * 64 + 2];
-					ray.color[1] = ray.img_use.buff[(int)ray.tx * 4 + 4 *(int)ray.ty * 64 +1];
-					ray.color[2] = ray.img_use.buff[(int)ray.tx * 4 + 4 *(int)ray.ty* 64];
+					ray.color[0] = ray.img_use.buff[(int)(ray.img_use.img_x*ray.tx/64) * 4 + 4 * (int)ray.ty * ray.img_use.img_x + 2];
+					ray.color[1] = ray.img_use.buff[(int)(ray.img_use.img_x*ray.tx/64) * 4 + 4 *(int)ray.ty * ray.img_use.img_x + 1];
+					ray.color[2] = ray.img_use.buff[(int)(ray.img_use.img_x*ray.tx/64) * 4 + 4 *(int)ray.ty * ray.img_use.img_x];
 					ft_put_pixel((int)ray.r, (int)(i + (scene->img_y / 2 - ray.line_h/2)), scene, ray.color);
 				}
 				ray.ty += ray.ty_step;

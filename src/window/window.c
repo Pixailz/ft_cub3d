@@ -55,18 +55,18 @@ void	init_player(t_player *player, t_map map)
 		player->angle = PI;
 	else
 		player->angle = 0;
-	player->dx = cos(player->angle) * 5;
-	player->dy = sin(player->angle) * 5;
+	player->dx = cos(player->angle) * 20;
+	player->dy = sin(player->angle) * 20;
 
 }
 
 void init_map(t_map *map, t_parse *main, t_frame *frame)
 {
 	/*tmp*/
-	char *N = "./wallN.xpm";
-	char *S = "./wallS.xpm";
-	char *W = "./wallW.xpm";
-	char *E = "./wall4.xpm";
+	char *N = "./default_64x64_east.xpm";
+	char *S = "./default_64x64_north.xpm";
+	char *W = "./default_64x64_south.xpm";
+	char *E = "./default_64x64_west.xpm";
 	/*tmp*/
 	map->matrix = main->map;
 	map->floor = main->floor;
@@ -87,6 +87,7 @@ void init_frame_and_scene(t_frame *frame, t_image *scene)
 	scene->img_x = 1920;
 	scene->img_y = 1050;
 	frame->win = mlx_new_window(frame->mlx, scene->img_x, scene->img_y, "Cub3d");
+	frame->input = 1;
 	scene->img = mlx_new_image(frame->mlx, scene->img_x, scene->img_y);
 	scene->buff = mlx_get_data_addr(scene->img, &scene->bpp, &scene->size_line, &scene->endian);
 }

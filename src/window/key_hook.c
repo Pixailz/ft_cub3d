@@ -16,8 +16,8 @@ void rotate_left(t_player *player)
     player->angle -= 0.1;
 	if (player->angle < 0)
 		player->angle += 2 * PI;
-	player->dx = cos(player->angle) * 5;
-	player->dy = sin(player->angle) * 5;
+	player->dx = cos(player->angle) * 1;
+	player->dy = sin(player->angle) * 1;
 }
 
 void rotate_rigth(t_player *player)
@@ -25,8 +25,8 @@ void rotate_rigth(t_player *player)
     player->angle += 0.1;
 	if (player->angle > 2 * PI)
 	    player->angle -=  (2 * PI);
-	player->dx = cos(player->angle) * 5;
-	player->dy = sin(player->angle) * 5;
+	player->dx = cos(player->angle) * 1;
+	player->dy = sin(player->angle) * 1;
 }
 
 void translate_front(t_player *player)
@@ -47,17 +47,13 @@ int	check_button_press(int button, t_frame *frame)
 	{
 		translate_front(&frame->player);
 		while ((int)(frame->player.pos_x / 64) >= 0 && (int)(frame->player.pos_y) / 64 >= 0 && (int)(frame->player.pos_x / 64) < frame->map.matrix_x && (int)(frame->player.pos_y / 64) < frame->map.matrix_y && frame->map.matrix[(int)(frame->player.pos_y / 64)][(int)(frame->player.pos_x / 64)] == '1')
-		{
 			translate_front(&frame->player);
-		}
 	}
 	else if(button == XK_s)
 	{
         translate_back(&frame->player);
 		while ((int)(frame->player.pos_x / 64) >= 0 && (int)(frame->player.pos_y) / 64 >= 0 && (int)(frame->player.pos_x / 64) < frame->map.matrix_x && (int)(frame->player.pos_y / 64) < frame->map.matrix_y && frame->map.matrix[(int)(frame->player.pos_y / 64)][(int)(frame->player.pos_x / 64)] == '1')
-		{
 			translate_back(&frame->player);
-		}
 	}
 	else if(button == XK_a)
         rotate_left(&frame->player);

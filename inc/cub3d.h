@@ -128,6 +128,7 @@ typedef struct s_frame
 	t_player player;
 	t_map map;
 	t_image scene;
+	char	input;
 	void	*mlx;
 	void	*win;
 } t_frame;

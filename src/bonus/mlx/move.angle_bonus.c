@@ -20,7 +20,7 @@ void	adjust_delta(t_player *player, int text_size)
 
 void	key_press_move_angle_left(t_player *player, int text_size)
 {
-	player->angle -= DR * 15;
+	player->angle -= DR;
 	if (player->angle < 0)
 		player->angle += PI2;
 	adjust_delta(player, text_size);
@@ -29,7 +29,7 @@ void	key_press_move_angle_left(t_player *player, int text_size)
 
 void	key_press_move_angle_right(t_player *player, int text_size)
 {
-	player->angle += DR * 15;
+	player->angle += DR;
 	if (player->angle > PI2)
 		player->angle -= PI2;
 	adjust_delta(player, text_size);

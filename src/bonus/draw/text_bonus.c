@@ -27,7 +27,7 @@ void	fix_fisheyes(t_ray *ray, t_player player)
 void	set_texture_height(t_ray *ray, t_mlx_texture scene)
 {
 	ray->t_height = (ray->text_size * scene.len.x) / ray->dist;
-	ray->ty_step = ray->text_size / (float)ray->t_height;
+	ray->ty_step = ray->img_use->len.x / (float)ray->t_height;
 	ray->ty_offset = 0;
 	if (ray->t_height > scene.len.y)
 	{
@@ -42,12 +42,12 @@ void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 	t_int1	tmp_rgb[3];
 	int		y;
 
-	tmp_rgb[2] = ray->img_use->buff[(int)ray->t.x * 4 + \
-									4 * (int)ray->t.y * ray->text_size + 2];
-	tmp_rgb[1] = ray->img_use->buff[(int)ray->t.x * 4 + \
-									4 * (int)ray->t.y * ray->text_size + 1];
-	tmp_rgb[0] = ray->img_use->buff[(int)ray->t.x * 4 + \
-									4 * (int)ray->t.y * ray->text_size];
+	tmp_rgb[2] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size) * 4 + \
+									4 * (int)ray->t.y * ray->img_use->len.x + 2];
+	tmp_rgb[1] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size) * 4 + \
+									4 * (int)ray->t.y * ray->img_use->len.x + 1];
+	tmp_rgb[0] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size)* 4 + \
+									4 * (int)ray->t.y * ray->img_use->len.x];
 	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
 	y = (int)(counter + scene->len.y / 2 - ray->t_height / 2);
 	ft_put_pixel(ray->nbr, y, scene, rgb);

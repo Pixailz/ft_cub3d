@@ -26,7 +26,7 @@ double	get_dist(t_d_pos begin, t_d_pos end)
 
 t_bool	ray_hit(t_ray *ray, t_map map, int to_add)
 {
-	if (ray->pos.x >= 0 && ray->pos.y >= 0)
+	if (ray->max.x >= 0 && ray->max.y >= 0)
 	{
 		if (ray->max.x < map.size.x && ray->max.y < map.size.y)
 		{

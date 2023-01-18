@@ -1,7 +1,7 @@
 NO ./rsc/xpm/wallS.xpm
 SO ./rsc/xpm/wallS.xpm
-WE ./rsc/xpm/wallS.xpm
-EA ./rsc/xpm/wallS.xpm
+WE ./rsc/xpm/wallN.xpm
+EA ./rsc/xpm/default_64/north.xpm
 
 F 220,100,0
 C 225,30,0

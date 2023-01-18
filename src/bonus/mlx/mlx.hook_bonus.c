@@ -84,13 +84,13 @@ int	ft_get_axis(int x, int y, t_main *config)
 		config->cursor = x;
 		return(0);
 	}
-	if (config->cursor - x > 30)
+	if (config->cursor - x > 0)
 	{
 		key_press_move_angle_left(&config->player, config->ray.text_size);
 		config->cursor = x;
 		draw_scene(config);
 	}
-	else if (config->cursor - x < -30)
+	else if (config->cursor - x < 0)
 	{
 		key_press_move_angle_right(&config->player, config->ray.text_size);
 		config->cursor = x;

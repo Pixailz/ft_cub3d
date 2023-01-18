@@ -72,7 +72,7 @@
 // CONFIG
 
 	// BASE
-# define PLAYER_STEP					(360 / 100 * 15) / 100
+# define PLAYER_STEP					(360 / 100) / 100
 # define FOV							50
 
 	// MATRIX

@@ -12,11 +12,11 @@
 
 #include <cub3d.bonus.h>
 
-void	get_lowest_size(t_i_pos *lowest, t_mlx_texture text)
+void	get_highest_size(t_i_pos *lowest, t_mlx_texture text)
 {
-	if (lowest->x > text.len.x)
+	if (lowest->x < text.len.x)
 		lowest->x = text.len.x;
-	if (lowest->y > text.len.y)
+	if (lowest->y < text.len.y)
 		lowest->y = text.len.y;
 }
 
@@ -62,12 +62,12 @@ void	get_textures_size(t_main *config)
 	textures = config->mlx.textures;
 	lowest.x = textures.north.len.x;
 	lowest.y = textures.north.len.y;
-	get_lowest_size(&lowest, textures.south);
-	get_lowest_size(&lowest, textures.west);
-	get_lowest_size(&lowest, textures.east);
+	get_highest_size(&lowest, textures.south);
+	get_highest_size(&lowest, textures.west);
+	get_highest_size(&lowest, textures.east);
 	if (RAYCAST_ENABLE)
 		get_raycast_size(config);
-	if (lowest.x > lowest.y)
+	if (lowest.x < lowest.y)
 		config->ray.text_size = lowest.y;
 	else
 		config->ray.text_size = lowest.x;

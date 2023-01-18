@@ -1,0 +1,366 @@
+#!/bin/bash
+
+read -r -d '' VALID_MAP_00 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' VALID_MAP_01 << EOF
+NO                       ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' VALID_MAP_02 << EOF
+F 255,100,0
+NO                       ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+C 225,30,0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' VALID_MAP_03 << EOF
+F 255,100,0
+NO                       ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+
+
+
+
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+C     225,30,0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' VALID_MAP_04 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+1001011
+1010001
+1000N11
+ 11111
+EOF
+
+read -r -d '' VALID_MAP_05 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+100000000001
+100000000001
+100000N00001
+100000000001
+100000000001
+111111111111
+111111111111
+100000000001
+100000000001
+100000000001
+100000000001
+100000000001
+111111111111
+EOF
+
+read -r -d '' VALID_MAP_06 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+100000000001
+100000000001
+10000N000001
+100000000001
+100000000001
+111111111111
+1
+111111111111
+100000000001
+100000000001
+100000000001
+100000000001
+100000000001
+111111111111
+EOF
+
+read -r -d '' VALID_MAP_07 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' INVALID_MAP_00 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30 0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' INVALID_MAP_01 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+111111
+1001011
+1010001
+1100N11
+111111
+
+F 220,100,0
+C 225,30,0
+EOF
+
+read -r -d '' INVALID_MAP_02 << EOF
+NO
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' INVALID_MAP_03 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 256,100,-1
+C 225,30,0
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF
+
+read -r -d '' INVALID_MAP_04 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+1001011
+1010000
+1100N11
+111111
+EOF
+
+read -r -d '' INVALID_MAP_05 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+100000000001
+100000000001
+10000N000001
+100000000001
+111111111111
+
+111111111111
+100000000001
+10000000001
+100000000001
+100000000001
+111111111111
+EOF
+#Except for the map content, each type of element can be separated by one or
+#more empty line(s).
+
+read -r -d '' INVALID_MAP_06 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+1001011
+1010001
+1000N11
+111111
+EOF
+
+read -r -d '' INVALID_MAP_07 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+100000000001
+100000000001
+100000000001
+100000000001
+100000000001
+111111111111
+111111111111
+100000000001
+100000000001
+100000000001
+100000000001
+100000000001
+111111111111
+EOF
+
+read -r -d '' INVALID_MAP_08 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+100000000001
+100000000001
+10000N000001
+100000000001
+100000000001
+111111111111
+1
+111111111111
+100000000001
+10000000001
+10000 0001
+10000000001
+100000000001
+111111111111
+EOF
+
+read -r -d '' INVALID_MAP_09 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+100000000001
+100000000001
+10000N000001
+100000000001
+100000000001
+111111111111
+1
+100000000001
+100000000001
+10000000001
+100000000001
+100000000001
+111111111111
+EOF
+
+read -r -d '' INVALID_MAP_10 << EOF
+NO ${TEXT_BASE_DIR}/default_32x32_north.xpm
+SO ${TEXT_BASE_DIR}/default_32x32_south.xpm
+WE ${TEXT_BASE_DIR}/default_32x32_west.xpm
+EA ${TEXT_BASE_DIR}/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,avds
+
+111111
+1001011
+1010001
+1100N11
+111111
+EOF

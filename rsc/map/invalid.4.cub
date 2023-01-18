@@ -1,0 +1,11 @@
+NO ./rsc/xpm/default_32x32_north.xpm
+SO ./rsc/xpm/default_32x32_south.xpm
+WE ./rsc/xpm/default_32x32_west.xpm
+EA ./rsc/xpm/default_32x32_east.xpm
+
+F 220,100,0
+C 225,30,0
+
+11111
+1N0 1
+11111

@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2022/11/09 05:32:14 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/17 20:13:27 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -219,6 +219,7 @@ SRC_PRT				:= print/ft_error.c \
 					   print/ft_printf_fd.c \
 					   print/ft_putchar_fd.c \
 					   print/ft_putendl_fd.c \
+					   print/ft_puthex_fd.c \
 					   print/ft_putnbr_base_fd.c \
 					   print/ft_putnbr_fd.c \
 					   print/ft_putstr_fd.c \

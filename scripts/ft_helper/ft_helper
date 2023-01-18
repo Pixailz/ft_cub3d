@@ -183,8 +183,16 @@ class	ft_helper():
 if __name__ == "__main__":
 	config = {
 		"makefile":		"Makefile",
-		"makefile_var":	"SRC_C",
-		"header":		"inc/cub3d.h",
-		"src_folder":	"src"
+		"makefile_var":	"SRC_C_MANDATORY",
+		"header":		"inc/cub3d.mandatory.h",
+		"src_folder":	"src/mandatory"
+	}
+	cub3d_mandatory = ft_helper(**config)
+
+	config = {
+		"makefile":		"Makefile",
+		"makefile_var":	"SRC_C_BONUS",
+		"header":		"inc/cub3d.bonus.h",
+		"src_folder":	"src/bonus"
 	}
 	cub3d = ft_helper(**config)

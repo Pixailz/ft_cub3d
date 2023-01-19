@@ -27,7 +27,7 @@ void	fix_fisheyes(t_ray *ray, t_player player)
 void	set_texture_height(t_ray *ray, t_mlx_texture scene)
 {
 	ray->t_height = (ray->text_size * scene.len.x) / ray->dist;
-	ray->ty_step = ray->img_use->len.x / (float)ray->t_height;
+	ray->ty_step = ray->img_use->len.y / (float)ray->t_height;
 	ray->ty_offset = 0;
 	if (ray->t_height > scene.len.y)
 	{
@@ -35,6 +35,17 @@ void	set_texture_height(t_ray *ray, t_mlx_texture scene)
 		ray->t_height = scene.len.y;
 	}
 }
+/*
+int	check_in_img_2(t_ray ray)
+{
+	if ((int)(ray.t.x*ray.img_use->len.x/ray.text_size)* 4 + \
+										4 * (int)ray.t.y * ray.img_use->len.x < 0)
+		return(0);
+	if ((int)(ray.t.x*ray.img_use->len.x/ray.text_size) * 4 + \
+										4 * (int)ray.t.y * ray.img_use->len.x + 2 >= ray.img_use->len.x * 4 + 4 *ray.img_use->len.x*ray.img_use->len.y)
+		return(0);
+	return(1);
+}*/
 
 void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 {
@@ -42,15 +53,18 @@ void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 	t_int1	tmp_rgb[3];
 	int		y;
 
-	tmp_rgb[2] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size) * 4 + \
-									4 * (int)ray->t.y * ray->img_use->len.x + 2];
-	tmp_rgb[1] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size) * 4 + \
-									4 * (int)ray->t.y * ray->img_use->len.x + 1];
-	tmp_rgb[0] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size)* 4 + \
-									4 * (int)ray->t.y * ray->img_use->len.x];
-	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
-	y = (int)(counter + scene->len.y / 2 - ray->t_height / 2);
-	ft_put_pixel(ray->nbr, y, scene, rgb);
+	//if (check_in_img_2(*ray))
+	//{
+		tmp_rgb[2] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size) * 4 + \
+										4 * (int)ray->t.y * ray->img_use->len.x + 2];
+		tmp_rgb[1] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size) * 4 + \
+										4 * (int)ray->t.y * ray->img_use->len.x + 1];
+		tmp_rgb[0] = ray->img_use->buff[(int)(ray->t.x*ray->img_use->len.x/ray->text_size)* 4 + \
+										4 * (int)ray->t.y * ray->img_use->len.x];
+		rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
+		y = (int)(counter + scene->len.y / 2 - ray->t_height / 2);
+		ft_put_pixel(ray->nbr, y, scene, rgb);
+	//}
 }
 
 void	push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene)

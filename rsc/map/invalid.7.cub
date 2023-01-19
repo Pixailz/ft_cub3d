@@ -1,7 +1,7 @@
-NO ./rsc/xpm/default_64/north.xpm
-SO ./rsc/xpm/default_64/south.xpm
-WE ./rsc/xpm/default_64/west.xpm
-EA ./rsc/xpm/default_64/east.xpm
+NO ./rsc/xpm/wallN.xpm
+SO ./rsc/xpm/wallS.xpm
+WE ./rsc/xpm/wallW.xpm
+EA ./rsc/xpm/wallE.xpm
 C 0,255,255
 F 50,255,50
 

@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 02:30:10 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/20 19:46:22 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/20 20:11:06 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.mandatory.h>
 
-int	main(int argc, char **argv)
+void	free_textures(t_textures *textures)
 {
-	t_main			config;
-
-	if (argc != 2)
-		return (ft_printf_fd(2, "Error:\n%sprogram take one arguments.\n", \
-																PADDING_STR));
-	init_config(&config);
-	if (parse_entry(&config.err, argv[1], &config.parse))
-		return (error_print(config.err, &config));
-	start_rendering(&config);
-	error_print(config.err, &config);
-	return (have_error(config.err, 0));
+	textures->ceiling = ft_int4_comp(0, 0, 0, 0);
+	textures->floor = ft_int4_comp(0, 0, 0, 0);
+	free_file(&textures->north_file);
+	free_file(&textures->south_file);
+	free_file(&textures->west_file);
+	free_file(&textures->east_file);
 }

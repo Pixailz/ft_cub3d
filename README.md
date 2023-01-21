@@ -8,7 +8,7 @@
 - fix little norme issue everywhere (line to long prototype)
   - inc/
   - src/
-
+  - 
 ## ERRNO
 
 ### Malloc
@@ -56,7 +56,7 @@
 |ERRN_00|all good                              |
 |ERRN_01|ARGS_FILE_NAME_TOO_SHORT              |
 |ERRN_02|ARGS_FILE_WRONG_EXTENSION             |
-|ERRN_03|ARGS_PATH_PERMISSION_DENIED-NOT_FOUND |
+|ERRN_03|ARGS_PATH                             |
 |ERRN_04|PARAMS_ARG_1_EMPTY_FILE               |
 |ERRN_05|PARAMS_UNKNOWN                        |
 |ERRN_06|PARAMS_HAVE_ALREADY_PROVIDED          |

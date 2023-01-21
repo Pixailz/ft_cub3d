@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 02:30:10 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/20 19:37:33 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.mandatory.h>
 
-int	main(int argc, char **argv)
+void	debug_print_line_pos(t_line *line)
 {
-	t_main			config;
-
-	if (argc != 2)
-		return (ft_printf_fd(2, "Error:\n%sprogram take one arguments.\n", \
-																PADDING_STR));
-	init_config(&config);
-	if (parse_entry(&config.err, argv[1], &config.parse))
-		return (error_print(config.err, &config));
-	start_rendering(&config);
-	error_print(config.err, &config);
-	return (have_error(config.err, 0));
+	dprintf(DEBUG_FD, "line.begin (x:%.2f,y:%.2f) | line.end (x:%.2f,y:%.2f)", \
+			line->begin.x, line->begin.y, \
+			line->end.x, line->end.y);
 }

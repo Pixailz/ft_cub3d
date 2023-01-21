@@ -57,49 +57,67 @@ MINI_LIBX			:= $(LIB_DIR)/minilibx-linux/libmlx_Linux.a
 LDFLAGS				:= -Llib/minilibx-linux -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 
 # SRC
-SRC_C_MANDATORY		:= src/mandatory/draw/scene.c \
-					   src/mandatory/draw/text.c \
-					   src/mandatory/error/error.c \
-					   src/mandatory/error/print.c \
-					   src/mandatory/error/print.malloc.c \
-					   src/mandatory/error/print.params.c \
-					   src/mandatory/error/print.params.color.c \
-					   src/mandatory/error/print.params.known.c \
-					   src/mandatory/error/print.texture.c \
-					   src/mandatory/error/print.texture.known.c \
-					   src/mandatory/error/set.c \
-					   src/mandatory/error/set.params.c \
-					   src/mandatory/error/set.texture.c \
+SRC_C_MANDATORY		:= src/mandatory/dataset/free/config.c \
+					   src/mandatory/dataset/free/file.c \
+					   src/mandatory/dataset/free/mlx.c \
+					   src/mandatory/dataset/free/mlx.hook.c \
+					   src/mandatory/dataset/free/parse.c \
+					   src/mandatory/dataset/free/texture.c \
+					   src/mandatory/dataset/init/config.c \
+					   src/mandatory/dataset/init/file.c \
+					   src/mandatory/dataset/init/mlx.c \
+					   src/mandatory/dataset/init/mlx.hook.c \
+					   src/mandatory/dataset/init/parse.c \
+					   src/mandatory/dataset/init/player.c \
+					   src/mandatory/dataset/init/rendering.c \
+					   src/mandatory/dataset/init/texture.c \
+					   src/mandatory/debug/error.c \
+					   src/mandatory/debug/map.c \
+					   src/mandatory/debug/parsing.c \
+					   src/mandatory/debug/print.c \
+					   src/mandatory/debug/ray.c \
+					   src/mandatory/debug/render.c \
+					   src/mandatory/debug/render.line.c \
+					   src/mandatory/error/print/entry.c \
+					   src/mandatory/error/print/error_no_print.c \
+					   src/mandatory/error/print/malloc.c \
+					   src/mandatory/error/print/params.c \
+					   src/mandatory/error/print/params.color.c \
+					   src/mandatory/error/print/params.known.c \
+					   src/mandatory/error/print/texture.c \
+					   src/mandatory/error/print/texture.known.c \
+					   src/mandatory/error/set/entry.c \
+					   src/mandatory/error/set/params.c \
+					   src/mandatory/error/set/texture.c \
+					   src/mandatory/error/utils.c \
 					   src/mandatory/main.c \
-					   src/mandatory/mlx/mlx.free.c \
-					   src/mandatory/mlx/mlx.hook.c \
-					   src/mandatory/mlx/mlx.init.c \
-					   src/mandatory/mlx/move.angle.c \
-					   src/mandatory/mlx/move.dir.c \
-					   src/mandatory/parse/map/check.c \
-					   src/mandatory/parse/map/check.surrounded.c \
-					   src/mandatory/parse/map/entry.c \
-					   src/mandatory/parse/parse.entry.c \
-					   src/mandatory/parse/parse.file.c \
-					   src/mandatory/parse/parse.line.c \
-					   src/mandatory/parse/parse.line.color.c \
-					   src/mandatory/parse/parse.line.texture.c \
-					   src/mandatory/parse/utils.1.c \
-					   src/mandatory/ray/cast.c \
-					   src/mandatory/ray/horizontal.c \
-					   src/mandatory/ray/utils.1.c \
-					   src/mandatory/ray/vertical.c \
-					   src/mandatory/struct/config.c \
-					   src/mandatory/struct/file.c \
-					   src/mandatory/struct/parsing.c \
-					   src/mandatory/struct/player.c \
-					   src/mandatory/struct/rendering.c \
-					   src/mandatory/struct/texture.c \
-					   src/mandatory/struct/texture.get_size.c \
-					   src/mandatory/utils/file.c \
-					   src/mandatory/utils/ft_cub3d_split.c \
-					   src/mandatory/utils/ft_free_char_pointer.c \
-					   src/mandatory/utils/get_line.c
+					   src/mandatory/parsing/dup_map_squared.c \
+					   src/mandatory/parsing/entry.c \
+					   src/mandatory/parsing/ft_cub3d_split.c \
+					   src/mandatory/parsing/line/color.c \
+					   src/mandatory/parsing/line/entry.c \
+					   src/mandatory/parsing/line/texture.c \
+					   src/mandatory/parsing/map/check.c \
+					   src/mandatory/parsing/map/check.surrounded.c \
+					   src/mandatory/parsing/map/entry.c \
+					   src/mandatory/parsing/params.c \
+					   src/mandatory/parsing/utils.1.c \
+					   src/mandatory/rendering/draw/fov.c \
+					   src/mandatory/rendering/draw/frame.c \
+					   src/mandatory/rendering/draw/hit.c \
+					   src/mandatory/rendering/draw/line.c \
+					   src/mandatory/rendering/draw/raycast.c \
+					   src/mandatory/rendering/draw/scene.c \
+					   src/mandatory/rendering/move/angle.c \
+					   src/mandatory/rendering/move/dir.c \
+					   src/mandatory/rendering/raycast/cast.c \
+					   src/mandatory/rendering/raycast/get_text.c \
+					   src/mandatory/rendering/raycast/horizontal.c \
+					   src/mandatory/rendering/raycast/vertical.c \
+					   src/mandatory/rendering/texture/load.c \
+					   src/mandatory/rendering/texture/load.size.c \
+					   src/mandatory/rendering/utils.1.c \
+					   src/mandatory/rendering/utils.2.c
 
 SRC_C_BONUS			:= src/bonus/debug/debug.error_bonus.c \
 					   src/bonus/debug/debug.map_bonus.c \

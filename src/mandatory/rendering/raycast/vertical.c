@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 04:54:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:26:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	cast_ray_rigth(t_ray *ray, t_player player)
 {
 	if (ray->angle > PI4 && ray->angle < PI3)
 	{
-		ray->pos.x = (((int)player.pos.x / ray->text_size) * ray->text_size) - \
+		ray->pos.x = (((int)player.pos.x >> ray->bit_prec) << ray->bit_prec) - \
 																		0.0001;
 		ray->pos.y = (player.pos.x - ray->pos.x) * ray->n_tan + player.pos.y;
 		ray->offset.x = -ray->text_size;
@@ -28,7 +28,7 @@ void	cast_ray_left(t_ray *ray, t_player player)
 {
 	if (ray->angle < PI4 || ray->angle > PI3)
 	{
-		ray->pos.x = (((int)player.pos.x / ray->text_size) * ray->text_size) + \
+		ray->pos.x = (((int)player.pos.x >> ray->bit_prec) << ray->bit_prec) + \
 																ray->text_size;
 		ray->pos.y = (player.pos.x - ray->pos.x) * ray->n_tan + player.pos.y;
 		ray->offset.x = ray->text_size;
@@ -49,8 +49,8 @@ void	cast_ray_vertical(t_ray *ray, t_player player, t_map map)
 	}
 	while (ray->depth_of_field < map.size.x + MATRIX_OFFSET)
 	{
-		ray->max.x = (unsigned long int)(ray->pos.x) / ray->text_size;
-		ray->max.y = (unsigned long int)(ray->pos.y) / ray->text_size;
+		ray->max.x = (unsigned long int)(ray->pos.x) >> ray->bit_prec;
+		ray->max.y = (unsigned long int)(ray->pos.y) >> ray->bit_prec;
 		if (!ray_hit(ray, map, map.size.x + MATRIX_OFFSET))
 			increase_offset(ray);
 	}

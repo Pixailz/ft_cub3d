@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 04:44:09 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:25:28 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@
 # define VOID_CHAR						' '
 # define WALL_CHAR						'1'
 # define EMPTY_CHAR						'0'
-# define PLAYER_CHAR					'P'
 
 		// WINDOW
 # define WINDOW_TITLE					"Supa Cub3D"
@@ -268,12 +267,6 @@ typedef struct s_i_pos
 	int	y;
 }	t_i_pos;
 
-typedef struct s_u_pos
-{
-	long int	x;
-	long int	y;
-}	t_u_pos;
-
 typedef struct s_ul_pos
 {
 	long int	x;
@@ -452,7 +445,7 @@ void			init_parse(t_parse *parse);
 
 // dataset/init/player.c
 float			get_player_angle(char player_char);
-void			get_player_pos(t_main *config, int text_size);
+void			get_player_pos(t_map map, t_player *player, int text_size);
 void			init_player(t_player *player);
 
 // dataset/init/rendering.c

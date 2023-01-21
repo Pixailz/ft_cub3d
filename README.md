@@ -8,7 +8,28 @@
 - fix little norme issue everywhere (line to long prototype)
   - inc/
   - src/
-  - 
+
+## bpp size_len
+
+bit per pixel
+
+8 bit = 1 octet
+4 hex color = 4 octet
+
+octetpp	32/8 = 4
+
+size_len
+64x64 text
+
+64 pixel * 4 (octet per pixel) = 1 line
+
+1 size_len * scene.len.y
+
+reset scene
+line
+
+
+
 ## ERRNO
 
 ### Malloc

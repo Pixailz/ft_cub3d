@@ -624,7 +624,7 @@ void			draw_raycast(t_main *config);
 // rendering/draw/scene.c
 void			draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
 void			draw_scene(t_main *config);
-void			reset_scene(t_mlx *mlx);
+void			reset_scene(t_main *config);
 
 // rendering/move/angle.c
 void			adjust_delta(t_player *player, int text_size);

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 04:55:24 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:57:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 
 	point = (int)(ray->t.x * ray->img_use->len.x / ray->text_size) * 4 + \
 										4 * (int)ray->t.y * ray->img_use->len.x;
-	if (point <= ray->img_use->size_line * ray->text_size)
+	if (point <= ray->img_use->size_line * ray->img_use->len.y)
 	{
 		tmp_rgb[2] = ray->img_use->buff[point + 2];
 		tmp_rgb[1] = ray->img_use->buff[point + 1];

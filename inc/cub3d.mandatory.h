@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 19:43:46 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/22 04:27:34 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,11 +267,11 @@ typedef struct s_i_pos
 	int	y;
 }	t_i_pos;
 
-typedef struct s_ul_pos
+typedef struct s_l_pos
 {
 	long int	x;
 	long int	y;
-}	t_ul_pos;
+}	t_l_pos;
 
 typedef struct s_line
 {
@@ -299,7 +299,7 @@ typedef struct s_ray
 	int				raycast_cell_size;
 	int				raycast_player_size;
 	t_bool			hit;
-	t_ul_pos		max;
+	t_l_pos			max;
 	t_d_pos			pos;
 	t_d_pos			offset;
 	t_d_pos			save;
@@ -355,7 +355,7 @@ typedef struct s_textures
 typedef struct s_map
 {
 	t_file		file;
-	t_ul_pos	size;
+	t_l_pos		size;
 	char		**matrix;
 }	t_map;
 
@@ -595,8 +595,6 @@ t_bool			parse_file_is_empty(t_error *err, char **line, int fd);
 t_r_value		parse_file_params(t_error *err, t_parse *parse);
 
 // parsing/utils.1.c
-char			**dup_map_surrounded(t_map map);
-char			*dup_map_get_line_2(int width, char *line);
 int				check_permission(char *filename);
 t_bool			map_char_is_player(char c);
 void			get_map_size(t_map *map);

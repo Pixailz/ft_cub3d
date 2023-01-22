@@ -189,10 +189,10 @@ if __name__ == "__main__":
 	}
 	cub3d_mandatory = ft_helper(**config)
 
-	# config = {
-	# 	"makefile":		"Makefile",
-	# 	"makefile_var":	"SRC_C_BONUS",
-	# 	"header":		"inc/cub3d.bonus.h",
-	# 	"src_folder":	"src/bonus"
-	# }
-	# cub3d_bonus = ft_helper(**config)
+	config = {
+		"makefile":		"Makefile",
+		"makefile_var":	"SRC_C_BONUS",
+		"header":		"inc/cub3d.bonus.h",
+		"src_folder":	"src/bonus"
+	}
+	cub3d_bonus = ft_helper(**config)

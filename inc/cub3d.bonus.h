@@ -637,7 +637,7 @@ void			key_press_move_angle_left(t_player *player, int text_size);
 void			key_press_move_angle_right(t_player *player, int text_size);
 
 // rendering/move/dir.c
-t_l_pos			move_get_offset(t_player player, int text_size);
+t_bool			hit_wall(t_player player, t_map map, int text_size);
 void			key_press_move_down(t_player *player, int text_size, t_map map);
 void			key_press_move_left(t_player *player, int text_size, t_map map);
 void			key_press_move_right(t_player *player, int text_size, t_map map);

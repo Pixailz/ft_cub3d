@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/22 19:58:14 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/22 20:07:24 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,11 @@ else
 ifeq ($(findstring re_bonus,$(MAKECMDGOALS)),re_bonus)
 BONUS				:= 1
 else
+ifeq ($(findstring run_bonus,$(MAKECMDGOALS)),run_bonus)
+BONUS				:= 1
+else
 BONUS				:= 0
+endif
 endif
 endif
 
@@ -363,5 +367,10 @@ re_all:					re_lib re
 
 re_bonus:				fclean bonus
 
+run:					re
+	./$(TARGET) ./rsc/map/test.1.cub
+	
+run_bonus:				re_bonus
+	./$(TARGET_BONUS) ./rsc/map/test.1.cub
 
 # **************************************************************************** #

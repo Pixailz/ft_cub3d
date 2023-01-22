@@ -6,11 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 18:08:21 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.mandatory.h>
+#include <cub3d.bonus.h>
 
 /* init error struct
  */

@@ -6,11 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 14:57:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.mandatory.h>
+#include <cub3d.bonus.h>
 
 void	fix_fisheyes(t_ray *ray, t_player player)
 {

@@ -6,11 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:31:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 22:22:48 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.mandatory.h>
+#include <cub3d.bonus.h>
 
 char	*dup_map_get_line(int width, char *line, int offset)
 {

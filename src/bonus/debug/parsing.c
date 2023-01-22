@@ -6,11 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:03:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 19:37:33 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.mandatory.h>
+#include <cub3d.bonus.h>
 
 void	debug_print_splitted(char **splitted)
 {

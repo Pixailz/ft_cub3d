@@ -6,11 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:57:29 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 02:30:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.mandatory.h>
+#include <cub3d.bonus.h>
 
 int	main(int argc, char **argv)
 {

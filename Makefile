@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/22 02:47:42 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/22 19:58:14 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,11 @@ $(eval export MAIN=1)
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
 BONUS				:= 1
 else
+ifeq ($(findstring re_bonus,$(MAKECMDGOALS)),re_bonus)
+BONUS				:= 1
+else
 BONUS				:= 0
+endif
 endif
 
 ifneq ($(PADDING),45)
@@ -283,10 +287,10 @@ endef
 .DEFAULT:	all
 
 all:			setup $(TARGET)
-	@$(PRINTF) "$$usage"
+	$(PRINTF) "$$usage"
 
 bonus:			setup $(TARGET_BONUS)
-	@$(PRINTF) ""
+	$(PRINTF) "$$usage"
 
 $(OBJ_DIR)/%.o: 		$(SRC_DIR)/%.c
 	$(call print_padded,$^,$@)
@@ -356,6 +360,8 @@ re_lib:
 re:						fclean all
 
 re_all:					re_lib re
+
+re_bonus:				fclean bonus
 
 
 # **************************************************************************** #

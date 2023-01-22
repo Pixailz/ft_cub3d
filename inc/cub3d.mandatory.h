@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 14:25:28 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/21 19:43:46 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -624,7 +624,6 @@ void			draw_raycast(t_main *config);
 // rendering/draw/scene.c
 void			draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
 void			draw_scene(t_main *config);
-void			reset_scene(t_main *config);
 
 // rendering/move/angle.c
 void			adjust_delta(t_player *player, int text_size);

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:56:06 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	check_map_content(t_map *map, t_error *err)
 		return (set_error(err, 1, ERRN_14));
 	if (check_map_wrong_char(*map))
 		return (set_error(err, 1, ERRN_15));
-	if (!check_is_surrounded_map(map))
+	if (!check_is_surrounded_map(err, map))
 		return (set_error(err, 1, ERRN_16));
 	if (check_map_player_char(*map, err))
 		return (1);

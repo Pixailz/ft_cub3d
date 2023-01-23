@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:37:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	error_print_texture(t_error err)
 {
 	if (err.texture != 0)
-		ft_putstr_fd("MLX:\n", 2);
+		ft_put_padded_str(2, 1, "MLX:");
 	if (err.texture & ERRN_01)
-		ft_putendl_fd(ERRN_TEXTURE_STR_01, 2);
+		ft_put_padded_str(2, 2, ERRN_TEXTURE_STR_01);
 	if (err.texture & ERRN_04)
-		ft_putendl_fd(ERRN_TEXTURE_STR_04, 2);
+		ft_put_padded_str(2, 2, ERRN_TEXTURE_STR_02);
 	if (err.texture & ERRN_MASK_TEXTURE_ARG)
 		error_print_texture_known(err);
 }

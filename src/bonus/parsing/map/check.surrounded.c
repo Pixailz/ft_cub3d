@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:23:58 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:56:37 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,16 @@ t_bool	check_is_surrounded_char_4(int x, int y, char **map)
 	return (wall_check == 4);
 }
 
-t_bool	check_is_surrounded_map(t_map *map)
+t_bool	check_is_surrounded_map(t_error *err, t_map *map)
 {
 	char	**map_dup;
 	int		counter_1;
 	int		counter_2;
 
 	get_map_size(map);
-	map_dup = dup_map_squared(*map, 4);
+	map_dup = dup_map_squared(*map, 2);
+	if (!map_dup)
+		return (set_error(err, 0, ERRN_04));
 	counter_1 = 1;
 	while (counter_1 < map->size.y + 3)
 	{

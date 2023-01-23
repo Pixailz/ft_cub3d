@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 00:14:30 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:52:56 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_line_color(t_error *err, char *ptr, int type, t_parse *parse)
 	int		tmp_number;
 
 	color = ft_split(ptr, ',');
-	if (!*color)
+	if (!color)
 		return (set_error(err, 0, ERRN_02));
 	counter = 0;
 	while (counter < 3)

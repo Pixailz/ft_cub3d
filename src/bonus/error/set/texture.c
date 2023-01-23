@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:02:14 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:49:37 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_r_value	set_error_mlx_window(t_param_type type, t_r_value *return_value)
 {
 	if (type == MAIN_WINDOW)
 		*return_value |= ERRN_01;
-	if (type == MAIN_WINDOW)
-		*return_value |= ERRN_01;
+	if (type == RAYCAST_WINDOW)
+		*return_value |= ERRN_02;
 	return (*return_value);
 }
 

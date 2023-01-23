@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 23:10:12 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:55:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	check_map_player_char(t_map map, t_error *err)
 	return (0);
 }
 
-int	check_map_content(t_error *err, t_map *map)
+int	check_map_content(t_map *map, t_error *err)
 {
 	debug_print(PARSE_GET_MAP_SPLITTED, (void *)map->matrix);
 	if (check_map_new_line(*map))

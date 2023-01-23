@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:31:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 00:27:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:55:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ char	**dup_map_squared(t_map map, int offset)
 	counter = offset;
 	while (counter < map.size.y + offset)
 	{
-		dup[counter] = \
-					dup_map_get_line(map.size.x, map.matrix[counter - offset], \
-					offset);
+		dup[counter] = dup_map_get_line(map.size.x, \
+										map.matrix[counter - offset], offset);
 		if (!dup[counter])
 			return (FT_NULL);
 		counter++;

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:17:20 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:43:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ t_r_value	parse_entry(t_error *err, char *filename, t_parse *parse)
 	ptr = dup_map_squared(parse->map, 0);
 	ft_free_char_pp(parse->map.matrix);
 	parse->map.matrix = ptr;
+	if (!parse->map.matrix)
+		return (set_error(err, 0, ERRN_04));
 	return (0);
 }

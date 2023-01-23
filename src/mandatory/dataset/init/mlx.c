@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 01:22:38 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:33:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_r_value	init_mlx(t_main *config)
 		return (set_error(&config->err, 0, ERRN_01));
 	init_mlx_textures(&mlx->textures);
 	init_mlx_window(mlx, &config->err);
-	if (have_error(config->err, 4) & (ERRN_02 | ERRN_01))
+	if (have_error(config->err, 4) & ERRN_02)
 		return (1);
 	init_mlx_hook(config);
 	return (0);

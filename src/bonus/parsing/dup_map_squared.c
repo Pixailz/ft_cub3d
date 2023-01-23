@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:31:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:54:58 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*dup_map_get_line(int width, char *line, int offset)
 	int		counter;
 
 	formated_line = ft_calloc(sizeof(char), width + offset * 2 + 1);
+	if (!formated_line)
+		return (FT_NULL);
 	counter = 0;
 	while (counter < offset)
 		formated_line[counter++] = VOID_CHAR;
@@ -37,7 +39,7 @@ char	*dup_map_get_line(int width, char *line, int offset)
 	return (formated_line);
 }
 
-void	dup_map_get_surrounding(char **dup, int offset, t_map map)
+int	dup_map_get_surrounding(char **dup, int offset, t_map map)
 {
 	int	offset_x_2;
 	int	counter;
@@ -48,10 +50,15 @@ void	dup_map_get_surrounding(char **dup, int offset, t_map map)
 	{
 		dup[counter] = \
 				(char *)ft_calloc(sizeof(char), map.size.x + offset_x_2 + 1);
+		if (!dup[counter])
+			return (1);
 		ft_memset((void *)dup[counter], VOID_CHAR, map.size.x + offset_x_2);
 		dup[map.size.y + offset + counter] = ft_strdup(dup[0]);
+		if (!dup[map.size.y + offset + counter])
+			return (1);
 		counter++;
 	}
+	return (0);
 }
 
 char	**dup_map_squared(t_map map, int offset)
@@ -62,13 +69,17 @@ char	**dup_map_squared(t_map map, int offset)
 	if (offset < 0)
 		return (FT_NULL);
 	dup = (char **)ft_calloc(sizeof(char *), map.size.y + 1 + offset * 2);
-	dup_map_get_surrounding(dup, offset, map);
+	if (!dup)
+		return (FT_NULL);
+	if (dup_map_get_surrounding(dup, offset, map))
+		return (FT_NULL);
 	counter = offset;
 	while (counter < map.size.y + offset)
 	{
-		dup[counter] = \
-					dup_map_get_line(map.size.x, map.matrix[counter - offset], \
-					offset);
+		dup[counter] = dup_map_get_line(map.size.x, \
+										map.matrix[counter - offset], offset);
+		if (!dup[counter])
+			return (FT_NULL);
 		counter++;
 	}
 	debug_print(PARSE_GET_MAP_SURROUDED, (void *)dup);

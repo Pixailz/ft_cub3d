@@ -410,7 +410,7 @@ void			close_file(int fd);
 void			free_file(t_file *file);
 
 // dataset/free/mlx.c
-void			free_mlx(t_mlx *mlx, t_error *err);
+void			free_mlx(t_mlx *mlx, t_error err);
 void			free_mlx_texture(void *mlx, t_mlx_texture *text);
 void			free_mlx_textures(t_mlx *mlx);
 
@@ -579,7 +579,7 @@ t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
 
 // parsing/map/check.c
-int				check_map_content(t_error *err, t_map *map);
+int				check_map_content(t_map *map, t_error *err);
 int				check_map_player_char(t_map map, t_error *err);
 t_bool			check_map_new_line(t_map map);
 t_bool			check_map_wrong_char(t_map map);
@@ -608,6 +608,7 @@ void			draw_fov(t_main *config);
 
 // rendering/draw/frame.c
 int				draw_frame(t_main *config);
+void			do_moving(t_main *config);
 
 // rendering/draw/hit.c
 void			draw_ray_hit(t_main *config);

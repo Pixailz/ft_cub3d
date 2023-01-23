@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:30:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 05:45:14 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@
 # define PI4							1.5707963268
 	// ONE second in micro second
 # define ONE_SEC						1000000
-// CONFIG
 
+// CONFIG
 	// BASE
 # define PLAYER_STEP					0.036
 # define FOV							50
@@ -84,12 +84,14 @@
 
 	// MATRIX
 # define MATRIX_OFFSET					10
-# define GOOD_CHAR_MAP					" 10NSWE"
-# define VOID_CHAR						' '
+# define GOOD_CHAR_MAP					" 10NSWED"
+# define VOID_CHAR						'#'
 # define WALL_CHAR						'1'
 # define EMPTY_CHAR						'0'
+# define DOOR_CLOSE_CHAR				'D'
+# define DOOR_OPEN_CHAR					'd'
 
-		// WINDOW
+	// WINDOW
 # define WINDOW_TITLE					"Supa Cub3D"
 # define SCREEN_SIZE_X					1024
 # define SCREEN_SIZE_Y					576
@@ -97,22 +99,20 @@
 // # define SCREEN_SIZE_Y					1080
 // # define SCREEN_SIZE_X					1600
 // # define SCREEN_SIZE_Y					900
-// # define SCREEN_SIZE_X					5000
-// # define SCREEN_SIZE_Y					5000
 
-		// KEYBOARD
-			// DEFAULT
+	// KEYBOARD
+		// DEFAULT
 # define KEY_A							0x61
 # define KEY_W							0x77
 # define KEY_S							0x73
 # define KEY_D							0x64
 # define KEY_R							0x72
 
-			// ARROW
+		// ARROW
 # define KEY_RIGHT						0xff53
 # define KEY_LEFT						0xff51
 
-			// EXTRA
+		// EXTRA
 # define KEY_ESC						0xff1b
 
 	// RAYCAST
@@ -247,20 +247,20 @@ enum e_debug_type
 typedef enum e_param_type
 {
 	OTHER			= 0,
-	NORTH			= 1,
-	SOUTH			= 1 << 1,
-	WEST			= 1 << 2,
-	EAST			= 1 << 3,
-	FLOOR			= 1 << 4,
-	CEIL			= 1 << 5,
-	MAIN_WINDOW		= 1 << 6,
-	RAY_WINDOW		= 1 << 7,
-	RAY_VOID		= 1 << 8,
-	RAY_WALL		= 1 << 9,
-	RAY_PLAYER		= 1 << 10,
-	MINI_VOID		= 1 << 11,
-	MINI_WALL		= 1 << 12,
-	MINI_PLAYER		= 1 << 13
+	NORTH			= 1L,
+	SOUTH			= 1L << 1,
+	WEST			= 1L << 2,
+	EAST			= 1L << 3,
+	FLOOR			= 1L << 4,
+	CEIL			= 1L << 5,
+	MAIN_WINDOW		= 1L << 6,
+	RAY_WINDOW		= 1L << 7,
+	RAY_VOID		= 1L << 8,
+	RAY_WALL		= 1L << 9,
+	RAY_PLAYER		= 1L << 10,
+	MINI_VOID		= 1L << 11,
+	MINI_WALL		= 1L << 12,
+	MINI_PLAYER		= 1L << 13
 }	t_param_type;
 
 typedef struct s_error
@@ -600,22 +600,21 @@ char			*parse_get_line(t_error *err, int file);
 int				get_line_type(char *line);
 int				is_good_line(t_error *err, char *line, t_parse *parse);
 int				parse_line(t_error *err, char **line, t_parse *parse);
-t_bool			is_line_already_taken(int already_taken, int line_type);
 
 // parsing/line/texture.c
 t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
 
-// parsing/map/check.c
-int				check_map_content(t_map *map, t_error *err);
-int				check_map_player_char(t_map map, t_error *err);
-t_bool			check_map_new_line(t_map map);
-t_bool			check_map_wrong_char(t_map map);
-
 // parsing/map/check.surrounded.c
 t_bool			check_is_surrounded_char_4(int x, int y, char **map);
 t_bool			check_is_surrounded_char_8(int x, int y, char **map);
 t_bool			check_is_surrounded_map(t_error *err, t_map *map);
+
+// parsing/map/content.c
+int				check_map_content(t_map *map, t_error *err);
+int				check_map_player_char(t_map map, t_error *err);
+t_bool			check_map_new_line(t_map map);
+t_bool			check_map_wrong_char(t_map map);
 
 // parsing/map/entry.c
 t_bool			get_map(t_error *err, t_parse *parse);
@@ -644,6 +643,9 @@ void			draw_ray_hit(t_main *config);
 // rendering/draw/line.c
 t_line			get_line(t_d_pos begin, t_d_pos end);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
+
+// rendering/draw/minimap.c
+void			draw_minimap(t_main *config);
 
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);

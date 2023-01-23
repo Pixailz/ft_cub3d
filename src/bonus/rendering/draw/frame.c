@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:22:28 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 05:04:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	draw_frame(t_main *config)
 {
 	do_moving(config);
 	draw_scene(config);
+	draw_minimap(config);
 	usleep(ONE_SEC / FPS);
 	return (0);
 }

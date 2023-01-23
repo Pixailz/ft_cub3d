@@ -6,22 +6,11 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 05:32:59 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
-
-t_bool	is_line_already_taken(int already_taken, int line_type)
-{
-	int	counter;
-
-	counter = 0;
-	while (counter <= 5)
-		if ((already_taken & (1 << counter++)) == line_type)
-			return (TRUE);
-	return (FALSE);
-}
 
 char	*parse_get_line(t_error *err, int file)
 {
@@ -79,16 +68,16 @@ int	is_good_line(t_error *err, char *line, t_parse *parse)
 	line_type = get_line_type(line);
 	if (!line_type)
 		return (set_error(err, 1, ERRN_05));
-	if (is_line_already_taken(already_taken, line_type))
+	if (line_type & (FLOOR | CEIL) && already_taken & line_type)
 		return (set_error_known(err, 0, ERRN_06, line_type));
-	already_taken += line_type;
+	already_taken |= line_type;
 	if (line_type <= EAST)
 		return_value = parse_line_text(err, line, line_type, parse);
 	else
 		return_value = parse_line_color(err, line, line_type, parse);
 	if (return_value)
 		return (return_value);
-	if (already_taken == (NORTH | SOUTH | WEST | EAST | FLOOR | CEIL))
+	if (already_taken & FLOOR && already_taken & CEIL)
 		return (-1);
 	return (0);
 }

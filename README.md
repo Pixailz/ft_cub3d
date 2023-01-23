@@ -7,28 +7,10 @@
 - fix little norme issue everywhere (line to long prototype)
   - inc/
   - src/
-- fix screen not moving when clicking
-
-## bpp size_len
-
-bit per pixel
-
-8 bit = 1 octet
-4 hex color = 4 octet
-
-octetpp	32/8 = 4
-
-size_len
-64x64 text
-
-64 pixel * 4 (octet per pixel) = 1 line
-
-1 size_len * scene.len.y
-
-reset scene
-line
-
-
+- add multiple texture to the cube face (parsing)
+  - can have at least 1 to a lot :)
+    - parsing -> t_texture_list
+    - loading -> t_mlx_side -> t_mlx_texture
 
 ## ERRNO
 

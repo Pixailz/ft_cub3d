@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 05:45:09 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,6 @@
 # define FULL_SCREEN					0
 # define SCREEN_SIZE_X					1024
 # define SCREEN_SIZE_Y					576
-// # define SCREEN_SIZE_X					1920
-// # define SCREEN_SIZE_Y					1080
-// # define SCREEN_SIZE_X					1600
-// # define SCREEN_SIZE_Y					900
-// # define SCREEN_SIZE_X					5000
-// # define SCREEN_SIZE_Y					5000
 
 		// KEYBOARD
 			// DEFAULT

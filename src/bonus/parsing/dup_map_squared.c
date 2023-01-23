@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:31:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 01:54:58 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 05:50:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ char	*dup_map_get_line(int width, char *line, int offset)
 	counter = offset;
 	while (counter < width + offset * 2)
 	{
-		if (formated_line[counter] != WALL_CHAR && \
-			formated_line[counter] != EMPTY_CHAR && \
-			!map_char_is_player(formated_line[counter]))
+		if (!ft_strcchr(GOOD_CHAR_MAP, formated_line[counter]) || \
+												formated_line[counter] == ' ')
 			formated_line[counter] = VOID_CHAR;
 		counter++;
 	}

@@ -2,6 +2,7 @@ NO ./rsc/xpm/not_a_square.xpm
 SO ./rsc/xpm/default_32/south.xpm
 WE ./rsc/xpm/default_32/west.xpm
 EA ./rsc/xpm/realistic_1024/east.xpm
+EA ./rsc/xpm/realistic_1024/east.xpm
 
 C 0,255,255
 F 50,255,50
@@ -9,7 +10,7 @@ F 50,255,50
    11111111111111
   10000000000E1  1
  10000000000001   1
-100000000000001    1
+1000000D0000001    1
 100000000000001    1
 10001011111100011111
 10001000000000000001

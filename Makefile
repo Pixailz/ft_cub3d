@@ -168,8 +168,8 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/parsing/line/color.c \
 					   src/bonus/parsing/line/entry.c \
 					   src/bonus/parsing/line/texture.c \
-					   src/bonus/parsing/map/check.c \
 					   src/bonus/parsing/map/check.surrounded.c \
+					   src/bonus/parsing/map/content.c \
 					   src/bonus/parsing/map/entry.c \
 					   src/bonus/parsing/params.c \
 					   src/bonus/parsing/utils.1.c \
@@ -177,6 +177,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/frame.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
+					   src/bonus/rendering/draw/minimap.c \
 					   src/bonus/rendering/draw/raycast.c \
 					   src/bonus/rendering/draw/scene.c \
 					   src/bonus/rendering/move/angle.c \

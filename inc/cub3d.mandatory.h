@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:10:53 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,9 +373,9 @@ typedef struct s_move
 	t_bool	up;
 	t_bool	down;
 	t_bool	left;
-	t_bool	rigth;
+	t_bool	right;
 	t_bool	left_angle;
-	t_bool	rigth_angle;
+	t_bool	right_angle;
 }	t_move;
 
 typedef struct s_player
@@ -658,7 +658,7 @@ void			cast_ray_up(t_ray *ray, t_player player);
 
 // rendering/raycast/vertical.c
 void			cast_ray_left(t_ray *ray, t_player player);
-void			cast_ray_rigth(t_ray *ray, t_player player);
+void			cast_ray_right(t_ray *ray, t_player player);
 void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 
 // rendering/texture/load.c

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:13:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:30:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					0
+# define MOUSE_ENABLE					1
+# define TURN_SENSIVITY					0.6
 
 	// MATRIX
 # define MATRIX_OFFSET					10
@@ -394,9 +396,9 @@ typedef struct s_move
 	t_bool	up;
 	t_bool	down;
 	t_bool	left;
-	t_bool	rigth;
+	t_bool	right;
 	t_bool	left_angle;
-	t_bool	rigth_angle;	
+	t_bool	right_angle;
 	float	r_speed;
 }	t_move;
 
@@ -685,7 +687,7 @@ void			cast_ray_up(t_ray *ray, t_player player);
 
 // rendering/raycast/vertical.c
 void			cast_ray_left(t_ray *ray, t_player player);
-void			cast_ray_rigth(t_ray *ray, t_player player);
+void			cast_ray_right(t_ray *ray, t_player player);
 void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 
 // rendering/texture/load.c

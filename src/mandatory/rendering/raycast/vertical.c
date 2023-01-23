@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 14:26:20 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.mandatory.h>
 
-void	cast_ray_rigth(t_ray *ray, t_player player)
+void	cast_ray_right(t_ray *ray, t_player player)
 {
 	if (ray->angle > PI4 && ray->angle < PI3)
 	{
@@ -39,7 +39,7 @@ void	cast_ray_left(t_ray *ray, t_player player)
 void	cast_ray_vertical(t_ray *ray, t_player player, t_map map)
 {
 	ray->depth_of_field = 0;
-	cast_ray_rigth(ray, player);
+	cast_ray_right(ray, player);
 	cast_ray_left(ray, player);
 	if (ray->angle == 0 || ray->angle == PI)
 	{

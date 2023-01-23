@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/23 02:06:25 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/23 04:24:18 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -336,7 +336,9 @@ endif
 endif
 
 ft_helper:
+ifeq ($(DEBUG),1)
 	@./scripts/ft_helper/ft_helper
+endif
 
 call_logo:
 	$(PRINTF) "$(ascii_color)$$ascii_art"

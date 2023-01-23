@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 20:40:25 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	set_movement(t_move *movement, int key_code, t_bool value)
 	if (key_code == KEY_A)
 		movement->left = value;
 	else if (key_code == KEY_D)
-		movement->rigth = value;
+		movement->right = value;
 	else if (key_code == KEY_W)
 		movement->up = value;
 	else if (key_code == KEY_S)
@@ -33,7 +33,7 @@ void	set_movement(t_move *movement, int key_code, t_bool value)
 	else if (key_code == KEY_LEFT)
 		movement->left_angle = value;
 	else if (key_code == KEY_RIGHT)
-		movement->rigth_angle = value;
+		movement->right_angle = value;
 }
 
 int	key_press(int key_code, t_main *config)

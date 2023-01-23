@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 02:16:46 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:22:28 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	do_moving(t_main *config)
 	if (config->player.movement.left == TRUE)
 		key_press_move_left(&config->player, config->ray.text_size, \
 															config->parse.map);
-	if (config->player.movement.rigth == TRUE)
+	if (config->player.movement.right == TRUE)
 		key_press_move_right(&config->player, config->ray.text_size, \
 															config->parse.map);
 	if (config->player.movement.up == TRUE)
@@ -28,7 +28,7 @@ void	do_moving(t_main *config)
 															config->parse.map);
 	if (config->player.movement.left_angle == TRUE)
 		key_press_move_angle_left(&config->player, config->ray.text_size);
-	if (config->player.movement.rigth_angle == TRUE)
+	if (config->player.movement.right_angle == TRUE)
 		key_press_move_angle_right(&config->player, config->ray.text_size);
 }
 

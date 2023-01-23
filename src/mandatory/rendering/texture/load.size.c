@@ -65,7 +65,7 @@ void	get_textures_size(t_main *config)
 	get_highest_size(&lowest, textures.south);
 	get_highest_size(&lowest, textures.west);
 	get_highest_size(&lowest, textures.east);
-	if (RAYCAST_ENABLE)
+	if (RAY_ENABLE)
 		get_raycast_size(config);
 	if (lowest.x < lowest.y)
 		config->ray.text_size = lowest.y;

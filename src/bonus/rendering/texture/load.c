@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 20:10:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:08:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ t_r_value	load_scene(t_main *config)
 	return (0);
 }
 
+void	load_textures_raycast(t_mlx *mlx, t_error *err)
+{
+	if (load_texture(&mlx->textures.raycast_wall, RAY_WALL_PATH, mlx->ptr))
+		set_error_known(err, 1, ERRN_03, RAY_VOID);
+	if (load_texture(&mlx->textures.raycast_void, RAY_VOID_PATH, mlx->ptr))
+		set_error_known(err, 1, ERRN_03, RAY_WALL);
+	if (load_texture(&mlx->textures.raycast_player, \
+												RAY_PLAYER_PATH, mlx->ptr))
+		set_error_known(err, 1, ERRN_03, RAY_PLAYER);
+}
+
+void	load_textures_minimap(t_mlx *mlx, t_error *err)
+{
+	if (load_texture(&mlx->textures.mini_wall, MINI_WALL_PATH, mlx->ptr))
+		set_error_known(err, 1, ERRN_03, MINI_VOID);
+	if (load_texture(&mlx->textures.mini_void, MINI_VOID_PATH, mlx->ptr))
+		set_error_known(err, 1, ERRN_03, MINI_WALL);
+	if (load_texture(&mlx->textures.mini_player, MINI_PLAYER_PATH, mlx->ptr))
+		set_error_known(err, 1, ERRN_03, MINI_PLAYER);
+}
+
 t_r_value	load_textures(t_main *config)
 {
 	t_textures	*textures;
@@ -55,13 +76,9 @@ t_r_value	load_textures(t_main *config)
 		set_error_known(&config->err, 1, ERRN_03, WEST);
 	if (load_texture(&mlx->textures.east, textures->east_file.path, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, EAST);
-	if (load_texture(&mlx->textures.raycast_wall, RAYCAST_WALL_PATH, mlx->ptr))
-		set_error_known(&config->err, 1, ERRN_03, MINI_VOID);
-	if (load_texture(&mlx->textures.raycast_void, RAYCAST_VOID_PATH, mlx->ptr))
-		set_error_known(&config->err, 1, ERRN_03, MINI_WALL);
-	if (load_texture(&mlx->textures.raycast_player, \
-												RAYCAST_PLAYER_PATH, mlx->ptr))
-		set_error_known(&config->err, 1, ERRN_03, MINI_PLAYER);
+	if (RAY_ENABLE)
+		load_textures_raycast(mlx, &config->err);
+	load_textures_minimap(mlx, &config->err);
 	if (load_scene(config))
 		set_error(&config->err, 3, ERRN_04);
 	get_textures_size(config);

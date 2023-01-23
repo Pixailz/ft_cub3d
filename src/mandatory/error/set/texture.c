@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:02:14 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 01:03:40 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:09:18 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_r_value	set_error_mlx_window(t_param_type type, t_r_value *return_value)
 {
 	if (type == MAIN_WINDOW)
 		*return_value |= ERRN_01;
-	if (type == RAYCAST_WINDOW)
+	if (type == RAY_WINDOW)
 		*return_value |= ERRN_02;
 	return (*return_value);
 }
@@ -31,11 +31,11 @@ t_r_value	set_error_mlx_texture(t_param_type type, t_r_value *return_value)
 		*return_value |= ERRN_05;
 	if (type == EAST)
 		*return_value |= ERRN_06;
-	if (type == MINI_VOID)
+	if (type == RAY_VOID)
 		*return_value |= ERRN_07;
-	if (type == MINI_WALL)
+	if (type == RAY_WALL)
 		*return_value |= ERRN_08;
-	if (type == MINI_PLAYER)
+	if (type == RAY_PLAYER)
 		*return_value |= ERRN_09;
 	return (*return_value);
 }

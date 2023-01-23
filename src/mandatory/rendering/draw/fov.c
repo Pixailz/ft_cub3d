@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 20:46:00 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 20:46:09 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:05:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_fov(t_main *config)
 {
 	t_line	line;
 
-	if (RAYCAST_ENABLE)
+	if (RAY_ENABLE)
 	{
 		line.begin.x = get_ratio(config->player.pos.x, config->ray);
 		line.begin.y = get_ratio(config->player.pos.y, config->ray);

@@ -186,38 +186,38 @@ line
 
 ### Texture (args)
 
-|ERRNO  |DESCRIPTION          |
-|:-----:|:--------------------|
-|ERRN_00|all good             |
-|ERRN_01|MLX_MAIN_WINDOW      |
-|ERRN_02|MLX_RAYCAST_WINDOW   |
-|ERRN_03|MLX_NORTH_TEXT       |
-|ERRN_04|MLX_SOUTH_TEXT       |
-|ERRN_05|MLX_WEST_TEXT        |
-|ERRN_06|MLX_EAST_TEXT        |
-|ERRN_07|MLX_MINI_VOID_TEXT   |
-|ERRN_08|MLX_MINI_WALL_TEXT   |
-|ERRN_09|MLX_MINI_PLAYER_TEXT |
-|ERRN_10|                     |
-|ERRN_11|                     |
-|ERRN_12|                     |
-|ERRN_13|                     |
-|ERRN_14|                     |
-|ERRN_15|                     |
-|ERRN_16|                     |
-|ERRN_17|                     |
-|ERRN_18|                     |
-|ERRN_19|                     |
-|ERRN_20|                     |
-|ERRN_21|                     |
-|ERRN_22|                     |
-|ERRN_23|                     |
-|ERRN_24|                     |
-|ERRN_25|                     |
-|ERRN_26|                     |
-|ERRN_27|                     |
-|ERRN_28|                     |
-|ERRN_29|                     |
-|ERRN_30|                     |
-|ERRN_31|                     |
-|ERRN_32|                     |
+|ERRNO  |DESCRIPTION             |
+|:-----:|:-----------------------|
+|ERRN_00|all good                |
+|ERRN_01|MLX_MAIN_WINDOW         |
+|ERRN_02|MLX_RAY_WINDOW      |
+|ERRN_03|MLX_NORTH_TEXT          |
+|ERRN_04|MLX_SOUTH_TEXT          |
+|ERRN_05|MLX_WEST_TEXT           |
+|ERRN_06|MLX_EAST_TEXT           |
+|ERRN_07|MLX_RAY_VOID_TEXT   |
+|ERRN_08|MLX_RAY_WALL_TEXT   |
+|ERRN_09|MLX_RAY_PLAYER_TEXT |
+|ERRN_10|MLX_MINI_VOID_TEXT      |
+|ERRN_11|MLX_MINI_WALL_TEXT      |
+|ERRN_12|MLX_MINI_PLAYER_TEXT    |
+|ERRN_13|                        |
+|ERRN_14|                        |
+|ERRN_15|                        |
+|ERRN_16|                        |
+|ERRN_17|                        |
+|ERRN_18|                        |
+|ERRN_19|                        |
+|ERRN_20|                        |
+|ERRN_21|                        |
+|ERRN_22|                        |
+|ERRN_23|                        |
+|ERRN_24|                        |
+|ERRN_25|                        |
+|ERRN_26|                        |
+|ERRN_27|                        |
+|ERRN_28|                        |
+|ERRN_29|                        |
+|ERRN_30|                        |
+|ERRN_31|                        |
+|ERRN_32|                        |

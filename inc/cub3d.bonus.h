@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 03:27:01 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:13:04 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,15 @@
 # define PI3							4.7123889804
 	// PI/2
 # define PI4							1.5707963268
-
+	// ONE second in micro second
+# define ONE_SEC						1000000
 // CONFIG
 
 	// BASE
 # define PLAYER_STEP					0.036
 # define FOV							50
 # define FPS							144
-# define ONE_SEC						1000000
+# define FULL_SCREEN					0
 
 	// MATRIX
 # define MATRIX_OFFSET					10
@@ -88,7 +89,6 @@
 
 		// WINDOW
 # define WINDOW_TITLE					"Supa Cub3D"
-# define FULL_SCREEN					0
 # define SCREEN_SIZE_X					1024
 # define SCREEN_SIZE_Y					576
 // # define SCREEN_SIZE_X					1920
@@ -114,21 +114,25 @@
 # define KEY_ESC						0xff1b
 
 	// RAYCAST
-
 # define PLAYER_ANGLE_SIZE				16
 # define PLAYER_ANGLE_COLOR				0x00ff00
 
 		// WINDOW
-# define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
-# define RAYCAST_ENABLE					0
-# define RAYCAST_SCREEN_SIZE_X			800
-# define RAYCAST_SCREEN_SIZE_Y			480
+# define RAY_TITLE						"Supa Cub3D - RayCasting"
+# define RAY_ENABLE						1
+# define RAY_SCREEN_SIZE_X				800
+# define RAY_SCREEN_SIZE_Y				480
 
 		// TEXTURE
-# define RAYCAST_WALL_PATH				"./rsc/xpm/raycasting/wall_x16.xpm"
-# define RAYCAST_VOID_PATH				"./rsc/xpm/raycasting/void_x16.xpm"
-# define RAYCAST_PLAYER_PATH			"./rsc/xpm/raycasting/player_x4.xpm"
-# define RAYCAST_HIT_COLOR				0xffff00
+# define RAY_WALL_PATH					"./rsc/xpm/raycasting/wall_x16.xpm"
+# define RAY_VOID_PATH					"./rsc/xpm/raycasting/void_x16.xpm"
+# define RAY_PLAYER_PATH				"./rsc/xpm/raycasting/player_x4.xpm"
+# define RAY_HIT_COLOR					0xffff00
+
+	// MINIMAP
+# define MINI_WALL_PATH					"./rsc/xpm/minimap/wall_x16.xpm"
+# define MINI_VOID_PATH					"./rsc/xpm/minimap/void_x16.xpm"
+# define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x4.xpm"
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -248,10 +252,13 @@ typedef enum e_param_type
 	FLOOR			= 1 << 4,
 	CEIL			= 1 << 5,
 	MAIN_WINDOW		= 1 << 6,
-	RAYCAST_WINDOW	= 1 << 7,
-	MINI_VOID		= 1 << 8,
-	MINI_WALL		= 1 << 9,
-	MINI_PLAYER		= 1 << 10
+	RAY_WINDOW		= 1 << 7,
+	RAY_VOID		= 1 << 8,
+	RAY_WALL		= 1 << 9,
+	RAY_PLAYER		= 1 << 10,
+	MINI_VOID		= 1 << 11,
+	MINI_WALL		= 1 << 12,
+	MINI_PLAYER		= 1 << 13
 }	t_param_type;
 
 typedef struct s_error
@@ -337,6 +344,9 @@ typedef struct s_mlx_textures
 	t_mlx_texture	raycast_wall;
 	t_mlx_texture	raycast_void;
 	t_mlx_texture	raycast_player;
+	t_mlx_texture	mini_wall;
+	t_mlx_texture	mini_void;
+	t_mlx_texture	mini_player;
 	t_mlx_texture	scene;
 }	t_mlx_textures;
 
@@ -682,6 +692,8 @@ void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 t_r_value		load_scene(t_main *config);
 t_r_value		load_texture(t_mlx_texture *text, char *file_path, void *mlx);
 t_r_value		load_textures(t_main *config);
+void			load_textures_minimap(t_mlx *mlx, t_error *err);
+void			load_textures_raycast(t_mlx *mlx, t_error *err);
 
 // rendering/texture/load.size.c
 unsigned char	get_bit_prec(int lowest);

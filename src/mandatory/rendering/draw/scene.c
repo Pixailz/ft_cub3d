@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:20:31 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 19:42:38 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:05:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_scene(t_main *config)
 	t_ray	ray;
 
 	ray = config->ray;
-	if (RAYCAST_ENABLE)
+	if (RAY_ENABLE)
 		draw_raycast(config);
 	ft_memset(config->mlx.textures.scene.buff, 0, \
 				config->mlx.screen.y * config->mlx.textures.scene.size_line);

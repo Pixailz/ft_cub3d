@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 00:21:22 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:10:53 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,16 @@
 # define PLAYER_ANGLE_COLOR				0x00ff00
 
 		// WINDOW
-# define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
-# define RAYCAST_ENABLE					1
-# define RAYCAST_SCREEN_SIZE_X			800
-# define RAYCAST_SCREEN_SIZE_Y			480
+# define RAY_TITLE					"Supa Cub3D - RayCasting"
+# define RAY_ENABLE					1
+# define RAY_SCREEN_SIZE_X			800
+# define RAY_SCREEN_SIZE_Y			480
 
 		// TEXTURE
-# define RAYCAST_WALL_PATH				"./rsc/xpm/raycasting/wall_x16.xpm"
-# define RAYCAST_VOID_PATH				"./rsc/xpm/raycasting/void_x16.xpm"
-# define RAYCAST_PLAYER_PATH			"./rsc/xpm/raycasting/player_x4.xpm"
-# define RAYCAST_HIT_COLOR				0xffff00
+# define RAY_WALL_PATH				"./rsc/xpm/raycasting/wall_x16.xpm"
+# define RAY_VOID_PATH				"./rsc/xpm/raycasting/void_x16.xpm"
+# define RAY_PLAYER_PATH			"./rsc/xpm/raycasting/player_x4.xpm"
+# define RAY_HIT_COLOR				0xffff00
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -243,10 +243,10 @@ typedef enum e_param_type
 	FLOOR			= 1 << 4,
 	CEIL			= 1 << 5,
 	MAIN_WINDOW		= 1 << 6,
-	RAYCAST_WINDOW	= 1 << 7,
-	MINI_VOID		= 1 << 8,
-	MINI_WALL		= 1 << 9,
-	MINI_PLAYER		= 1 << 10
+	RAY_WINDOW		= 1 << 7,
+	RAY_VOID		= 1 << 8,
+	RAY_WALL		= 1 << 9,
+	RAY_PLAYER		= 1 << 10
 }	t_param_type;
 
 typedef struct s_error

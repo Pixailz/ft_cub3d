@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 02:30:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 03:34:07 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,16 @@ int	key_release(int key_code, t_main *config)
 
 void	init_mlx_hook(t_main *config)
 {
-	t_mlx	*mlx;
+	t_mlx		*mlx;
+	long int	mouse_mask;
 
 	mlx = &config->mlx;
 	config->cursor = 0;
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), key_press, config);
 	mlx_hook(mlx->win, 3, (1L << 1), key_release, config);
-	mlx_hook(mlx->win, 6, 1L << 6, ft_get_axis, config);
+	mouse_mask = (1L << 6) | (1L << 2) | (1L << 3);
+	mlx_hook(mlx->win, 6, mouse_mask, ft_get_axis, config);
 	mlx_hook(mlx->win, 8, 1L << 5, ft_not_in_axis, config);
 	mlx_do_key_autorepeaton(mlx->ptr);
 	return ;

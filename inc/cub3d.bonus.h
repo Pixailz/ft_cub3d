@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 02:16:26 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 03:27:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@
 
 		// WINDOW
 # define RAYCAST_TITLE					"Supa Cub3D - RayCasting"
-# define RAYCAST_ENABLE					1
+# define RAYCAST_ENABLE					0
 # define RAYCAST_SCREEN_SIZE_X			800
 # define RAYCAST_SCREEN_SIZE_Y			480
 

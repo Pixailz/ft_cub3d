@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 08:45:23 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 11:41:27 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@
 
 		// WINDOW
 # define RAY_TITLE						"Supa Cub3D - RayCasting"
-# define RAY_ENABLE						1
+# define RAY_ENABLE						0
 # define RAY_SCREEN_SIZE_X				800
 # define RAY_SCREEN_SIZE_Y				480
 
@@ -650,7 +650,11 @@ t_line			get_line(t_d_pos begin, t_d_pos end);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
 
 // rendering/draw/minimap.c
+t_i_pos			*draw_circle(t_i_pos pos, t_int4 color, int r, t_mlx *mlx);
 void			draw_minimap(t_main *config);
+void			put_buffer_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color);
+void			text_to_buff(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
+void			text_to_buff_in_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
 
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 08:11:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 09:01:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 // DEBUG
 # ifndef DEBUG
-#  define DEBUG							1
+#  define DEBUG							0
 # endif
 
 # ifndef VERBOSE

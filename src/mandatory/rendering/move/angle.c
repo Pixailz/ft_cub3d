@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:38:16 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 19:24:28 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:17:01 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	key_press_move_angle_left(t_player *player, int text_size)
 	if (player->angle < 0)
 		player->angle += PI2;
 	adjust_delta(player, text_size);
-	debug_print(RENDER_PLAYER, (void *)player);
 }
 
 void	key_press_move_angle_right(t_player *player, int text_size)
@@ -33,5 +32,4 @@ void	key_press_move_angle_right(t_player *player, int text_size)
 	if (player->angle > PI2)
 		player->angle -= PI2;
 	adjust_delta(player, text_size);
-	debug_print(RENDER_PLAYER, (void *)player);
 }

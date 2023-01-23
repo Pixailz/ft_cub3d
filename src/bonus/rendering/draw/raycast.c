@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:44:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,24 @@ void	draw_map_point(t_main *config, char current_cell, int y, int x)
 	ray = config->ray;
 	if (current_cell == WALL_CHAR)
 		mlx_put_image_to_window(config->mlx.ptr, \
-			config->mlx.win_raycasting, config->mlx.textures.raycast_wall.ptr, \
-			x * ray.text_size / (ray.text_size / ray.raycast_cell_size), \
-			y * ray.text_size / (ray.text_size / ray.raycast_cell_size));
+			config->mlx.win_raycasting, config->mlx.textures.mini_wall.ptr, \
+			x * ray.text_size / (ray.text_size / ray.mini_cell_size), \
+			y * ray.text_size / (ray.text_size / ray.mini_cell_size));
+	else if (current_cell == DOOR_CLOSE_CHAR)
+		mlx_put_image_to_window(config->mlx.ptr, config->mlx.win_raycasting, \
+			config->mlx.textures.mini_door_close.ptr, \
+			x * ray.text_size / (ray.text_size / ray.mini_cell_size), \
+			y * ray.text_size / (ray.text_size / ray.mini_cell_size));
+	else if (current_cell == DOOR_OPEN_CHAR)
+		mlx_put_image_to_window(config->mlx.ptr, config->mlx.win_raycasting, \
+			config->mlx.textures.mini_door_open.ptr, \
+			x * ray.text_size / (ray.text_size / ray.mini_cell_size), \
+			y * ray.text_size / (ray.text_size / ray.mini_cell_size));
 	else
 		mlx_put_image_to_window(config->mlx.ptr, \
-			config->mlx.win_raycasting, config->mlx.textures.raycast_void.ptr, \
-			x * ray.text_size / (ray.text_size / ray.raycast_cell_size), \
-			y * ray.text_size / (ray.text_size / ray.raycast_cell_size));
+			config->mlx.win_raycasting, config->mlx.textures.mini_void.ptr, \
+			x * ray.text_size / (ray.text_size / ray.mini_cell_size), \
+			y * ray.text_size / (ray.text_size / ray.mini_cell_size));
 }
 
 void	draw_map(t_main *config)
@@ -54,11 +64,11 @@ void	draw_player_pos(t_main *config)
 	t_d_pos	pos;
 
 	pos.x = get_ratio(config->player.pos.x, config->ray) - \
-											config->ray.raycast_player_size / 2;
+											config->ray.mini_player_size / 2;
 	pos.y = get_ratio(config->player.pos.y, config->ray) - \
-											config->ray.raycast_player_size / 2;
+											config->ray.mini_player_size / 2;
 	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win_raycasting, \
-		config->mlx.textures.raycast_player.ptr, pos.x, pos.y);
+		config->mlx.textures.mini_player.ptr, pos.x, pos.y);
 }
 
 void	draw_player_angle(t_main *config)

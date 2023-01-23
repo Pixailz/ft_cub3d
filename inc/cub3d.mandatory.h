@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 05:45:09 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:11:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@
 # define RAY_SCREEN_SIZE_Y			480
 
 		// TEXTURE
-# define RAY_WALL_PATH				"./rsc/xpm/raycasting/wall_x16.xpm"
-# define RAY_VOID_PATH				"./rsc/xpm/raycasting/void_x16.xpm"
-# define RAY_PLAYER_PATH			"./rsc/xpm/raycasting/player_x4.xpm"
-# define RAY_HIT_COLOR				0xffff00
+# define RAY_WALL_PATH				"./rsc/xpm/minimap/wall_x16.xpm"
+# define RAY_VOID_PATH				"./rsc/xpm/minimap/void_x16.xpm"
+# define RAY_PLAYER_PATH			"./rsc/xpm/minimap/player_x4.xpm"
+# define RAY_HIT_COLOR				0xff0000
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -458,7 +458,7 @@ void			debug_print_errn_binary(const char *title, t_int64 to_bin);
 void			debug_print_error(int mode, void *ptr);
 
 // debug/map.c
-void			debug_print_coord_checked(int x, int y, char **map);
+void			debug_print_coord_checked(t_i_pos pos, char **map);
 
 // debug/parsing.c
 void			debug_print_map_size(t_map *map);
@@ -572,16 +572,16 @@ t_bool			is_line_already_taken(int already_taken, int line_type);
 t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
 
-// parsing/map/check.c
+// parsing/map/check.surrounded.c
+t_bool			check_is_surrounded_char_4(t_i_pos pos, char **map);
+t_bool			check_is_surrounded_char_8(t_i_pos pos, char **map);
+t_bool			check_is_surrounded_map(t_error *err, t_map *map);
+
+// parsing/map/content.c
 int				check_map_content(t_map *map, t_error *err);
 int				check_map_player_char(t_map map, t_error *err);
 t_bool			check_map_new_line(t_map map);
 t_bool			check_map_wrong_char(t_map map);
-
-// parsing/map/check.surrounded.c
-t_bool			check_is_surrounded_char_4(int x, int y, char **map);
-t_bool			check_is_surrounded_char_8(int x, int y, char **map);
-t_bool			check_is_surrounded_map(t_error *err, t_map *map);
 
 // parsing/map/entry.c
 t_bool			get_map(t_error *err, t_parse *parse);

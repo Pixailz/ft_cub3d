@@ -75,8 +75,8 @@
 |ERRN_16|PARAMS_MAP_NOT_SURROUNDED             |
 |ERRN_17|PARAMS_MAP_MULTIPLE_PLAYER            |
 |ERRN_18|PARAMS_MAP_NO_PLAYER                  |
-|ERRN_19|                                      |
-|ERRN_20|                                      |
+|ERRN_19|PARAMS_MAP_DOOR_NOT_SURROUNDED        |
+|ERRN_20|PARAMS_MAP_DOOR_OBSTRUCTED            |
 |ERRN_21|                                      |
 |ERRN_22|                                      |
 |ERRN_23|                                      |
@@ -172,17 +172,17 @@
 |:-----:|:-----------------------|
 |ERRN_00|all good                |
 |ERRN_01|MLX_MAIN_WINDOW         |
-|ERRN_02|MLX_RAY_WINDOW      |
+|ERRN_02|MLX_RAY_WINDOW          |
 |ERRN_03|MLX_NORTH_TEXT          |
 |ERRN_04|MLX_SOUTH_TEXT          |
 |ERRN_05|MLX_WEST_TEXT           |
 |ERRN_06|MLX_EAST_TEXT           |
-|ERRN_07|MLX_RAY_VOID_TEXT   |
-|ERRN_08|MLX_RAY_WALL_TEXT   |
-|ERRN_09|MLX_RAY_PLAYER_TEXT |
-|ERRN_10|MLX_MINI_VOID_TEXT      |
-|ERRN_11|MLX_MINI_WALL_TEXT      |
-|ERRN_12|MLX_MINI_PLAYER_TEXT    |
+|ERRN_07|MLX_MINI_VOID_TEXT      |
+|ERRN_08|MLX_MINI_WALL_TEXT      |
+|ERRN_09|MLX_MINI_PLAYER_TEXT    |
+|ERRN_10|MLX_MINI_DOOR_CLOSE_TEXT|
+|ERRN_11|MLX_MINI_DOOR_OPEN_TEXT |
+|ERRN_12|                        |
 |ERRN_13|                        |
 |ERRN_14|                        |
 |ERRN_15|                        |

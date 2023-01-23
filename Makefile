@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/23 04:24:18 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/23 06:11:11 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ endif
 endif
 endif
 
-ifneq ($(PADDING),45)
-PADDING				:= 45
+ifneq ($(PADDING),60)
+PADDING				:= 60
 endif
 
 ifeq ($(DEBUG),)
@@ -105,8 +105,8 @@ SRC_C_MANDATORY		:= src/mandatory/dataset/free/config.c \
 					   src/mandatory/parsing/line/color.c \
 					   src/mandatory/parsing/line/entry.c \
 					   src/mandatory/parsing/line/texture.c \
-					   src/mandatory/parsing/map/check.c \
 					   src/mandatory/parsing/map/check.surrounded.c \
+					   src/mandatory/parsing/map/content.c \
 					   src/mandatory/parsing/map/entry.c \
 					   src/mandatory/parsing/params.c \
 					   src/mandatory/parsing/utils.1.c \
@@ -168,6 +168,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/parsing/line/color.c \
 					   src/bonus/parsing/line/entry.c \
 					   src/bonus/parsing/line/texture.c \
+					   src/bonus/parsing/map/check.door.surrounded.c \
 					   src/bonus/parsing/map/check.surrounded.c \
 					   src/bonus/parsing/map/content.c \
 					   src/bonus/parsing/map/entry.c \

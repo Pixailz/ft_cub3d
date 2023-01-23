@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:03:32 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:40:36 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,15 @@ void	error_print_texture_load(t_error err)
 	if (err.texture_args & ERRN_06)
 		ft_putstr_fd(" (East)", 2);
 	if (err.texture_args & ERRN_07)
-		ft_putstr_fd(" (Ray void)", 2);
-	if (err.texture_args & ERRN_08)
-		ft_putstr_fd(" (Ray wall)", 2);
-	if (err.texture_args & ERRN_09)
-		ft_putstr_fd(" (Ray player)", 2);
-	if (err.texture_args & ERRN_10)
 		ft_putstr_fd(" (Mini void)", 2);
-	if (err.texture_args & ERRN_11)
+	if (err.texture_args & ERRN_08)
 		ft_putstr_fd(" (Mini wall)", 2);
-	if (err.texture_args & ERRN_12)
+	if (err.texture_args & ERRN_09)
 		ft_putstr_fd(" (Mini player)", 2);
+	if (err.texture_args & ERRN_10)
+		ft_putstr_fd(" (Mini door close)", 2);
+	if (err.texture_args & ERRN_11)
+		ft_putstr_fd(" (Mini door open)", 2);
 	ft_putchar_fd('\n', 2);
 }
 

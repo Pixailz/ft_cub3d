@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 05:45:14 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:45:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@
 	// MATRIX
 # define MATRIX_OFFSET					10
 # define GOOD_CHAR_MAP					" 10NSWED"
-# define VOID_CHAR						'#'
+# define VOID_CHAR						' '
 # define WALL_CHAR						'1'
 # define EMPTY_CHAR						'0'
 # define DOOR_CLOSE_CHAR				'D'
@@ -126,15 +126,14 @@
 # define RAY_SCREEN_SIZE_Y				480
 
 		// TEXTURE
-# define RAY_WALL_PATH					"./rsc/xpm/raycasting/wall_x16.xpm"
-# define RAY_VOID_PATH					"./rsc/xpm/raycasting/void_x16.xpm"
-# define RAY_PLAYER_PATH				"./rsc/xpm/raycasting/player_x4.xpm"
-# define RAY_HIT_COLOR					0xffff00
+# define RAY_HIT_COLOR					0xff0000
 
 	// MINIMAP
 # define MINI_WALL_PATH					"./rsc/xpm/minimap/wall_x16.xpm"
 # define MINI_VOID_PATH					"./rsc/xpm/minimap/void_x16.xpm"
 # define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x4.xpm"
+# define MINI_DOOR_CLOSE_PATH			"./rsc/xpm/minimap/door_close_x16.xpm"
+# define MINI_DOOR_OPEN_PATH			"./rsc/xpm/minimap/door_open_x16.xpm"
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -142,7 +141,7 @@
 	// MASK
 # define ERRN_MASK_INPUT_USER			0x1f
 # define ERRN_MASK_KNOWN				0xfe0
-# define ERRN_MASK_MAP					0x3f000
+# define ERRN_MASK_MAP					0xff000
 # define ERRN_MASK_TEXTURE_ARG			0x6
 
 	// STRING
@@ -169,8 +168,10 @@
 # define ERRN_PARAMS_STR_14		"contain empty line ('\\n' only)"
 # define ERRN_PARAMS_STR_15		"wrong char in map"
 # define ERRN_PARAMS_STR_16		"not surrounded"
-# define ERRN_PARAMS_STR_17		"map have multiple player"
+# define ERRN_PARAMS_STR_17		"have multiple player"
 # define ERRN_PARAMS_STR_18		"don't have player"
+# define ERRN_PARAMS_STR_19		"have door(s) not surrounded"
+# define ERRN_PARAMS_STR_20		"have door(s) obstructed"
 
 		// TEXTURE
 # define ERRN_TEXTURE_STR_01	"init mlx failed"
@@ -255,12 +256,11 @@ typedef enum e_param_type
 	CEIL			= 1L << 5,
 	MAIN_WINDOW		= 1L << 6,
 	RAY_WINDOW		= 1L << 7,
-	RAY_VOID		= 1L << 8,
-	RAY_WALL		= 1L << 9,
-	RAY_PLAYER		= 1L << 10,
 	MINI_VOID		= 1L << 11,
 	MINI_WALL		= 1L << 12,
-	MINI_PLAYER		= 1L << 13
+	MINI_PLAYER		= 1L << 13,
+	MINI_DOOR_CLOSE	= 1L << 14,
+	MINI_DOOR_OPEN	= 1L << 15
 }	t_param_type;
 
 typedef struct s_error
@@ -319,8 +319,8 @@ typedef struct s_ray
 	int				depth_of_field;
 	int				bit_prec;
 	int				text_size;
-	int				raycast_cell_size;
-	int				raycast_player_size;
+	int				mini_cell_size;
+	int				mini_player_size;
 	t_bool			hit;
 	t_l_pos			max;
 	t_d_pos			pos;
@@ -343,12 +343,11 @@ typedef struct s_mlx_textures
 	t_mlx_texture	south;
 	t_mlx_texture	west;
 	t_mlx_texture	east;
-	t_mlx_texture	raycast_wall;
-	t_mlx_texture	raycast_void;
-	t_mlx_texture	raycast_player;
 	t_mlx_texture	mini_wall;
 	t_mlx_texture	mini_void;
 	t_mlx_texture	mini_player;
+	t_mlx_texture	mini_door_close;
+	t_mlx_texture	mini_door_open;
 	t_mlx_texture	scene;
 }	t_mlx_textures;
 
@@ -492,7 +491,7 @@ void			debug_print_errn_binary(const char *title, t_int64 to_bin);
 void			debug_print_error(int mode, void *ptr);
 
 // debug/map.c
-void			debug_print_coord_checked(int x, int y, char **map);
+void			debug_print_coord_checked(t_i_pos pos, char **map);
 
 // debug/parsing.c
 void			debug_print_map_size(t_map *map);
@@ -605,9 +604,15 @@ int				parse_line(t_error *err, char **line, t_parse *parse);
 t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
 
+// parsing/map/check.door.surrounded.c
+int				check_door(t_i_pos pos, char **map, t_error *err);
+int				check_map_door_surrounded(t_map map, t_error *err);
+t_bool			check_door_not_enclosed(t_i_pos pos, char **map);
+t_bool			check_door_obstructed(t_i_pos pos, char **map);
+
 // parsing/map/check.surrounded.c
-t_bool			check_is_surrounded_char_4(int x, int y, char **map);
-t_bool			check_is_surrounded_char_8(int x, int y, char **map);
+t_bool			check_is_surrounded_char_4(t_i_pos pos, char **map);
+t_bool			check_is_surrounded_char_8(t_i_pos pos, char **map);
 t_bool			check_is_surrounded_map(t_error *err, t_map *map);
 
 // parsing/map/content.c
@@ -697,12 +702,11 @@ t_r_value		load_scene(t_main *config);
 t_r_value		load_texture(t_mlx_texture *text, char *file_path, void *mlx);
 t_r_value		load_textures(t_main *config);
 void			load_textures_minimap(t_mlx *mlx, t_error *err);
-void			load_textures_raycast(t_mlx *mlx, t_error *err);
 
 // rendering/texture/load.size.c
 unsigned char	get_bit_prec(int lowest);
 void			get_highest_size(t_i_pos *lowest, t_mlx_texture text);
-void			get_raycast_size(t_main *config);
+void			get_mini_size(t_main *config);
 void			get_textures_size(t_main *config);
 
 // rendering/utils.1.c

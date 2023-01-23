@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 20:24:12 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:06:31 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	get_ratio(float nbr, t_ray ray)
 {
-	return ((nbr / ray.text_size) * ray.raycast_cell_size);
+	return ((nbr / ray.text_size) * ray.mini_cell_size);
 }
 
 void	ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color)

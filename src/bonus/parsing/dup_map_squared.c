@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:31:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 05:50:32 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 06:32:12 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ char	**dup_map_squared(t_map map, int offset)
 			return (FT_NULL);
 		counter++;
 	}
-	debug_print(PARSE_GET_MAP_SURROUDED, (void *)dup);
 	return (dup);
 }

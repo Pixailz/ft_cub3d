@@ -32,26 +32,26 @@ unsigned char	get_bit_prec(int lowest)
 	return (counter);
 }
 
-void	get_raycast_size(t_main *config)
+void	get_mini_size(t_main *config)
 {
 	t_i_pos			highest;
 	t_mlx_textures	textures;
 
 	textures = config->mlx.textures;
-	highest.x = textures.raycast_wall.len.x;
-	highest.y = textures.raycast_wall.len.y;
-	if (highest.x < textures.raycast_void.len.x)
-		highest.x = textures.raycast_void.len.x;
-	if (highest.y < textures.raycast_void.len.y)
-		highest.y = textures.raycast_void.len.y;
+	highest.x = textures.mini_wall.len.x;
+	highest.y = textures.mini_wall.len.y;
+	if (highest.x < textures.mini_void.len.x)
+		highest.x = textures.mini_void.len.x;
+	if (highest.y < textures.mini_void.len.y)
+		highest.y = textures.mini_void.len.y;
 	if (highest.x > highest.y)
-		config->ray.raycast_cell_size = highest.x;
+		config->ray.mini_cell_size = highest.x;
 	else
-		config->ray.raycast_cell_size = highest.y;
-	if (textures.raycast_player.len.x > textures.raycast_player.len.y)
-		config->ray.raycast_player_size = textures.raycast_player.len.x;
+		config->ray.mini_cell_size = highest.y;
+	if (textures.mini_player.len.x > textures.mini_player.len.y)
+		config->ray.mini_player_size = textures.mini_player.len.x;
 	else
-		config->ray.raycast_player_size = textures.raycast_player.len.y;
+		config->ray.mini_player_size = textures.mini_player.len.y;
 }
 
 void	get_textures_size(t_main *config)
@@ -65,8 +65,7 @@ void	get_textures_size(t_main *config)
 	get_highest_size(&lowest, textures.south);
 	get_highest_size(&lowest, textures.west);
 	get_highest_size(&lowest, textures.east);
-	if (RAY_ENABLE)
-		get_raycast_size(config);
+	get_mini_size(config);
 	if (lowest.x < lowest.y)
 		config->ray.text_size = lowest.y;
 	else

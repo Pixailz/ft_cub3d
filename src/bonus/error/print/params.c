@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 07:04:59 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	error_print_params_map(t_r_value params)
 		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_17);
 	if (params & ERRN_18)
 		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_18);
+	if (params & ERRN_19)
+		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_19);
+	if (params & ERRN_20)
+		ft_put_padded_str(2, 2, ERRN_PARAMS_STR_20);
 }
 
 void	error_print_base(t_r_value params, int err_no)

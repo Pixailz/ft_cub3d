@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 03:23:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 01:55:40 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 06:36:34 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,46 +28,42 @@ t_bool	check_map_new_line(t_map map)
 
 t_bool	check_map_wrong_char(t_map map)
 {
-	int		counter_1;
-	int		counter_2;
+	t_i_pos	pos;
 
-	counter_1 = 0;
-	counter_2 = 0;
-	while (map.matrix[counter_1])
+	pos.y = 0;
+	while (map.matrix[pos.y])
 	{
-		counter_2 = 0;
-		while (map.matrix[counter_1][counter_2])
+		pos.x = 0;
+		while (map.matrix[pos.y][pos.x])
 		{
-			if (!ft_strchr(GOOD_CHAR_MAP, map.matrix[counter_1][counter_2++]))
+			if (!ft_strchr(GOOD_CHAR_MAP, map.matrix[pos.y][pos.x++]))
 				return (TRUE);
 		}
-		counter_1++;
+		pos.y++;
 	}
 	return (FALSE);
 }
 
 int	check_map_player_char(t_map map, t_error *err)
 {
-	int	counter_1;
-	int	counter_2;
-	int	already_seen;
+	t_i_pos	pos;
+	int		already_seen;
 
-	counter_1 = 0;
-	counter_2 = 0;
+	pos.y = 0;
 	already_seen = 0;
-	while (map.matrix[counter_1])
+	while (map.matrix[pos.y])
 	{
-		counter_2 = 0;
-		while (map.matrix[counter_1][counter_2])
+		pos.x = 0;
+		while (map.matrix[pos.y][pos.x])
 		{
-			if (map_char_is_player(map.matrix[counter_1][counter_2]))
+			if (map_char_is_player(map.matrix[pos.y][pos.x]))
 			{
 				if (already_seen++)
 					return (set_error(err, 1, ERRN_17));
 			}
-			counter_2++;
+			pos.x++;
 		}
-		counter_1++;
+		pos.y++;
 	}
 	if (!already_seen)
 		return (set_error(err, 1, ERRN_18));

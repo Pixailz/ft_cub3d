@@ -178,7 +178,8 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/frame.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
-					   src/bonus/rendering/draw/minimap.c \
+					   src/bonus/rendering/draw/minimap/init_minimap.c \
+					   src/bonus/rendering/draw/minimap/minimap.c \
 					   src/bonus/rendering/draw/raycast.c \
 					   src/bonus/rendering/draw/scene.c \
 					   src/bonus/rendering/move/angle.c \

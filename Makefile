@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/22 20:07:24 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/23 02:06:25 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -137,6 +137,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/init/file.c \
 					   src/bonus/dataset/init/mlx.c \
 					   src/bonus/dataset/init/mlx.hook.c \
+					   src/bonus/dataset/init/mlx.hook.mouse.c \
 					   src/bonus/dataset/init/parse.c \
 					   src/bonus/dataset/init/player.c \
 					   src/bonus/dataset/init/rendering.c \
@@ -287,6 +288,7 @@ endef
 .PHONY:		setup
 .PHONY:		lib
 .PHONY:		call_logo
+.PHONY:		ft_helper
 
 .DEFAULT:	all
 
@@ -314,7 +316,7 @@ $(TARGET_BONUS):		$(LIBFT) $(MINI_LIBX) $(OBJ_C)
 	$(PRINTF) "$(green_plus) $(font_color)Creation of $(bold)$@$(reset)\n"
 	@$(CC) $(CFLAGS) -o $@ $(OBJ_C) $(LIBS) $(LDFLAGS)
 
-setup:					call_logo $(OBJ_SUBDIR) $(BIN_DIR)
+setup:					call_logo $(OBJ_SUBDIR) $(BIN_DIR) ft_helper
 ifeq ($(DEBUG),1)
 	$(PRINTF) "$(orange_star) $(font_color)Info$(reset)\n"
 	$(PRINTF) "   $(orange_star) $(bold)Switch$(reset)\n"
@@ -332,6 +334,9 @@ endif
 	$(PRINTF) "      $(orange_star) $(font_color)%s$(reset)\n" $(OBJ_C)
 	$(PRINTF) "$(orange_star) $(font_color)Building$(reset)\n"
 endif
+
+ft_helper:
+	@./scripts/ft_helper/ft_helper
 
 call_logo:
 	$(PRINTF) "$(ascii_color)$$ascii_art"

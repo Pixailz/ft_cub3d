@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 02:01:31 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 02:16:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
  * float
  */
 # include <math.h>
+/* usleep()
+ */
+# include <unistd.h>
 
 /* ########################################################################## */
 
@@ -73,7 +76,8 @@
 	// BASE
 # define PLAYER_STEP					0.036
 # define FOV							50
-# define HIT_OFFSET						30
+# define FPS							144
+# define ONE_SEC						1000000
 
 	// MATRIX
 # define MATRIX_OFFSET					10
@@ -382,7 +386,8 @@ typedef struct s_move
 	t_bool	left;
 	t_bool	rigth;
 	t_bool	left_angle;
-	t_bool	rigth_angle;
+	t_bool	rigth_angle;	
+	float	r_speed;
 }	t_move;
 
 typedef struct s_player
@@ -449,6 +454,10 @@ int				key_release(int key_code, t_main *config);
 t_bool			is_movement_key(int key_code);
 void			init_mlx_hook(t_main *config);
 void			set_movement(t_move *movement, int key_code, t_bool value);
+
+// dataset/init/mlx.hook.mouse.c
+int				ft_get_axis(int x, int y, t_main *config);
+int				ft_not_in_axis(t_main *config);
 
 // dataset/init/parse.c
 void			init_parse(t_parse *parse);

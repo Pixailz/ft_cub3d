@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 02:30:51 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ void	set_movement(t_move *movement, int key_code, t_bool value)
 		movement->up = value;
 	else if (key_code == KEY_S)
 		movement->down = value;
-	else if (key_code == KEY_LEFT)
-		movement->left_angle = value;
-	else if (key_code == KEY_RIGHT)
-		movement->rigth_angle = value;
 }
 
 int	key_press(int key_code, t_main *config)
@@ -62,6 +58,8 @@ void	init_mlx_hook(t_main *config)
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), key_press, config);
 	mlx_hook(mlx->win, 3, (1L << 1), key_release, config);
+	mlx_hook(mlx->win, 6, 1L << 6, ft_get_axis, config);
+	mlx_hook(mlx->win, 8, 1L << 5, ft_not_in_axis, config);
 	mlx_do_key_autorepeaton(mlx->ptr);
 	return ;
 }

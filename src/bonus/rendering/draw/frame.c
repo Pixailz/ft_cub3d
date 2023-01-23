@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 04:09:52 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 02:16:46 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,8 @@ void	do_moving(t_main *config)
 
 int	draw_frame(t_main *config)
 {
-	static int	frame_id = 0;
-
-	frame_id++;
-	if (frame_id > 500)
-	{
-		do_moving(config);
-		draw_scene(config);
-		frame_id = 0;
-	}
+	do_moving(config);
+	draw_scene(config);
+	usleep(ONE_SEC / FPS);
 	return (0);
 }

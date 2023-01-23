@@ -7,8 +7,7 @@
 - fix little norme issue everywhere (line to long prototype)
   - inc/
   - src/
-- fix colision, in the corner, shaking screen
-  - not proportional collision, HIT_OFFSET react differently with 64px or 1024px 
+- fix screen not moving when clicking
 
 ## bpp size_len
 

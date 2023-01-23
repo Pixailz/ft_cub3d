@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 18:40:56 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:22:38 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,28 @@ void	init_mlx_textures(t_mlx_textures *textures)
 	init_mlx_texture(&textures->raycast_wall);
 	init_mlx_texture(&textures->raycast_void);
 	init_mlx_texture(&textures->raycast_player);
+	init_mlx_texture(&textures->scene);
 }
 
 void	init_mlx_window(t_mlx *mlx, t_error *err)
 {
 	mlx->screen.x = SCREEN_SIZE_X;
 	mlx->screen.y = SCREEN_SIZE_Y;
+	mlx->win = FT_NULL;
+	mlx->win_raycasting = FT_NULL;
 	if (FULL_SCREEN)
 		mlx_get_screen_size(mlx->ptr, &mlx->screen.x, &mlx->screen.y);
 	debug_print(RENDER_SCREEN_SIZE, (void *)mlx);
 	mlx->win = mlx_new_window(mlx->ptr, mlx->screen.x, mlx->screen.y, \
 															WINDOW_TITLE);
 	if (!mlx->win)
-	{
 		set_error_known_texture(err, ERRN_02, MAIN_WINDOW);
-		return ;
-	}
 	if (RAYCAST_ENABLE)
 	{
 		mlx->win_raycasting = mlx_new_window(mlx->ptr, \
 			RAYCAST_SCREEN_SIZE_X, RAYCAST_SCREEN_SIZE_Y, RAYCAST_TITLE);
 		if (!mlx->win_raycasting)
-		{
 			set_error_known_texture(err, ERRN_02, RAYCAST_WINDOW);
-			return ;
-		}
 	}
 }
 
@@ -70,6 +67,8 @@ t_r_value	init_mlx(t_main *config)
 		return (set_error(&config->err, 0, ERRN_01));
 	init_mlx_textures(&mlx->textures);
 	init_mlx_window(mlx, &config->err);
+	if (have_error(config->err, 4) & (ERRN_02 | ERRN_01))
+		return (1);
 	init_mlx_hook(config);
 	return (0);
 }

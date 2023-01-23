@@ -39,9 +39,9 @@ line
 |:-----:|:-----------------|
 |ERRN_00|all good          |
 |ERRN_01|MALLOC_INSIDE_GNL |
-|ERRN_02|                  |
-|ERRN_03|                  |
-|ERRN_04|                  |
+|ERRN_02|MALLOC_SPLIT      |
+|ERRN_03|MALLOC_GET_MAP    |
+|ERRN_04|MALLOC_DUP_MAP    |
 |ERRN_05|                  |
 |ERRN_06|                  |
 |ERRN_07|                  |

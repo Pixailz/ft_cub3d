@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.texture.known_bonus.c                        :+:      :+:    :+:   */
+/*   texture.known.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/20 17:36:27 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 00:39:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	error_print_texture_window(t_error err)
 {
+	ft_put_padded(2, 2);
 	ft_putstr_fd(ERRN_TEXTURE_STR_02, 2);
 	if (err.texture_args & ERRN_01)
-		ft_putstr_fd("(Main)", 2);
+		ft_putstr_fd(" (Main)", 2);
 	ft_putchar_fd('\n', 2);
 }
 
 void	error_print_texture_load(t_error err)
 {
+	ft_put_padded(2, 2);
 	ft_putstr_fd(ERRN_TEXTURE_STR_03, 2);
 	if (err.texture_args & ERRN_03)
 		ft_putstr_fd(" (North)", 2);

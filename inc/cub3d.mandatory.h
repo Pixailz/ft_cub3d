@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 04:27:34 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 00:21:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@
 
 		// MALLOC
 # define ERRN_MALLOC_STR_01		"inside gnl"
+# define ERRN_MALLOC_STR_02		"inside split"
+# define ERRN_MALLOC_STR_03		"inside get_map()"
+# define ERRN_MALLOC_STR_04		"inside dup_map_squared()"
 
 		// PARAMS
 # define ERRN_PARAMS_STR_01		"file path too short"
@@ -407,7 +410,7 @@ void			close_file(int fd);
 void			free_file(t_file *file);
 
 // dataset/free/mlx.c
-void			free_mlx(t_mlx *mlx);
+void			free_mlx(t_mlx *mlx, t_error *err);
 void			free_mlx_texture(void *mlx, t_mlx_texture *text);
 void			free_mlx_textures(t_mlx *mlx);
 
@@ -548,7 +551,7 @@ void			init_error(t_error *err);
 // parsing/dup_map_squared.c
 char			**dup_map_squared(t_map map, int offset);
 char			*dup_map_get_line(int width, char *line, int offset);
-void			dup_map_get_surrounding(char **dup, int offset, t_map map);
+int				dup_map_get_surrounding(char **dup, int offset, t_map map);
 
 // parsing/entry.c
 int				parse_file(t_error *err, t_parse *parse, char *filename);
@@ -576,7 +579,7 @@ t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
 
 // parsing/map/check.c
-int				check_map_content(t_map *map, t_error *err);
+int				check_map_content(t_error *err, t_map *map);
 int				check_map_player_char(t_map map, t_error *err);
 t_bool			check_map_new_line(t_map map);
 t_bool			check_map_wrong_char(t_map map);
@@ -584,10 +587,11 @@ t_bool			check_map_wrong_char(t_map map);
 // parsing/map/check.surrounded.c
 t_bool			check_is_surrounded_char_4(int x, int y, char **map);
 t_bool			check_is_surrounded_char_8(int x, int y, char **map);
-t_bool			check_is_surrounded_map(t_map *map);
+t_bool			check_is_surrounded_map(t_error *err, t_map *map);
 
 // parsing/map/entry.c
-t_bool			get_map(t_parse *parse);
+t_bool			get_map(t_error *err, t_parse *parse);
+t_bool			get_map_end(t_error *err, char **tmp_joined, t_parse *parse);
 t_r_value		parse_map(t_error *err, t_parse *parse);
 
 // parsing/params.c

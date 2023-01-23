@@ -15,7 +15,7 @@
 t_bool	is_movement_key(int key_code)
 {
 	if (key_code == KEY_A || key_code == KEY_D || key_code == KEY_W || \
-		key_code == KEY_S || key_code == KEY_LEFT || key_code == KEY_RIGHT)
+		key_code == KEY_S || key_code == KEY_LEFT || key_code == XK_e || key_code == KEY_RIGHT)
 		return (TRUE);
 	return (FALSE);
 }
@@ -30,6 +30,8 @@ void	set_movement(t_move *movement, int key_code, t_bool value)
 		movement->up = value;
 	else if (key_code == KEY_S)
 		movement->down = value;
+	else if (key_code == KEY_E)
+		movement->e = value;
 	else if (!MOUSE_ENABLE)
 	{
 		if (key_code == KEY_LEFT)
@@ -63,6 +65,7 @@ void	init_mlx_hook(t_main *config)
 
 	mlx = &config->mlx;
 	config->cursor = 0;
+	config->player.movement.e = FALSE;
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), key_press, config);
 	mlx_hook(mlx->win, 3, (1L << 1), key_release, config);

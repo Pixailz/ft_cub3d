@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 11:41:27 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:26:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
  * mlx_init()
  */
 # include "mlx.h"
+# include "mlx_int.h"
 # include "libft.h"
 /* strerror()
  */
@@ -78,8 +79,10 @@
 # define PLAYER_STEP					0.036
 # define FOV							50
 # define FPS							144
-# define FULL_SCREEN					0
-# define MOUSE_ENABLE					1
+# define FULL_SCREEN					FALSE
+# define MOUSE_ENABLE					TRUE
+# define RAY_ENABLE						TRUE
+# define COLLISION						FALSE
 # define TURN_SENSIVITY					0.6
 
 	// MATRIX
@@ -107,6 +110,7 @@
 # define KEY_S							0x73
 # define KEY_D							0x64
 # define KEY_R							0x72
+# define KEY_E							XK_e
 
 		// ARROW
 # define KEY_RIGHT						0xff53
@@ -121,7 +125,6 @@
 
 		// WINDOW
 # define RAY_TITLE						"Supa Cub3D - RayCasting"
-# define RAY_ENABLE						0
 # define RAY_SCREEN_SIZE_X				800
 # define RAY_SCREEN_SIZE_Y				480
 
@@ -134,6 +137,11 @@
 # define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x4.xpm"
 # define MINI_DOOR_CLOSE_PATH			"./rsc/xpm/minimap/door_close_x16.xpm"
 # define MINI_DOOR_OPEN_PATH			"./rsc/xpm/minimap/door_open_x16.xpm"
+# define MINI_EDGE_COLOR				0xff00
+# define MINI_CENTER_X					80
+# define MINI_CENTER_Y					80
+# define MINI_CIRCLE_RADIUS				75
+# define MINI_TEXT_RADIUS				73
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -322,6 +330,7 @@ typedef struct s_ray
 	int				mini_cell_size;
 	int				mini_player_size;
 	t_bool			hit;
+	t_bool			hit_door;
 	t_l_pos			max;
 	t_d_pos			pos;
 	t_d_pos			offset;
@@ -398,6 +407,7 @@ typedef struct s_move
 	t_bool	right;
 	t_bool	left_angle;
 	t_bool	right_angle;
+	t_bool	e;
 	float	r_speed;
 }	t_move;
 
@@ -649,12 +659,15 @@ void			draw_ray_hit(t_main *config);
 t_line			get_line(t_d_pos begin, t_d_pos end);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
 
-// rendering/draw/minimap.c
-t_i_pos			*draw_circle(t_i_pos pos, t_int4 color, int r, t_mlx *mlx);
+// rendering/draw/minimap/init_minimap.c
+t_bool			pos_is_in_circle(t_i_pos pos, t_i_pos counter);
+void			draw_circle(t_i_pos pos, t_int4 color, int r, t_mlx_textures *text);
+void			init_mini_map(t_mlx_textures *text);
+void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
+
+// rendering/draw/minimap/minimap.c
+void			draw_mini_map_in_circle(t_main *config, char **map, t_d_pos ppos);
 void			draw_minimap(t_main *config);
-void			put_buffer_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color);
-void			text_to_buff(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
-void			text_to_buff_in_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
 
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);

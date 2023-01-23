@@ -26,6 +26,8 @@ void	choose_ray(t_main *config)
 			config->ray.img_use = &config->mlx.textures.east;
 		else
 			config->ray.img_use = &config->mlx.textures.west;
+		if (config->ray.hit == 2)
+			config->ray.img_use = &config->mlx.textures.mini_door_close;
 		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
 	}
 	else

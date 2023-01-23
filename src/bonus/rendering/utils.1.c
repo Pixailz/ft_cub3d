@@ -36,6 +36,12 @@ t_bool	ray_hit(t_ray *ray, t_map map, int to_add)
 				ray->hit = 1;
 				return (TRUE);
 			}
+			if (map.matrix[ray->max.y][ray->max.x] == 'D')
+			{
+				ray->depth_of_field = to_add;
+				ray->hit = 2;
+				return (TRUE);
+			}
 		}
 	}
 	return (FALSE);

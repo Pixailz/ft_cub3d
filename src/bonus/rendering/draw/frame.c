@@ -6,14 +6,30 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 05:04:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:08:25 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
+void	open_door(t_main *config)
+{
+	config->ray.angle = config->player.angle;
+	config->ray.nbr = 0;
+	cast_rays(config);
+	if (config->ray.max.x < config->parse.map.size.x && config->ray.max.y < config->parse.map.size.y)
+	{
+		if (config->parse.map.matrix[config->ray.max.y][config->ray.max.x] == 'D')
+		{
+				config->parse.map.matrix[config->ray.max.y][config->ray.max.x] = 'd';
+		}
+	}
+}
+
 void	do_moving(t_main *config)
 {
+	if (config->player.movement.right_angle == TRUE)
+		key_press_move_angle_right(&config->player, config->ray.text_size);
 	if (config->player.movement.left == TRUE)
 		key_press_move_left(&config->player, config->ray.text_size, \
 															config->parse.map);
@@ -29,7 +45,7 @@ void	do_moving(t_main *config)
 	if (config->player.movement.left_angle == TRUE)
 		key_press_move_angle_left(&config->player, config->ray.text_size);
 	if (config->player.movement.right_angle == TRUE)
-		key_press_move_angle_right(&config->player, config->ray.text_size);
+		open_door(config);
 }
 
 int	draw_frame(t_main *config)

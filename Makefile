@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/24 03:32:15 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/24 06:02:26 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM					:= rm -rf
 CC					:= gcc
 PRINTF				:= @printf
 MAKE				:= make -C
-VERSION				:= 1.2.0
+VERSION				:= 1.3.0
 $(eval export MAIN=1)
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
@@ -378,9 +378,9 @@ re_all:					re_lib re
 re_bonus:				fclean bonus
 
 run:					re
-	./$(TARGET) $(MAP)
+	bash -c "./$(TARGET) $(MAP) 420>exec.log"
 
 run_bonus:				re_bonus
-	./$(TARGET_BONUS) $(MAP)
+	bash -c "./$(TARGET_BONUS) $(MAP) 420>exec.log"
 
 # **************************************************************************** #

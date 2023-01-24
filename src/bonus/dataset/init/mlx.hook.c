@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 03:16:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 05:51:56 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 t_bool	is_movement_key(int key_code)
 {
 	if (key_code == KEY_A || key_code == KEY_D || key_code == KEY_W || \
-		key_code == KEY_S || key_code == KEY_LEFT || key_code == KEY_RIGHT)
+		key_code == KEY_S || key_code == KEY_LEFT || key_code == KEY_RIGHT || \
+		key_code == KEY_LSHIFT)
 		return (TRUE);
 	return (FALSE);
 }
@@ -30,6 +31,8 @@ void	set_movement(t_move *movement, int key_code, t_bool value)
 		movement->up = value;
 	else if (key_code == KEY_S)
 		movement->down = value;
+	else if (key_code == KEY_LSHIFT)
+		movement->shifting = value;
 	else if (!MOUSE_ENABLE)
 	{
 		if (key_code == KEY_LEFT)

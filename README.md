@@ -16,8 +16,17 @@
 
 ## tips
 
-show diff betwen two dir, with colors
+> show diff betwen two dir, with colors
 `diff --color=always -bur ./src/mandatory/ ./src/bonus | less -r`
+
+> launch ft_helper, add -g3 disable -Werror
+`make DEBUG=1`
+
+> run mandatory maps
+`make MAP=<MAP_PATH> run`
+
+> run bonus maps
+`make MAP=<MAP_PATH> run_bonus`
 
 ## ERRNO
 

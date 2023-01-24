@@ -6,39 +6,55 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 03:21:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 05:29:41 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
-void	choose_ray(t_main *config)
+void	choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text)
 {
-	if (config->ray.dist > get_dist(config->player.pos, config->ray.pos))
+	if (ray->save.x == ray->pos.x)
 	{
-		config->ray.dist = get_dist(config->player.pos, config->ray.pos);
-		config->ray.save.x = config->ray.pos.x;
-		config->ray.save.y = config->ray.pos.y;
-		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
-		if (config->ray.pos.x < config->player.pos.x)
+		if (ray->hit == 2)
+			ray->img_use = &text->mini_door_close;
+		else if (ray->pos.x < ppos.x)
 		{
-			config->ray.img_use = &config->mlx.textures.east;
-			config->ray.t.x = config->ray.text_size - config->ray.t.x;
+			ray->img_use = &text->east;
+			ray->t.x = ray->text_size - ray->t.x;
 		}
 		else
-			config->ray.img_use = &config->mlx.textures.west;
+			ray->img_use = &text->west;
 	}
 	else
 	{
-		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
-		if (config->ray.pos.y < config->player.pos.y)
-			config->ray.img_use = &config->mlx.textures.south;
+		if (ray->hit == 2)
+			ray->img_use = &text->mini_door_close;
+		else if (ray->pos.y < ppos.y)
+			ray->img_use = &text->south;
 		else
 		{
-			config->ray.img_use = &config->mlx.textures.north;
-			config->ray.t.x = config->ray.text_size - config->ray.t.x;
+			ray->img_use = &text->north;
+			ray->t.x = ray->text_size - ray->t.x;
 		}
 	}
+}
+
+void	choose_ray(t_main *config)
+{
+	double	dist;
+
+	dist = get_dist(config->player.pos, config->ray.pos);
+	if (config->ray.dist > dist)
+	{
+		config->ray.dist = dist;
+		config->ray.save.x = config->ray.pos.x;
+		config->ray.save.y = config->ray.pos.y;
+		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
+	}
+	else
+		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
+	choose_ray_text(&config->ray, config->ray.pos, &config->mlx.textures);
 }
 
 void	cast_rays(t_main *config)

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 03:23:31 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 06:00:41 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@
 // CONFIG
 	// BASE
 # define PLAYER_STEP					0.036
+# define SHIFTING_SPEED					5
+# define TURN_SENSIVITY					0.6
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					FALSE
-# define MOUSE_ENABLE					TRUE
+# define MOUSE_ENABLE					FALSE
 # define RAY_ENABLE						TRUE
 # define COLLISION						FALSE
-# define TURN_SENSIVITY					0.6
 
 	// MATRIX
 # define MAX_DOF						1
@@ -109,7 +110,7 @@
 # define KEY_S							0x73
 # define KEY_D							0x64
 # define KEY_E							0x65
-# define KEY_R							0x72
+# define KEY_LSHIFT						0xffe1
 
 		// ARROW
 # define KEY_RIGHT						0xff53
@@ -405,6 +406,7 @@ typedef struct s_move
 	t_bool	right;
 	t_bool	left_angle;
 	t_bool	right_angle;
+	t_bool	shifting;
 	float	r_speed;
 }	t_move;
 
@@ -694,6 +696,7 @@ void			key_press_move_up(t_player *player, int text_size, t_map map);
 void			cast_ray_entry(t_main *config);
 void			cast_rays(t_main *config);
 void			choose_ray(t_main *config);
+void			choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text);
 
 // rendering/raycast/get_text.c
 void			fix_fisheyes(t_ray *ray, t_player player);

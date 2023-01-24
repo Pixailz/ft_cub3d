@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 01:28:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 05:46:13 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	debug_print_key(int key_code)
 		ft_putstr_fd("(RIGHT)", DEBUG_FD);
 	else if (key_code == KEY_LEFT)
 		ft_putstr_fd("(LEFT)", DEBUG_FD);
+	else if (key_code == KEY_LSHIFT)
+		ft_putstr_fd("(LSHIFT)", DEBUG_FD);
 	else
 		ft_putstr_fd("( ??? )", DEBUG_FD);
 	ft_putchar_fd('\n', DEBUG_FD);

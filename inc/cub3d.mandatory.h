@@ -637,6 +637,7 @@ void			key_press_move_up(t_player *player);
 void			cast_ray_entry(t_main *config);
 void			cast_rays(t_main *config);
 void			choose_ray(t_main *config);
+void			choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text);
 
 // rendering/raycast/get_text.c
 void			fix_fisheyes(t_ray *ray, t_player player);

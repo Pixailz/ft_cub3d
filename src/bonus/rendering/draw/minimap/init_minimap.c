@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:02:09 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 14:43:25 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:08:25 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_bool	pos_is_in_circle(t_i_pos pos, t_i_pos counter)
 
 	x_x = pos.x + counter.x;
 	y_y = pos.y + counter.y;
+	if (protect_outof_map(x_x, y_y))
+		return (FALSE);
 	pow_x = ((x_x / 4) - MINI_CENTER_X) * ((x_x / 4) - MINI_CENTER_X);
 	pow_y = (y_y - MINI_CENTER_Y) * (y_y - MINI_CENTER_Y);
 	return (pow_x + pow_y < MINI_TEXT_RADIUS);
@@ -59,7 +61,7 @@ void	text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst)
 	{
 		begin_dst_y = (pos.y + counter.y) * dst->size_line;
 		counter.x = 0;
-		while (counter.x < src->size_line)
+		while (counter.x < (src->size_line / 4))
 		{
 			if (pos_is_in_circle(pos, counter))
 			{

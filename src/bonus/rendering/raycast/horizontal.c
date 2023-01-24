@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:33:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	cast_ray_horizontal(t_ray *ray, t_player player, t_map map)
 	{
 		ray->pos.x = player.pos.x;
 		ray->pos.y = player.pos.y;
-		ray->depth_of_field = map.size.y + MATRIX_OFFSET;
+		ray->depth_of_field = map.size.y + MAX_DOF * 8;
 	}
-	while (ray->depth_of_field < map.size.y + MATRIX_OFFSET)
+	while (ray->depth_of_field < map.size.y + MAX_DOF * 8)
 	{
 		ray->max.x = (unsigned long int)(ray->pos.x) >> ray->bit_prec;
 		ray->max.y = (unsigned long int)(ray->pos.y) >> ray->bit_prec;
-		if (!ray_hit(ray, map, map.size.y + MATRIX_OFFSET))
+		if (!ray_hit(ray, map, map.size.y + MAX_DOF * 8))
 			increase_offset(ray);
 	}
 	debug_print(RAY_HORIZONTAL, (void *)ray);

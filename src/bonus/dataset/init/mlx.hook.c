@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:16:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	key_press(int key_code, t_main *config)
 	debug_print(RENDER_KEY_PRESS, (void *)&key_code);
 	if (is_movement_key(key_code))
 		set_movement(&config->player.movement, key_code, TRUE);
+	// if (key_code == KEY_E)
+	// 	interact_door();
 	return (0);
 }
 

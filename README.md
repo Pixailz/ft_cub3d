@@ -12,6 +12,13 @@
     - parsing -> t_texture_list
     - loading -> t_mlx_side -> t_mlx_texture
 
+- eviter de deplacer player.pos en dehors de la map
+
+## tips
+
+show diff betwen two dir, with colors
+`diff --color=always -bur ./src/mandatory/ ./src/bonus | less -r`
+
 ## ERRNO
 
 ### Malloc

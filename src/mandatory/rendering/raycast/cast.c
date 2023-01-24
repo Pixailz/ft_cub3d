@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/21 02:15:27 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:22:05 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,30 @@
 
 void	choose_ray(t_main *config)
 {
-	float		dist;
-
-	dist = get_dist(config->player.pos, config->ray.pos);
-	if (config->ray.dist > dist)
+	if (config->ray.dist > get_dist(config->player.pos, config->ray.pos))
 	{
-		config->ray.dist = dist;
+		config->ray.dist = get_dist(config->player.pos, config->ray.pos);
 		config->ray.save.x = config->ray.pos.x;
 		config->ray.save.y = config->ray.pos.y;
+		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
 		if (config->ray.pos.x < config->player.pos.x)
+		{
 			config->ray.img_use = &config->mlx.textures.east;
+			config->ray.t.x = config->ray.text_size - config->ray.t.x;
+		}
 		else
 			config->ray.img_use = &config->mlx.textures.west;
-		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
 	}
 	else
 	{
+		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
 		if (config->ray.pos.y < config->player.pos.y)
 			config->ray.img_use = &config->mlx.textures.south;
 		else
+		{
 			config->ray.img_use = &config->mlx.textures.north;
-		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
+			config->ray.t.x = config->ray.text_size - config->ray.t.x;
+		}
 	}
 }
 

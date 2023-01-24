@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/23 06:11:11 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/24 03:32:15 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ endif
 ifeq ($(DEBUG),)
 CFLAGS				+= -Werror
 else
-CFLAGS				+= -g3
+CFLAGS				+= -g3 -fsanitize=signed-integer-overflow
 endif
 
 # DIR
@@ -378,9 +378,9 @@ re_all:					re_lib re
 re_bonus:				fclean bonus
 
 run:					re
-	./$(TARGET) ./rsc/map/test.1.cub
-	
+	./$(TARGET) $(MAP)
+
 run_bonus:				re_bonus
-	./$(TARGET_BONUS) ./rsc/map/test.1.cub
+	./$(TARGET_BONUS) $(MAP)
 
 # **************************************************************************** #

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 15:26:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:23:31 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@
 # define TURN_SENSIVITY					0.6
 
 	// MATRIX
-# define MATRIX_OFFSET					10
+# define MAX_DOF						1
 # define GOOD_CHAR_MAP					" 10NSWED"
 # define VOID_CHAR						' '
 # define WALL_CHAR						'1'
@@ -108,6 +108,7 @@
 # define KEY_W							0x77
 # define KEY_S							0x73
 # define KEY_D							0x64
+# define KEY_E							0x65
 # define KEY_R							0x72
 
 		// ARROW
@@ -138,7 +139,7 @@
 # define MINI_EDGE_COLOR				0xff00
 # define MINI_CENTER_X					80
 # define MINI_CENTER_Y					80
-# define MINI_CIRCLE_RADIUS				75
+# define MINI_CIRCLE_RADIUS				80
 # define MINI_TEXT_RADIUS				73
 
 // ERRNO
@@ -662,7 +663,8 @@ void			init_mini_map(t_mlx_textures *text);
 void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
 
 // rendering/draw/minimap/minimap.c
-void			draw_mini_map_in_circle(t_main *config, char **map, t_d_pos ppos);
+t_bool			protect_outof_map(int px, int py);
+void			draw_mini_map_in_circle(t_main *config, char **map, t_i_pos pos);
 void			draw_minimap(t_main *config);
 
 // rendering/draw/raycast.c

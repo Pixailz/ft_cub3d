@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:49:39 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 02:07:53 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:11:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	ray_hit(t_ray *ray, t_map map, int to_add)
 {
 	if (ray->pos.x >= 0 && ray->pos.y >= 0)
 	{
-		if (ray->max.x < map.size.x && ray->max.y < map.size.y)
+		if (ray->max.x < map.size.x + MAX_DOF && ray->max.y < map.size.y + MAX_DOF)
 		{
 			if (map.matrix[ray->max.y][ray->max.x] == WALL_CHAR)
 			{

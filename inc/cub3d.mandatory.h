@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 09:01:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 03:23:50 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define FOV							50
 
 	// MATRIX
-# define MATRIX_OFFSET					10
+# define MAX_DOF						1
 # define GOOD_CHAR_MAP					" 10NSWE"
 # define VOID_CHAR						' '
 # define WALL_CHAR						'1'

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 01:28:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	debug_print_key(int key_code)
 	ft_printf_fd(DEBUG_FD, "key_press [0x%x]\t", key_code);
 	if (key_code == KEY_ESC)
 		ft_putstr_fd("(ESC)", DEBUG_FD);
+	else if (key_code == KEY_E)
+		ft_putstr_fd("(E)", DEBUG_FD);
 	else if (key_code == KEY_A)
 		ft_putstr_fd("(A)", DEBUG_FD);
 	else if (key_code == KEY_W)

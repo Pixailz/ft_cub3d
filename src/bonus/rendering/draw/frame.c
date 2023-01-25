@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 01:42:12 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:57:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	draw_frame(t_main *config)
 {
 	do_moving(config);
 	draw_scene(config);
-	draw_minimap(config);
+	if (config->player.movement.reading_map)
+		draw_minimap(config);
 	usleep(ONE_SEC / FPS);
 	return (0);
 }

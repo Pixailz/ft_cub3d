@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:29:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 10:14:18 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:57:28 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void	init_player(t_player *player)
 	player->movement.left_angle = FALSE;
 	player->movement.right_angle = FALSE;
 	player->movement.shifting = FALSE;
+	player->movement.reading_map = TRUE;
 	player->movement.r_speed = TURN_SENSIVITY;
 }

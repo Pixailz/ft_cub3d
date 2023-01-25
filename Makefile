@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/25 06:53:25 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/25 06:58:25 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM					:= rm -rf
 CC					:= gcc
 PRINTF				:= @printf
 MAKE				:= make -C
-VERSION				:= 1.4.1
+VERSION				:= 1.4.2
 $(eval export MAIN=1)
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)

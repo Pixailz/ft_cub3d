@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 06:52:57 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:54:59 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@
 # define KEY_S							0x73
 # define KEY_D							0x64
 # define KEY_E							0x65
+# define KEY_M							0x6d
 # define KEY_TAB						0xff09
 # define KEY_LSHIFT						0xffe1
 
@@ -425,6 +426,7 @@ typedef struct s_move
 	t_bool	left_angle;
 	t_bool	right_angle;
 	t_bool	shifting;
+	t_bool	reading_map;
 	float	r_speed;
 }	t_move;
 

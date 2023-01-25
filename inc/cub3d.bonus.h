@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 05:57:40 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:52:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@
 # define KEY_S							0x73
 # define KEY_D							0x64
 # define KEY_E							0x65
+# define KEY_TAB						0xff09
 # define KEY_LSHIFT						0xffe1
 
 		// ARROW
@@ -142,8 +143,6 @@
 # define MINI_EDGE_TRESH				2
 
 		// POSITION
-# define MINI_EXPANDED_ENABLE			FALSE
-
 			// NORMAL MODE
 # define MINI_CENTER_X					100
 # define MINI_CENTER_Y					100
@@ -440,8 +439,10 @@ typedef struct s_player
 typedef struct s_minimap
 {
 	t_circle		circle;
+	t_bool			zoomed;
 	int				max_text_size;
 	t_i_pos			max_dir;
+	t_i_pos			max_dir_zoomed;
 	t_i_pos			tmp_pos;
 	t_i_pos			ppos;
 	t_i_pos			ppos_scaled;
@@ -501,7 +502,7 @@ void			init_file(t_file *file);
 void			set_file(t_file *file, char *path, int fd);
 
 // dataset/init/minimap.c
-void			get_max_text_size(t_mlx_textures *textures, t_minimap *mini);
+void			get_max_text_size(t_mlx_textures *text, t_minimap *mini, t_i_pos *max);
 void			init_mini_map(t_main *config);
 
 // dataset/init/mlx.c
@@ -541,6 +542,11 @@ void			debug_print_errn(t_error *err);
 void			debug_print_errn_binary(const char *title, t_int64 to_bin);
 void			debug_print_error(int mode, void *ptr);
 
+// debug/keypress.c
+int				debug_print_key_letter(int key_code);
+int				debug_print_key_special(int key_code);
+void			debug_print_key(int key_code);
+
 // debug/map.c
 void			debug_print_coord_checked(t_i_pos pos, char **map);
 
@@ -558,7 +564,6 @@ void			debug_print_ray(int mode, void *ptr);
 void			debug_print_ray_info(char *title, t_ray ray);
 
 // debug/render.c
-void			debug_print_key(int key_code);
 void			debug_print_player_stat(t_player *player);
 void			debug_print_render(int mode, void *ptr);
 void			debug_print_screen_size(void *ptr);
@@ -701,22 +706,24 @@ t_line			get_line(t_d_pos begin, t_d_pos end, t_int4 color);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line);
 
 // rendering/draw/minimap/minimap.c
+t_i_pos			get_max_dir(t_minimap mini);
 void			draw_cross(t_main *config, t_circle circle);
 void			draw_mini_map_scaled(t_main *config, t_minimap *mini);
 void			draw_minimap(t_main *config);
 void			minimap_choose_text(t_main *config, t_minimap *mini);
 
 // rendering/draw/minimap/player.c
-void			draw_minimap_player(t_main *config, t_circle mini_circle);
+void			draw_minimap_player(t_main *config);
+void			draw_minimap_player_square(t_mlx_textures *text, t_minimap mini);
 
 // rendering/draw/minimap/update_minimap.c
-void			update_mini_circle(t_circle *circle);
+void			update_mini_circle(t_bool zoomed, t_circle *circle);
 void			update_mini_map(t_main *config, t_minimap *mini);
 void			update_mini_map_vars(t_main *config, t_minimap *mini);
 
 // rendering/draw/minimap/utils.c
 char			get_current_char_map(t_map map, t_i_pos pos);
-t_bool			opti_outof_mini_square(int px, int py);
+t_bool			opti_outof_mini_square(int px, int py, t_circle circle);
 t_bool			pos_is_in_circle(t_i_pos pos, t_i_pos counter, t_circle circle);
 void			draw_circle(t_circle circle, t_mlx_textures *text);
 void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst, t_circle circle);

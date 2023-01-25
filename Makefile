@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/25 05:50:41 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/25 06:53:25 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM					:= rm -rf
 CC					:= gcc
 PRINTF				:= @printf
 MAKE				:= make -C
-VERSION				:= 1.4.0
+VERSION				:= 1.4.1
 $(eval export MAIN=1)
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
@@ -144,6 +144,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/init/rendering.c \
 					   src/bonus/dataset/init/texture.c \
 					   src/bonus/debug/error.c \
+					   src/bonus/debug/keypress.c \
 					   src/bonus/debug/map.c \
 					   src/bonus/debug/parsing.c \
 					   src/bonus/debug/print.c \

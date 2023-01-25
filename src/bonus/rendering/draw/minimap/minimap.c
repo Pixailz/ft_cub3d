@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:02:09 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 05:52:56 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:50:49 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,27 @@ void	draw_cross(t_main *config, t_circle circle)
 	draw_line(config->mlx.ptr, config->mlx.win, line);
 }
 
+t_i_pos	get_max_dir(t_minimap mini)
+{
+	if (mini.zoomed)
+		return (mini.max_dir_zoomed);
+	else
+		return (mini.max_dir);
+}
+
 void	draw_minimap(t_main *config)
 {
 	t_minimap	*mini;
+	t_i_pos		max_dir;
 
 	mini = &config->mini;
 	update_mini_map(config, mini);
-	mini->dir.y = ~(mini->max_dir.y - 1);
-	while (mini->dir.y <= mini->max_dir.y)
+	max_dir = get_max_dir(*mini);
+	mini->dir.y = ~(max_dir.y - 1);
+	while (mini->dir.y <= max_dir.y)
 	{
-		mini->dir.x = ~(mini->max_dir.x - 1);
-		while (mini->dir.x <= mini->max_dir.x)
+		mini->dir.x = ~(max_dir.x - 1);
+		while (mini->dir.x <= max_dir.x)
 		{
 			mini->tmp_pos.x = mini->id.x + mini->dir.x;
 			mini->tmp_pos.y = mini->id.y + mini->dir.y;
@@ -81,7 +91,7 @@ void	draw_minimap(t_main *config)
 		mini->dir.y++;
 	}
 	draw_circle(mini->circle, &config->mlx.textures);
-	draw_minimap_player(config, mini->circle);
+	draw_minimap_player(config);
 	if (DEBUG && VERBOSE >= 2)
 		draw_cross(config, mini->circle);
 }

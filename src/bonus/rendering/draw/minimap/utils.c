@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 07:33:59 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 04:42:09 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:43:04 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	get_current_char_map(t_map map, t_i_pos pos)
 	return (map.matrix[pos.y][pos.x]);
 }
 
-t_bool	opti_outof_mini_square(int px, int py)
+t_bool	opti_outof_mini_square(int px, int py, t_circle circle)
 {
 	t_i_pos	max;
 
-	max.x = MINI_CENTER_X + MINI_CIRCLE_RADIUS;
-	max.y = MINI_CENTER_Y + MINI_CIRCLE_RADIUS;
+	max.x = circle.center.x + circle.radius;
+	max.y = circle.center.y + circle.radius;
 	if (px >= 0 && py >= 0 && px <= max.x && py <= max.y)
 		return (FALSE);
 	return (TRUE);
@@ -40,7 +40,7 @@ t_bool	pos_is_in_circle(t_i_pos pos, t_i_pos counter, t_circle circle)
 
 	x_x = pos.x + counter.x / 4;
 	y_y = pos.y + counter.y;
-	if (opti_outof_mini_square(x_x, y_y))
+	if (opti_outof_mini_square(x_x, y_y, circle))
 		return (FALSE);
 	x_x -= circle.center.x;
 	y_y -= circle.center.y;

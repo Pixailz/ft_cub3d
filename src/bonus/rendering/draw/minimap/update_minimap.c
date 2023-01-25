@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:02:09 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 05:31:53 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:08:16 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	update_mini_map_vars(t_main *config, t_minimap *mini)
 	mini->id.y = mini->ppos.y;
 }
 
-void	update_mini_circle(t_circle *circle)
+void	update_mini_circle(t_bool zoomed, t_circle *circle)
 {
-	if (MINI_EXPANDED_ENABLE)
+	if (zoomed)
 	{
 		circle->radius = MINI_EXPANDED_CIRCLE_RADIUS;
 		circle->center.x = MINI_EXPANDED_CENTER_X;
@@ -45,6 +45,6 @@ void	update_mini_circle(t_circle *circle)
 
 void	update_mini_map(t_main *config, t_minimap *mini)
 {
-	update_mini_circle(&mini->circle);
+	update_mini_circle(mini->zoomed, &mini->circle);
 	update_mini_map_vars(config, mini);
 }

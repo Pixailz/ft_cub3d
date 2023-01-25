@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 01:44:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:09:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	key_release(int key_code, t_main *config)
 		set_movement(&config->player.movement, key_code, FALSE);
 	if (key_code == KEY_ESC)
 		return (end_hook(&config->mlx));
+	if (key_code == KEY_TAB)
+		config->mini.zoomed = !config->mini.zoomed;
 	return (0);
 }
 

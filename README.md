@@ -34,9 +34,9 @@
 |          |:green_circle: |- float centered by player pos|
 |          |:green_circle: |- draw open/close door        |
 |          |:green_circle: |- struct mini to included     |
+|          |:green_circle: |- 'tab' to expand map         |
+|          |:green_circle: |- 'M' to toggle map           |
 |          |:orange_circle:|- fov + hit                   |
-|          |:red_circle:   |- 'tab' to expand map         |
-|          |:red_circle:   |- 'M' to expand map           |
 |          |               |                              |
 |door      |:orange_circle:|door mechanism                |
 |          |:green_circle: |- parse good wall in map      |

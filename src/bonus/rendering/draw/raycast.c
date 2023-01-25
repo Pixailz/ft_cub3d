@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 08:44:20 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 05:47:49 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,17 @@ void	draw_player_pos(t_main *config)
 
 void	draw_player_angle(t_main *config)
 {
-	t_d_pos	begin;
-	t_d_pos	end;
+	t_line	line;
 	t_d_pos	delta;
 
-	begin.x = get_ratio(config->player.pos.x, config->ray);
-	begin.y = get_ratio(config->player.pos.y, config->ray);
+	line.begin.x = get_ratio(config->player.pos.x, config->ray);
+	line.begin.y = get_ratio(config->player.pos.y, config->ray);
 	delta.x = cos(config->player.angle) * PLAYER_ANGLE_SIZE;
 	delta.y = sin(config->player.angle) * PLAYER_ANGLE_SIZE;
-	end.x = begin.x + delta.x;
-	end.y = begin.y + delta.y;
-	draw_line(config->mlx.ptr, config->mlx.win_raycasting, \
-									get_line(begin, end), PLAYER_ANGLE_COLOR);
+	line.end.x = line.begin.x + delta.x;
+	line.end.y = line.begin.y + delta.y;
+	line.color = PLAYER_ANGLE_COLOR;
+	draw_line(config->mlx.ptr, config->mlx.win_raycasting, line);
 }
 
 void	draw_raycast(t_main *config)

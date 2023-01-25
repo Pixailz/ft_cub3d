@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:32:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:14:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	ft_get_axis(int x, int y, t_main *config)
 	{
 		config->player.movement.left_angle = TRUE;
 		config->player.movement.r_speed = ((config->mlx.screen.x / 2 - x)) / \
-												(config->mlx.screen.x * 0.45);
+								(config->mlx.screen.x * 0.45 / TURN_SENSIVITY);
 	}
 	else if (x > config->mlx.screen.x * 0.55)
 	{
 		config->player.movement.right_angle = TRUE;
 		config->player.movement.r_speed = (x - config->mlx.screen.x / 2) / \
-												(config->mlx.screen.x * 0.45);
+								(config->mlx.screen.x * 0.45 / TURN_SENSIVITY);
 	}
 	return (y);
 }

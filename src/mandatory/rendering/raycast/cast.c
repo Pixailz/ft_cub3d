@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 05:30:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 03:06:10 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	choose_ray(t_main *config)
 	}
 	else
 		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
-	choose_ray_text(&config->ray, config->ray.pos, &config->mlx.textures);
+	choose_ray_text(&config->ray, config->player.pos, &config->mlx.textures);
 }
 
 void	cast_rays(t_main *config)

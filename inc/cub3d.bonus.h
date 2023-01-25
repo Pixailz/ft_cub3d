@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 06:00:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 05:57:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # endif
 
 # ifndef VERBOSE
-#  define VERBOSE						2
+#  define VERBOSE						1
 # endif
 
 # ifndef DEBUG_FD
@@ -77,12 +77,12 @@
 	// BASE
 # define PLAYER_STEP					0.036
 # define SHIFTING_SPEED					5
-# define TURN_SENSIVITY					0.6
+# define TURN_SENSIVITY					1
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					FALSE
-# define RAY_ENABLE						TRUE
+# define RAY_ENABLE						FALSE
 # define COLLISION						FALSE
 
 	// MATRIX
@@ -132,16 +132,27 @@
 # define RAY_HIT_COLOR					0xff0000
 
 	// MINIMAP
+		// TEXTURE
 # define MINI_WALL_PATH					"./rsc/xpm/minimap/wall_x16.xpm"
 # define MINI_VOID_PATH					"./rsc/xpm/minimap/void_x16.xpm"
-# define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x4.xpm"
+# define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x5.xpm"
 # define MINI_DOOR_CLOSE_PATH			"./rsc/xpm/minimap/door_close_x16.xpm"
 # define MINI_DOOR_OPEN_PATH			"./rsc/xpm/minimap/door_open_x16.xpm"
 # define MINI_EDGE_COLOR				0xff00
-# define MINI_CENTER_X					80
-# define MINI_CENTER_Y					80
-# define MINI_CIRCLE_RADIUS				80
-# define MINI_TEXT_RADIUS				73
+# define MINI_EDGE_TRESH				2
+
+		// POSITION
+# define MINI_EXPANDED_ENABLE			FALSE
+
+			// NORMAL MODE
+# define MINI_CENTER_X					100
+# define MINI_CENTER_Y					100
+# define MINI_CIRCLE_RADIUS				90
+
+			// EXPANDED MODE
+# define MINI_EXPANDED_CENTER_X			200
+# define MINI_EXPANDED_CENTER_Y			200
+# define MINI_EXPANDED_CIRCLE_RADIUS	180
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -308,7 +319,15 @@ typedef struct s_line
 {
 	t_d_pos	begin;
 	t_d_pos	end;
+	t_int4	color;
 }	t_line;
+
+typedef struct s_circle
+{
+	int		radius;
+	t_i_pos	center;
+	t_int4	color;
+}	t_circle;
 
 typedef struct s_mlx_texture
 {
@@ -418,13 +437,32 @@ typedef struct s_player
 	t_move	movement;
 }	t_player;
 
+typedef struct s_minimap
+{
+	t_circle		circle;
+	int				max_text_size;
+	t_i_pos			max_dir;
+	t_i_pos			tmp_pos;
+	t_i_pos			ppos;
+	t_i_pos			ppos_scaled;
+	t_i_pos			id;
+	t_i_pos			dir;
+	t_i_pos			img_2;
+	t_mlx_texture	*img_to_use;
+	t_mlx_texture	*wall;
+	t_mlx_texture	*voidd;
+	t_mlx_texture	*player;
+	t_mlx_texture	*door_close;
+	t_mlx_texture	*door_open;
+}				t_minimap;
+
 typedef struct s_main
 {
 	t_parse		parse;
 	t_mlx		mlx;
 	t_player	player;
 	t_ray		ray;
-	int			cursor;
+	t_minimap	mini;
 	t_error		err;
 }	t_main;
 
@@ -461,6 +499,10 @@ void			init_config(t_main *config);
 // dataset/init/file.c
 void			init_file(t_file *file);
 void			set_file(t_file *file, char *path, int fd);
+
+// dataset/init/minimap.c
+void			get_max_text_size(t_mlx_textures *textures, t_minimap *mini);
+void			init_mini_map(t_main *config);
 
 // dataset/init/mlx.c
 t_r_value		init_mlx(t_main *config);
@@ -655,19 +697,29 @@ void			do_moving(t_main *config);
 void			draw_ray_hit(t_main *config);
 
 // rendering/draw/line.c
-t_line			get_line(t_d_pos begin, t_d_pos end);
-void			draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
-
-// rendering/draw/minimap/init_minimap.c
-t_bool			pos_is_in_circle(t_i_pos pos, t_i_pos counter);
-void			draw_circle(t_i_pos pos, t_int4 color, int r, t_mlx_textures *text);
-void			init_mini_map(t_mlx_textures *text);
-void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
+t_line			get_line(t_d_pos begin, t_d_pos end, t_int4 color);
+void			draw_line(void *mlx_ptr, void *win_ptr, t_line line);
 
 // rendering/draw/minimap/minimap.c
-t_bool			protect_outof_map(int px, int py);
-void			draw_mini_map_in_circle(t_main *config, char **map, t_i_pos pos);
+void			draw_cross(t_main *config, t_circle circle);
+void			draw_mini_map_scaled(t_main *config, t_minimap *mini);
 void			draw_minimap(t_main *config);
+void			minimap_choose_text(t_main *config, t_minimap *mini);
+
+// rendering/draw/minimap/player.c
+void			draw_minimap_player(t_main *config, t_circle mini_circle);
+
+// rendering/draw/minimap/update_minimap.c
+void			update_mini_circle(t_circle *circle);
+void			update_mini_map(t_main *config, t_minimap *mini);
+void			update_mini_map_vars(t_main *config, t_minimap *mini);
+
+// rendering/draw/minimap/utils.c
+char			get_current_char_map(t_map map, t_i_pos pos);
+t_bool			opti_outof_mini_square(int px, int py);
+t_bool			pos_is_in_circle(t_i_pos pos, t_i_pos counter, t_circle circle);
+void			draw_circle(t_circle circle, t_mlx_textures *text);
+void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst, t_circle circle);
 
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);
@@ -722,8 +774,8 @@ t_r_value		load_textures(t_main *config);
 void			load_textures_minimap(t_mlx *mlx, t_error *err);
 
 // rendering/texture/load.size.c
-unsigned char	get_bit_prec(int lowest);
-void			get_highest_size(t_i_pos *lowest, t_mlx_texture text);
+unsigned char	get_bit_prec(int highest);
+void			get_highest_size(t_i_pos *highest, t_mlx_texture text);
 void			get_mini_size(t_main *config);
 void			get_textures_size(t_main *config);
 

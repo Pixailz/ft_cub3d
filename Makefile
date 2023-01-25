@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/24 06:02:26 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/25 05:50:41 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM					:= rm -rf
 CC					:= gcc
 PRINTF				:= @printf
 MAKE				:= make -C
-VERSION				:= 1.3.0
+VERSION				:= 1.4.0
 $(eval export MAIN=1)
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
@@ -135,6 +135,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/free/texture.c \
 					   src/bonus/dataset/init/config.c \
 					   src/bonus/dataset/init/file.c \
+					   src/bonus/dataset/init/minimap.c \
 					   src/bonus/dataset/init/mlx.c \
 					   src/bonus/dataset/init/mlx.hook.c \
 					   src/bonus/dataset/init/mlx.hook.mouse.c \
@@ -178,8 +179,10 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/frame.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
-					   src/bonus/rendering/draw/minimap/init_minimap.c \
 					   src/bonus/rendering/draw/minimap/minimap.c \
+					   src/bonus/rendering/draw/minimap/player.c \
+					   src/bonus/rendering/draw/minimap/update_minimap.c \
+					   src/bonus/rendering/draw/minimap/utils.c \
 					   src/bonus/rendering/draw/raycast.c \
 					   src/bonus/rendering/draw/scene.c \
 					   src/bonus/rendering/move/angle.c \
@@ -377,10 +380,10 @@ re_all:					re_lib re
 
 re_bonus:				fclean bonus
 
-run:					re
+run:					ft_helper re
 	bash -c "./$(TARGET) $(MAP) 420>exec.log"
 
-run_bonus:				re_bonus
+run_bonus:				ft_helper re_bonus
 	bash -c "./$(TARGET_BONUS) $(MAP) 420>exec.log"
 
 # **************************************************************************** #

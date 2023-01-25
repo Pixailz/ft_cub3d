@@ -6,75 +6,82 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:02:09 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 03:08:11 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 05:52:56 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
-void	draw_mini_map_in_circle(t_main *config, char **map, t_i_pos pos)
+void	minimap_choose_text(t_main *config, t_minimap *mini)
 {
-	char			current_char;
-	t_i_pos			pos_text;
-	t_ray			*ray;
+	char	current_char;
 
-	ray = &config->ray;
-	current_char = map[pos.y][pos.x];
-	pos_text.x = pos.x * ray->mini_cell_size + MINI_CENTER_X;
-	pos_text.y = pos.y * ray->mini_cell_size + MINI_CENTER_Y;
-	if (current_char == EMPTY_CHAR)
-		text_to_buff_circle(pos_text, &config->mlx.textures.mini_void, \
-								&config->mlx.textures.scene);
-	else if (current_char == WALL_CHAR)
-		text_to_buff_circle(pos_text, &config->mlx.textures.mini_wall, \
-								&config->mlx.textures.scene);
+	current_char = get_current_char_map(config->parse.map, mini->tmp_pos);
+	if (current_char == WALL_CHAR)
+		mini->img_to_use = &config->mlx.textures.mini_wall;
+	else if (current_char == DOOR_CLOSE_CHAR)
+		mini->img_to_use = &config->mlx.textures.mini_door_close;
+	else if (current_char == DOOR_OPEN_CHAR)
+		mini->img_to_use = &config->mlx.textures.mini_door_open;
+	else
+		mini->img_to_use = &config->mlx.textures.mini_void;
 }
 
-t_bool	protect_outof_map(int px, int py)
+void	draw_mini_map_scaled(t_main *config, t_minimap *mini)
 {
-	t_i_pos	max;
+	t_i_pos			pos_text;
+	t_i_pos			center;
+	t_i_pos			scaled_dir;
 
-	max.x = MINI_CENTER_X + MINI_CIRCLE_RADIUS;
-	max.y = MINI_CENTER_Y + MINI_CIRCLE_RADIUS;
-	if (px < 0 || px > max.x)
-		return (FALSE);
-	if (py < 0 || py > max.y)
-		return (FALSE);
-	return (TRUE);
+	minimap_choose_text(config, mini);
+	scaled_dir.x = mini->dir.x * mini->max_text_size;
+	scaled_dir.y = mini->dir.y * mini->max_text_size;
+	center.x = mini->circle.center.x + scaled_dir.x;
+	center.y = mini->circle.center.y + scaled_dir.y;
+	pos_text.x = center.x - mini->ppos_scaled.x;
+	pos_text.y = center.y - mini->ppos_scaled.y;
+	text_to_buff_circle(pos_text, mini->img_to_use, \
+									&config->mlx.textures.scene, mini->circle);
+}
+
+void	draw_cross(t_main *config, t_circle circle)
+{
+	t_line	line;
+
+	line.color = 0xff00;
+	line.begin.x = circle.center.x - circle.radius;
+	line.begin.y = circle.center.y;
+	line.end.x = circle.center.x + circle.radius;
+	line.end.y = circle.center.y;
+	draw_line(config->mlx.ptr, config->mlx.win, line);
+	line.begin.x = circle.center.x;
+	line.begin.y = circle.center.y - circle.radius;
+	line.end.x = circle.center.x;
+	line.end.y = circle.center.y + circle.radius;
+	draw_line(config->mlx.ptr, config->mlx.win, line);
 }
 
 void	draw_minimap(t_main *config)
 {
-	t_i_pos	pos;
-	t_i_pos	ppos;
-	t_i_pos	dir;
-	char	**map;
+	t_minimap	*mini;
 
-	map = config->parse.map.matrix;
-	init_mini_map(&config->mlx.textures);
-	dir.x = MINI_CENTER_X;
-	dir.y = MINI_CENTER_Y;
-	text_to_buff_circle(dir, &config->mlx.textures.mini_void, \
-								&config->mlx.textures.scene);
-	/*
-	// ppos.y = (int)(config->player.pos.y / config->ray.text_size);
-	// ppos.x = (int)(config->player.pos.x / config->ray.text_size);
-	// dir.x = -1 * config->ray.text_size;
-	// dir.y = -1 * config->ray.text_size;
-	// while (protect_outof_map(ppos.x + dir.x, ppos.y + dir.y) && dir.y <= 1)
-	// {
-	// 	pos.y = ppos.y + dir.y;
-	// 	dir.x = -1;
-	// 	while (protect_outof_map(ppos.x + dir.x, ppos.y + dir.y) && \
-	// 		map[ppos.y + dir.y][ppos.x + dir.x] && dir.x <= 1)
-	// 	{
-	// 		pos.x = ppos.x + dir.x;
-	// 		draw_mini_map_in_circle(config, config->parse.map.matrix, pos);
-	// 		dir.x++;
-	// 	}
-	// 	dir.y++;
-	// }
-	// draw_mini_map_in_circle(config, config->parse.map.matrix, pos);
-	return ;
-	*/
+	mini = &config->mini;
+	update_mini_map(config, mini);
+	mini->dir.y = ~(mini->max_dir.y - 1);
+	while (mini->dir.y <= mini->max_dir.y)
+	{
+		mini->dir.x = ~(mini->max_dir.x - 1);
+		while (mini->dir.x <= mini->max_dir.x)
+		{
+			mini->tmp_pos.x = mini->id.x + mini->dir.x;
+			mini->tmp_pos.y = mini->id.y + mini->dir.y;
+			draw_mini_map_scaled(config, mini);
+			mini->dir.x++;
+		}
+		mini->dir.y++;
+	}
+	draw_circle(mini->circle, &config->mlx.textures);
+	draw_minimap_player(config, mini->circle);
+	if (DEBUG && VERBOSE >= 2)
+		draw_cross(config, mini->circle);
 }

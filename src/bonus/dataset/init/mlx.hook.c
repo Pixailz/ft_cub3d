@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 05:51:56 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 01:44:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	init_mlx_hook(t_main *config)
 	long int	mouse_mask;
 
 	mlx = &config->mlx;
-	config->cursor = 0;
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), key_press, config);
 	mlx_hook(mlx->win, 3, (1L << 1), key_release, config);

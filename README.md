@@ -14,6 +14,40 @@
 
 - eviter de deplacer player.pos en dehors de la map
 
+## STATUS
+
+:green_circle:				= done
+
+:orange_circle:	= wip
+
+:red_circle:						= not done
+
+|Name      |done ?         | Desc                         |
+|:--------:|:-------------:|:-----------------------------|
+|parsing   |:green_circle: |                              |
+|collision |:green_circle: |cannot pass throught wall     |
+|runing    |:green_circle: |can run with shift            |
+|          |               |                              |
+|mini map  |:orange_circle:|display a minimap             |
+|          |:green_circle: |- round map                   |
+|          |:green_circle: |- protect outside map         |
+|          |:green_circle: |- float centered by player pos|
+|          |:green_circle: |- draw open/close door        |
+|          |:green_circle: |- struct mini to included     |
+|          |:orange_circle:|- fov + hit                   |
+|          |:red_circle:   |- 'tab' to expand map         |
+|          |:red_circle:   |- 'M' to expand map           |
+|          |               |                              |
+|door      |:orange_circle:|door mechanism                |
+|          |:green_circle: |- parse good wall in map      |
+|          |:orange_circle:|- display doors               |
+|          |:red_circle:   |- interact with door with kb  |
+|          |               |                              |
+|annimation|:orange_circle:|animation mechanism           |
+|          |:orange_circle:|- parse multiple texture      |
+|          |:red_circle:   |- animate                     |
+
+
 ## tips
 
 > show diff betwen two dir, with colors
@@ -27,195 +61,3 @@
 
 > run bonus maps
 `make MAP=<MAP_PATH> run_bonus`
-
-## ERRNO
-
-### Malloc
-
-|ERRNO  |DESCRIPTION       |
-|:-----:|:-----------------|
-|ERRN_00|all good          |
-|ERRN_01|MALLOC_INSIDE_GNL |
-|ERRN_02|MALLOC_SPLIT      |
-|ERRN_03|MALLOC_GET_MAP    |
-|ERRN_04|MALLOC_DUP_MAP    |
-|ERRN_05|                  |
-|ERRN_06|                  |
-|ERRN_07|                  |
-|ERRN_08|                  |
-|ERRN_09|                  |
-|ERRN_10|                  |
-|ERRN_11|                  |
-|ERRN_12|                  |
-|ERRN_13|                  |
-|ERRN_14|                  |
-|ERRN_15|                  |
-|ERRN_16|                  |
-|ERRN_17|                  |
-|ERRN_18|                  |
-|ERRN_19|                  |
-|ERRN_20|                  |
-|ERRN_21|                  |
-|ERRN_22|                  |
-|ERRN_23|                  |
-|ERRN_24|                  |
-|ERRN_25|                  |
-|ERRN_26|                  |
-|ERRN_27|                  |
-|ERRN_28|                  |
-|ERRN_29|                  |
-|ERRN_30|                  |
-|ERRN_31|                  |
-|ERRN_32|                  |
-
-### Params
-
-|ERRNO  |DESCRIPTION                           |
-|:-----:|:-------------------------------------|
-|ERRN_00|all good                              |
-|ERRN_01|ARGS_FILE_NAME_TOO_SHORT              |
-|ERRN_02|ARGS_FILE_WRONG_EXTENSION             |
-|ERRN_03|ARGS_PATH                             |
-|ERRN_04|PARAMS_ARG_1_EMPTY_FILE               |
-|ERRN_05|PARAMS_UNKNOWN                        |
-|ERRN_06|PARAMS_HAVE_ALREADY_PROVIDED          |
-|ERRN_07|PARAMS_HAVE_WRONG_SEP                 |
-|ERRN_08|PARAMS_HAVE_EMPTY                     |
-|ERRN_09|PARAMS_HAVE_WRONG_PATH                |
-|ERRN_10|PARAMS_WRONG_COLOR_FORMAT             |
-|ERRN_11|PARAMS_WRONG_COLOR_NON_NUMBER         |
-|ERRN_12|PARAMS_WRONG_COLOR_WRONG_NUMBER       |
-|ERRN_13|PARAMS_MAP_EMPTY                      |
-|ERRN_14|PARAMS_MAP_NEW_LINE                   |
-|ERRN_15|PARAMS_MAP_WRONG_CHAR                 |
-|ERRN_16|PARAMS_MAP_NOT_SURROUNDED             |
-|ERRN_17|PARAMS_MAP_MULTIPLE_PLAYER            |
-|ERRN_18|PARAMS_MAP_NO_PLAYER                  |
-|ERRN_19|PARAMS_MAP_DOOR_NOT_SURROUNDED        |
-|ERRN_20|PARAMS_MAP_DOOR_OBSTRUCTED            |
-|ERRN_21|                                      |
-|ERRN_22|                                      |
-|ERRN_23|                                      |
-|ERRN_24|                                      |
-|ERRN_25|                                      |
-|ERRN_26|                                      |
-|ERRN_27|                                      |
-|ERRN_28|                                      |
-|ERRN_29|                                      |
-|ERRN_30|                                      |
-|ERRN_31|                                      |
-|ERRN_32|                                      |
-
-### Params (args)
-
-|ERRNO  |DESCRIPTION                           |
-|:-----:|:-------------------------------------|
-|ERRN_00|all good                              |
-|ERRN_01|PARAMS_NORTH_ALREADY_PROVIDED         |
-|ERRN_02|PARAMS_SOUTH_ALREADY_PROVIDED         |
-|ERRN_03|PARAMS_WEST_ALREADY_PROVIDED          |
-|ERRN_04|PARAMS_EAST_ALREADY_PROVIDED          |
-|ERRN_05|PARAMS_FLOOR_ALREADY_PROVIDED         |
-|ERRN_06|PARAMS_CEILING_ALREADY_PROVIDED       |
-|ERRN_07|PARAMS_NORTH_WRONG_SEP                |
-|ERRN_08|PARAMS_SOUTH_WRONG_SEP                |
-|ERRN_09|PARAMS_WEST_WRONG_SEP                 |
-|ERRN_10|PARAMS_EAST_WRONG_SEP                 |
-|ERRN_11|PARAMS_FLOOR_WRONG_SEP                |
-|ERRN_12|PARAMS_CEILING_WRONG_SEP              |
-|ERRN_13|PARAMS_NORTH_HAVE_EMPTY               |
-|ERRN_14|PARAMS_SOUTH_HAVE_EMPTY               |
-|ERRN_15|PARAMS_WEST_HAVE_EMPTY                |
-|ERRN_16|PARAMS_EAST_HAVE_EMPTY                |
-|ERRN_17|PARAMS_FLOOR_HAVE_EMPTY               |
-|ERRN_18|PARAMS_CEILING_HAVE_EMPTY             |
-|ERRN_19|PARAMS_NORTH_WRONG_PATH               |
-|ERRN_20|PARAMS_SOUTH_WRONG_PATH               |
-|ERRN_21|PARAMS_WEST_WRONG_PATH                |
-|ERRN_22|PARAMS_EAST_WRONG_PATH                |
-|ERRN_23|PARAMS_FLOOR_WRONG_COLOR_FORMAT       |
-|ERRN_24|PARAMS_CEIL_WRONG_COLOR_FORMAT        |
-|ERRN_25|PARAMS_FLOOR_WRONG_COLOR_NON_NUMBER   |
-|ERRN_26|PARAMS_CEIL_WRONG_COLOR_NON_NUMBER    |
-|ERRN_27|PARAMS_FLOOR_WRONG_COLOR_WRONG_NUMBER |
-|ERRN_28|PARAMS_CEIL_WRONG_COLOR_WRONG_NUMBER  |
-|ERRN_29|                                      |
-|ERRN_30|                                      |
-|ERRN_31|                                      |
-|ERRN_32|                                      |
-
-### Texture
-
-|ERRNO  |DESCRIPTION           |
-|:-----:|:---------------------|
-|ERRN_00|all good              |
-|ERRN_01|MLX_INIT_FAILED       |
-|ERRN_02|MLX_WINDOW_FAILED     |
-|ERRN_03|MLX_LOAD_IMAGE_FAILED |
-|ERRN_04|MLX_LOAD_SCENE_FAILED |
-|ERRN_05|                      |
-|ERRN_06|                      |
-|ERRN_07|                      |
-|ERRN_08|                      |
-|ERRN_09|                      |
-|ERRN_10|                      |
-|ERRN_11|                      |
-|ERRN_12|                      |
-|ERRN_13|                      |
-|ERRN_14|                      |
-|ERRN_15|                      |
-|ERRN_16|                      |
-|ERRN_17|                      |
-|ERRN_18|                      |
-|ERRN_19|                      |
-|ERRN_20|                      |
-|ERRN_21|                      |
-|ERRN_22|                      |
-|ERRN_23|                      |
-|ERRN_24|                      |
-|ERRN_25|                      |
-|ERRN_26|                      |
-|ERRN_27|                      |
-|ERRN_28|                      |
-|ERRN_29|                      |
-|ERRN_30|                      |
-|ERRN_31|                      |
-|ERRN_32|                      |
-
-### Texture (args)
-
-|ERRNO  |DESCRIPTION             |
-|:-----:|:-----------------------|
-|ERRN_00|all good                |
-|ERRN_01|MLX_MAIN_WINDOW         |
-|ERRN_02|MLX_RAY_WINDOW          |
-|ERRN_03|MLX_NORTH_TEXT          |
-|ERRN_04|MLX_SOUTH_TEXT          |
-|ERRN_05|MLX_WEST_TEXT           |
-|ERRN_06|MLX_EAST_TEXT           |
-|ERRN_07|MLX_MINI_VOID_TEXT      |
-|ERRN_08|MLX_MINI_WALL_TEXT      |
-|ERRN_09|MLX_MINI_PLAYER_TEXT    |
-|ERRN_10|MLX_MINI_DOOR_CLOSE_TEXT|
-|ERRN_11|MLX_MINI_DOOR_OPEN_TEXT |
-|ERRN_12|                        |
-|ERRN_13|                        |
-|ERRN_14|                        |
-|ERRN_15|                        |
-|ERRN_16|                        |
-|ERRN_17|                        |
-|ERRN_18|                        |
-|ERRN_19|                        |
-|ERRN_20|                        |
-|ERRN_21|                        |
-|ERRN_22|                        |
-|ERRN_23|                        |
-|ERRN_24|                        |
-|ERRN_25|                        |
-|ERRN_26|                        |
-|ERRN_27|                        |
-|ERRN_28|                        |
-|ERRN_29|                        |
-|ERRN_30|                        |
-|ERRN_31|                        |
-|ERRN_32|                        |

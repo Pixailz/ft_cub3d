@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 03:23:50 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 02:00:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@
 		// TEXTURE
 # define RAY_WALL_PATH				"./rsc/xpm/minimap/wall_x16.xpm"
 # define RAY_VOID_PATH				"./rsc/xpm/minimap/void_x16.xpm"
-# define RAY_PLAYER_PATH			"./rsc/xpm/minimap/player_x4.xpm"
+# define RAY_PLAYER_PATH			"./rsc/xpm/minimap/player_x5.xpm"
 # define RAY_HIT_COLOR				0xff0000
 
 // ERRNO
@@ -386,7 +386,6 @@ typedef struct s_main
 	t_mlx		mlx;
 	t_player	player;
 	t_ray		ray;
-	int			cursor;
 	t_error		err;
 }	t_main;
 
@@ -662,8 +661,8 @@ t_r_value		load_texture(t_mlx_texture *text, char *file_path, void *mlx);
 t_r_value		load_textures(t_main *config);
 
 // rendering/texture/load.size.c
-unsigned char	get_bit_prec(int lowest);
-void			get_highest_size(t_i_pos *lowest, t_mlx_texture text);
+unsigned char	get_bit_prec(int highest);
+void			get_highest_size(t_i_pos *highest, t_mlx_texture text);
 void			get_raycast_size(t_main *config);
 void			get_textures_size(t_main *config);
 

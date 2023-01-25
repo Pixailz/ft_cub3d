@@ -21,32 +21,6 @@ void	debug_print_screen_size(void *ptr)
 		mlx->screen.y);
 }
 
-void	debug_print_key(int key_code)
-{
-	ft_printf_fd(DEBUG_FD, "key_press [0x%x]\t", key_code);
-	if (key_code == KEY_ESC)
-		ft_putstr_fd("(ESC)", DEBUG_FD);
-	else if (key_code == KEY_E)
-		ft_putstr_fd("(E)", DEBUG_FD);
-	else if (key_code == KEY_A)
-		ft_putstr_fd("(A)", DEBUG_FD);
-	else if (key_code == KEY_W)
-		ft_putstr_fd("(W)", DEBUG_FD);
-	else if (key_code == KEY_S)
-		ft_putstr_fd("(S)", DEBUG_FD);
-	else if (key_code == KEY_D)
-		ft_putstr_fd("(D)", DEBUG_FD);
-	else if (key_code == KEY_RIGHT)
-		ft_putstr_fd("(RIGHT)", DEBUG_FD);
-	else if (key_code == KEY_LEFT)
-		ft_putstr_fd("(LEFT)", DEBUG_FD);
-	else if (key_code == KEY_LSHIFT)
-		ft_putstr_fd("(LSHIFT)", DEBUG_FD);
-	else
-		ft_putstr_fd("( ??? )", DEBUG_FD);
-	ft_putchar_fd('\n', DEBUG_FD);
-}
-
 void	debug_print_player_stat(t_player *player)
 {
 	if (VERBOSE >= 2)

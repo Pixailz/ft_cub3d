@@ -707,6 +707,10 @@ void			draw_ray_hit(t_main *config);
 t_line			get_line(t_d_pos begin, t_d_pos end, t_int4 color);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line);
 
+// rendering/draw/minimap/fov.c
+void			draw_line_in_circle(t_mlx_texture *scene, t_line line, t_circle circle);
+void			ft_put_pixel_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color, t_circle circle);
+
 // rendering/draw/minimap/minimap.c
 t_i_pos			get_max_dir(t_minimap mini);
 void			draw_cross(t_main *config, t_circle circle);

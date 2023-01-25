@@ -180,6 +180,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/frame.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
+					   src/bonus/rendering/draw/minimap/fov.c \
 					   src/bonus/rendering/draw/minimap/minimap.c \
 					   src/bonus/rendering/draw/minimap/player.c \
 					   src/bonus/rendering/draw/minimap/update_minimap.c \

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 03:05:54 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:54:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,9 @@ void	cast_ray_entry(t_main *config)
 	while (config->ray.nbr < config->ray.nbr_ray)
 	{
 		cast_rays(config);
-		if (!first)
-		{
-			draw_fov(config);
-			first++;
-		}
-		draw_ray_hit(config);
+		// draw_fov(config);
+		// draw_ray_hit(config);
 		config->ray.angle += to_add;
 		config->ray.nbr++;
 	}
-	draw_fov(config);
 }

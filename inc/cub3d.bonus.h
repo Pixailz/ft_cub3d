@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 06:54:59 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:54:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@
 	// BASE
 # define PLAYER_STEP					0.036
 # define SHIFTING_SPEED					5
-# define TURN_SENSIVITY					1
+# define TURN_SENSIVITY					0.5
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					FALSE
-# define RAY_ENABLE						FALSE
+# define RAY_ENABLE						TRUE
 # define COLLISION						FALSE
 
 	// MATRIX
@@ -147,6 +147,8 @@
 			// NORMAL MODE
 # define MINI_CENTER_X					100
 # define MINI_CENTER_Y					100
+// # define MINI_CENTER_X					500
+// # define MINI_CENTER_Y					300
 # define MINI_CIRCLE_RADIUS				90
 
 			// EXPANDED MODE
@@ -708,8 +710,29 @@ t_line			get_line(t_d_pos begin, t_d_pos end, t_int4 color);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line);
 
 // rendering/draw/minimap/fov.c
-void			draw_line_in_circle(t_mlx_texture *scene, t_line line, t_circle circle);
+
+// rendering/draw/minimap/fov_ray_horizontal.c
+void			fov_cast_ray_down(t_ray *ray, t_player player);
+void			fov_cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
+void			fov_cast_ray_up(t_ray *ray, t_player player);
+
+// rendering/draw/minimap/fov_ray_vertical.c
+void			fov_cast_ray_left(t_ray *ray, t_player player);
+void			fov_cast_ray_right(t_ray *ray, t_player player);
+void			fov_cast_ray_vertical(t_ray *ray, t_player player, t_map map);
+
+// rendering/draw/minimap/fov_raycast.c
+void			init_raycast_fov(t_ray *ray_fov, float angle, t_main *config);
+void			raycast_fov(t_main *config, float angle);
+void			raycast_fov_cast(t_main *config, t_ray *ray_fov);
+void			raycast_fov_draw(t_main *config, t_ray ray_fov);
+
+// rendering/draw/minimap/in_circle.c
+t_bool			opti_outof_mini_square(int px, int py, t_circle circle);
+t_bool			pos_is_in_circle(t_i_pos pos, int c_x, int c_y, t_circle circle);
 void			ft_put_pixel_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color, t_circle circle);
+void			put_line_in_circle(t_mlx_texture *scene, t_line line, t_circle circle);
+void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst, t_circle circle);
 
 // rendering/draw/minimap/minimap.c
 t_i_pos			get_max_dir(t_minimap mini);
@@ -729,10 +752,7 @@ void			update_mini_map_vars(t_main *config, t_minimap *mini);
 
 // rendering/draw/minimap/utils.c
 char			get_current_char_map(t_map map, t_i_pos pos);
-t_bool			opti_outof_mini_square(int px, int py, t_circle circle);
-t_bool			pos_is_in_circle(t_i_pos pos, t_i_pos counter, t_circle circle);
 void			draw_circle(t_circle circle, t_mlx_textures *text);
-void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst, t_circle circle);
 
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);

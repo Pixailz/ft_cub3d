@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 01:01:47 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 06:48:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:56:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void	draw_minimap_player_square(t_mlx_textures *text, t_minimap mini)
 void	draw_minimap_player(t_main *config)
 {
 	draw_minimap_player_square(&config->mlx.textures, config->mini);
+	raycast_fov(config, config->player.angle);
 }

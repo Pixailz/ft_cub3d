@@ -181,6 +181,10 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
 					   src/bonus/rendering/draw/minimap/fov.c \
+					   src/bonus/rendering/draw/minimap/fov_ray_horizontal.c \
+					   src/bonus/rendering/draw/minimap/fov_ray_vertical.c \
+					   src/bonus/rendering/draw/minimap/fov_raycast.c \
+					   src/bonus/rendering/draw/minimap/in_circle.c \
 					   src/bonus/rendering/draw/minimap/minimap.c \
 					   src/bonus/rendering/draw/minimap/player.c \
 					   src/bonus/rendering/draw/minimap/update_minimap.c \

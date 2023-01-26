@@ -16,11 +16,11 @@
 
 ## STATUS
 
-:green_circle:				= done
+:green_circle:	= done
 
 :orange_circle:	= wip
 
-:red_circle:						= not done
+:red_circle:	= not done
 
 |Name      |done ?         | Desc                         |
 |:--------:|:-------------:|:-----------------------------|

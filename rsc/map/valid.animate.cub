@@ -1,0 +1,21 @@
+NO ./rsc/xpm/default_64/north.xpm
+SO ./rsc/xpm/default_64/south.xpm
+SO ./rsc/xpm/default_64/east.xpm
+SO ./rsc/xpm/default_64/west.xpm
+SO ./rsc/xpm/default_64/east.xpm
+WE ./rsc/xpm/default_64/west.xpm
+EA ./rsc/xpm/default_64/east.xpm
+
+F 220,100,0
+C 225,30,0
+   11111111111111
+  1000000000001  1
+ 10000000000001   1
+10000000N000001    1
+100000000000001    1
+10001011111100011111
+10001000000000000001
+10001111D11000100001
+ 1000010000101100001
+  101010000100000001
+   11111111 11111111

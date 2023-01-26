@@ -180,7 +180,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/frame.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
-					   src/bonus/rendering/draw/minimap/fov.c \
+					   src/bonus/rendering/draw/minimap/fov_draw.c \
 					   src/bonus/rendering/draw/minimap/fov_ray_horizontal.c \
 					   src/bonus/rendering/draw/minimap/fov_ray_vertical.c \
 					   src/bonus/rendering/draw/minimap/fov_raycast.c \
@@ -190,9 +190,9 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/minimap/update_minimap.c \
 					   src/bonus/rendering/draw/minimap/utils.c \
 					   src/bonus/rendering/draw/raycast.c \
-					   src/bonus/rendering/draw/scene.c \
 					   src/bonus/rendering/move/angle.c \
 					   src/bonus/rendering/move/dir.c \
+					   src/bonus/rendering/move/keypress.c \
 					   src/bonus/rendering/raycast/cast.c \
 					   src/bonus/rendering/raycast/get_text.c \
 					   src/bonus/rendering/raycast/horizontal.c \

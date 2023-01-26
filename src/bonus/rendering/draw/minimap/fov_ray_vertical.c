@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:09:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 11:59:44 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 07:44:07 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	fov_cast_ray_left(t_ray *ray, t_player player)
 void	fov_cast_ray_vertical(t_ray *ray, t_player player, t_map map)
 {
 	ray->depth_of_field = 0;
-	cast_ray_right(ray, player);
-	cast_ray_left(ray, player);
+	fov_cast_ray_right(ray, player);
+	fov_cast_ray_left(ray, player);
 	if (ray->angle == 0 || ray->angle == PI)
 	{
 		ray->pos.x = player.pos.x;

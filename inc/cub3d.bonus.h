@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 11:54:32 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 07:31:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@
 	// BASE
 # define PLAYER_STEP					0.036
 # define SHIFTING_SPEED					5
-# define TURN_SENSIVITY					0.5
+# define TURN_SENSIVITY					0.8
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					FALSE
-# define RAY_ENABLE						TRUE
+# define RAY_ENABLE						FALSE
 # define COLLISION						FALSE
 
 	// MATRIX
@@ -696,11 +696,13 @@ t_bool			map_char_is_player(char c);
 void			get_map_size(t_map *map);
 
 // rendering/draw/fov.c
-void			draw_fov(t_main *config);
 
 // rendering/draw/frame.c
 int				draw_frame(t_main *config);
 void			do_moving(t_main *config);
+void			draw_background(t_main *config);
+void			put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
+void			reset_scene(t_main *config);
 
 // rendering/draw/hit.c
 void			draw_ray_hit(t_main *config);
@@ -709,7 +711,10 @@ void			draw_ray_hit(t_main *config);
 t_line			get_line(t_d_pos begin, t_d_pos end, t_int4 color);
 void			draw_line(void *mlx_ptr, void *win_ptr, t_line line);
 
-// rendering/draw/minimap/fov.c
+// rendering/draw/minimap/fov_draw.c
+void			raycast_fov_draw(t_main *config, t_player player, t_ray ray_fov);
+void			raycast_fov_draw_hit(t_main *config, t_player player, t_ray ray_fov);
+void			raycast_fov_draw_line(t_main *config, t_player player, t_ray ray_fov);
 
 // rendering/draw/minimap/fov_ray_horizontal.c
 void			fov_cast_ray_down(t_ray *ray, t_player player);
@@ -722,10 +727,9 @@ void			fov_cast_ray_right(t_ray *ray, t_player player);
 void			fov_cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 
 // rendering/draw/minimap/fov_raycast.c
-void			init_raycast_fov(t_ray *ray_fov, float angle, t_main *config);
-void			raycast_fov(t_main *config, float angle);
-void			raycast_fov_cast(t_main *config, t_ray *ray_fov);
-void			raycast_fov_draw(t_main *config, t_ray ray_fov);
+void			init_raycast_fov(t_ray *ray_fov, t_player *player, float angle, t_main *config);
+void			raycast_fov(t_main *config, t_player player, t_ray *ray_fov);
+void			raycast_fov_entry(t_main *config, float angle);
 
 // rendering/draw/minimap/in_circle.c
 t_bool			opti_outof_mini_square(int px, int py, t_circle circle);
@@ -743,6 +747,7 @@ void			minimap_choose_text(t_main *config, t_minimap *mini);
 
 // rendering/draw/minimap/player.c
 void			draw_minimap_player(t_main *config);
+void			draw_minimap_player_angle(t_mlx_textures *text, t_minimap mini, float angle);
 void			draw_minimap_player_square(t_mlx_textures *text, t_minimap mini);
 
 // rendering/draw/minimap/update_minimap.c
@@ -757,13 +762,8 @@ void			draw_circle(t_circle circle, t_mlx_textures *text);
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);
 void			draw_map_point(t_main *config, char current_cell, int y, int x);
-void			draw_player_angle(t_main *config);
 void			draw_player_pos(t_main *config);
 void			draw_raycast(t_main *config);
-
-// rendering/draw/scene.c
-void			draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
-void			draw_scene(t_main *config);
 
 // rendering/move/angle.c
 void			adjust_delta(t_player *player, int text_size);
@@ -772,6 +772,11 @@ void			key_press_move_angle_right(t_player *player, int text_size);
 
 // rendering/move/dir.c
 t_bool			hit_wall(t_player player, t_map map, int text_size);
+t_d_pos			move_get_dir(t_player player);
+void			move_dir_backward(t_player *player, int text_size, t_map map);
+void			move_dir_forward(t_player *player, int text_size, t_map map);
+
+// rendering/move/keypress.c
 void			key_press_move_down(t_player *player, int text_size, t_map map);
 void			key_press_move_left(t_player *player, int text_size, t_map map);
 void			key_press_move_right(t_player *player, int text_size, t_map map);
@@ -822,7 +827,9 @@ void			increase_offset(t_ray *ray);
 // rendering/utils.2.c
 float			get_ratio(float nbr, t_ray ray);
 int				check_in_img(t_ray ray, int point);
+t_bool			pos_is_not_in_circle(t_i_pos pos, int c_x, int c_y, t_circle circle);
 void			ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color);
+void			ft_put_pixel_not_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color, t_circle circle);
 
 /* ########################################################################## */
 

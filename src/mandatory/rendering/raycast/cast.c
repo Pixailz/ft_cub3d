@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 03:06:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 20:16:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void	cast_rays(t_main *config)
 void	cast_ray_entry(t_main *config)
 {
 	float	to_add;
-	int		first;
 
-	first = 0;
 	to_add = DR / (config->mlx.screen.x / FOV);
 	config->ray.angle = config->player.angle - (DR * (FOV / 2));
 	config->ray.nbr = 0;
@@ -81,11 +79,8 @@ void	cast_ray_entry(t_main *config)
 	while (config->ray.nbr < config->ray.nbr_ray)
 	{
 		cast_rays(config);
-		if (!first)
-		{
+		if (!config->ray.nbr)
 			draw_fov(config);
-			first++;
-		}
 		draw_ray_hit(config);
 		config->ray.angle += to_add;
 		config->ray.nbr++;

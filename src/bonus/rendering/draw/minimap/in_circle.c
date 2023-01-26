@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 08:47:06 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 11:26:21 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 07:19:29 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ t_bool	opti_outof_mini_square(int px, int py, t_circle circle)
 
 t_bool	pos_is_in_circle(t_i_pos pos, int c_x, int c_y, t_circle circle)
 {
+	t_l_pos			pow;
 	unsigned int	x_x;
 	unsigned int	y_y;
-	unsigned int	pow_x;
-	unsigned int	pow_y;
 
 	x_x = pos.x + c_x;
 	y_y = pos.y + c_y;
@@ -36,9 +35,9 @@ t_bool	pos_is_in_circle(t_i_pos pos, int c_x, int c_y, t_circle circle)
 		return (FALSE);
 	x_x -= circle.center.x;
 	y_y -= circle.center.y;
-	pow_x = (x_x) * (x_x);
-	pow_y = (y_y) * (y_y);
-	return (sqrt(pow_x + pow_y) < circle.radius - MINI_EDGE_TRESH);
+	pow.x = (x_x) * (x_x);
+	pow.y = (y_y) * (y_y);
+	return (sqrt(pow.x + pow.y) < circle.radius - MINI_EDGE_TRESH);
 }
 
 void	text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst, t_circle circle)
@@ -98,8 +97,8 @@ void	ft_put_pixel_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color, t_c
 
 	if (pos.x < 0 || pos.y < 0 || pos.x > image->len.x || pos.y > image->len.y)
 		return ;
-	// if (!pos_is_in_circle(pos, 0, 0, circle))
-	// 	return ;
+	if (!pos_is_in_circle(pos, 0, 0, circle))
+		return ;
 	point = pos.x * 4 + 4 * pos.y * image->len.x;
 	image->buff[point] = ft_int4_dcomp(color, 0);
 	image->buff[point + 1] = ft_int4_dcomp(color, 1);

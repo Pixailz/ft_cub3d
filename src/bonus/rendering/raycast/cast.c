@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 11:54:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 07:14:00 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	cast_rays(t_main *config)
 	if (config->ray.angle > PI2)
 		config->ray.angle -= PI2;
 	config->ray.a_tan = get_a_tan(config->ray.angle);
-	cast_ray_horizontal(&config->ray, config->player, config->parse.map);
 	config->ray.n_tan = get_n_tan(config->ray.angle);
+	cast_ray_horizontal(&config->ray, config->player, config->parse.map);
 	cast_ray_vertical(&config->ray, config->player, config->parse.map);
 	choose_ray(config);
 	get_text(config);
@@ -75,9 +75,7 @@ void	cast_rays(t_main *config)
 void	cast_ray_entry(t_main *config)
 {
 	float	to_add;
-	int		first;
 
-	first = 0;
 	to_add = DR / (config->mlx.screen.x / FOV);
 	config->ray.angle = config->player.angle - (DR * (FOV / 2));
 	config->ray.nbr = 0;
@@ -85,8 +83,6 @@ void	cast_ray_entry(t_main *config)
 	while (config->ray.nbr < config->ray.nbr_ray)
 	{
 		cast_rays(config);
-		// draw_fov(config);
-		// draw_ray_hit(config);
 		config->ray.angle += to_add;
 		config->ray.nbr++;
 	}

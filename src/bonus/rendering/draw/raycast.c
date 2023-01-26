@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:12:38 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 05:47:49 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 06:17:17 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,8 @@ void	draw_player_pos(t_main *config)
 		config->mlx.textures.mini_player.ptr, pos.x, pos.y);
 }
 
-void	draw_player_angle(t_main *config)
-{
-	t_line	line;
-	t_d_pos	delta;
-
-	line.begin.x = get_ratio(config->player.pos.x, config->ray);
-	line.begin.y = get_ratio(config->player.pos.y, config->ray);
-	delta.x = cos(config->player.angle) * PLAYER_ANGLE_SIZE;
-	delta.y = sin(config->player.angle) * PLAYER_ANGLE_SIZE;
-	line.end.x = line.begin.x + delta.x;
-	line.end.y = line.begin.y + delta.y;
-	line.color = PLAYER_ANGLE_COLOR;
-	draw_line(config->mlx.ptr, config->mlx.win_raycasting, line);
-}
-
 void	draw_raycast(t_main *config)
 {
 	draw_map(config);
 	draw_player_pos(config);
-	draw_player_angle(config);
 }

@@ -6,29 +6,29 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:09:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 11:59:57 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 07:49:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
-void	init_raycast_fov(t_ray *ray_fov, float angle, t_main *config)
+void	init_raycast_fov(t_ray *ray_fov, t_player *player, float angle, t_main *config)
 {
-	ray_fov->bit_prec = 4;
-	ray_fov->text_size = 16;
-	ray_fov->a_tan = -1 / tan(angle);
-	ray_fov->n_tan = -tan(angle);
-	ray_fov->hit = 0;
-	ray_fov->angle = angle;
-	if (ray_fov->angle < 0)
-		ray_fov->angle += PI2;
-	if (ray_fov->angle > PI2)
-		ray_fov->angle -= PI2;
+	ray_fov->text_size = config->mini.max_text_size;
+	ray_fov->bit_prec = get_bit_prec(config->mini.max_text_size);
+	ray_fov->angle = angle - (DR * (FOV / 2));
+	ray_fov->nbr = 0;
+	ray_fov->nbr_ray = config->mini.circle.radius * 2;
+	player->angle = angle;
+	player->pos.x = config->player.pos.x / config->ray.text_size * \
+													config->mini.max_text_size;
+	player->pos.y = config->player.pos.y / config->ray.text_size * \
+													config->mini.max_text_size;
 }
 
-void	raycast_fov_cast(t_main *config, t_ray *ray_fov)
+void	raycast_fov(t_main *config, t_player player, t_ray *ray_fov)
 {
-	double	dist;
+	double		dist;
 
 	ray_fov->hit = 0;
 	if (ray_fov->angle < 0)
@@ -37,9 +37,9 @@ void	raycast_fov_cast(t_main *config, t_ray *ray_fov)
 		ray_fov->angle -= PI2;
 	ray_fov->a_tan = get_a_tan(ray_fov->angle);
 	ray_fov->n_tan = get_n_tan(ray_fov->angle);
-	fov_cast_ray_horizontal(ray_fov, config->player, config->parse.map);
-	fov_cast_ray_vertical(ray_fov, config->player, config->parse.map);
-	dist = get_dist(config->player.pos, config->ray.pos);
+	fov_cast_ray_horizontal(ray_fov, player, config->parse.map);
+	fov_cast_ray_vertical(ray_fov, player, config->parse.map);
+	dist = get_dist(player.pos, ray_fov->pos);
 	if (ray_fov->dist > dist)
 	{
 		ray_fov->dist = dist;
@@ -48,36 +48,22 @@ void	raycast_fov_cast(t_main *config, t_ray *ray_fov)
 	}
 }
 
-void	raycast_fov_draw(t_main *config, t_ray ray_fov)
+void	raycast_fov_entry(t_main *config, float angle)
 {
-	t_line	line;
+	t_ray		ray_fov;
+	t_player	player;
+	float		to_add;
 
-	line.begin.x = MINI_CENTER_X;
-	line.begin.y = MINI_CENTER_Y;
-	line.end.x = MINI_CENTER_X + ray_fov.save.x;
-	line.end.y = MINI_CENTER_Y + ray_fov.save.y;
-	line.color = 0x00ff00;
-	put_line_in_circle(&config->mlx.textures.scene, line, config->mini.circle);
-}
-
-void	raycast_fov(t_main *config, float angle)
-{
-	t_ray	ray_fov;
-	t_i_pos	end;
-	float	to_add;
-
-	to_add = DR / ((config->mini.circle.radius * 2) / FOV);
-	ray_fov.text_size = 2;
-	ray_fov.bit_prec = 1;
-	ray_fov.angle = angle - (DR * (FOV / 2));
-	ray_fov.nbr = 0;
-	ray_fov.nbr_ray = 100;
-	while (ray_fov.nbr < ray_fov.nbr_ray)
+	init_raycast_fov(&ray_fov, &player, angle, config);
+	to_add = DR / (config->mini.circle.radius * 2 / FOV);
+	while (ray_fov.angle < angle + (DR * (FOV / 2)))
 	{
-		raycast_fov_cast(config, &ray_fov);
-		raycast_fov_draw(config, ray_fov);
+		raycast_fov(config, player, &ray_fov);
+		raycast_fov_draw(config, player, ray_fov);
 		ray_fov.angle += to_add;
 		ray_fov.nbr++;
+		if (ray_fov.nbr > config->mini.circle.radius * 2)
+			break ;
 	}
-	init_raycast_fov(&ray_fov, angle, config);
+	raycast_fov_draw_line(config, player, ray_fov);
 }

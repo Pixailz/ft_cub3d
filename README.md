@@ -12,7 +12,7 @@
     - parsing -> t_texture_list
     - loading -> t_mlx_side -> t_mlx_texture
 
-- eviter de deplacer player.pos en dehors de la map
+- fix weird angle
 
 ## STATUS
 
@@ -28,7 +28,7 @@
 |collision |:green_circle: |cannot pass throught wall     |
 |runing    |:green_circle: |can run with shift            |
 |          |               |                              |
-|mini map  |:orange_circle:|display a minimap             |
+|mini map  |:green_circle: |display a minimap             |
 |          |:green_circle: |- round map                   |
 |          |:green_circle: |- protect outside map         |
 |          |:green_circle: |- float centered by player pos|
@@ -36,7 +36,7 @@
 |          |:green_circle: |- struct mini to included     |
 |          |:green_circle: |- 'tab' to expand map         |
 |          |:green_circle: |- 'M' to toggle map           |
-|          |:orange_circle:|- fov + hit                   |
+|          |:green_circle: |- fov + hit                   |
 |          |               |                              |
 |door      |:orange_circle:|door mechanism                |
 |          |:green_circle: |- parse good wall in map      |
@@ -46,7 +46,6 @@
 |annimation|:orange_circle:|animation mechanism           |
 |          |:orange_circle:|- parse multiple texture      |
 |          |:red_circle:   |- animate                     |
-
 
 ## tips
 

@@ -9,7 +9,7 @@
 |ERRN_03|MALLOC_GET_MAP    |
 |ERRN_04|MALLOC_DUP_MAP    |
 |ERRN_05|MALLOC_LST_FILE   |
-|ERRN_06|                  |
+|ERRN_06|MALLOC_FRAMES     |
 |ERRN_07|                  |
 |ERRN_08|                  |
 |ERRN_09|                  |

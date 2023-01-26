@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:46:34 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 10:19:45 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:33:14 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,33 @@ void	free_mlx_texture(void *mlx, t_mlx_texture *text)
 		mlx_destroy_image(mlx, text->ptr);
 }
 
+void	free_mlx_animated(t_mlx_a_text *text_a, void *mlx)
+{
+	int	counter;
+
+	counter = 0;
+	while (counter < text_a->frame_nb)
+	{
+		free_mlx_texture(mlx, &text_a->frame[counter]);
+		counter++;
+	}
+	free(text_a->frame);
+}
+
+void	free_mlx_animated_entry(t_mlx *mlx)
+{
+	free_mlx_animated(&mlx->textures.north, mlx->ptr);
+	free_mlx_animated(&mlx->textures.south, mlx->ptr);
+	free_mlx_animated(&mlx->textures.west, mlx->ptr);
+	free_mlx_animated(&mlx->textures.east, mlx->ptr);
+}
+
 void	free_mlx_textures(t_mlx *mlx)
 {
 	t_mlx_textures	*textures;
 
 	textures = &mlx->textures;
-	// free_mlx_texture(mlx->ptr, &textures->north);
-	// free_mlx_texture(mlx->ptr, &textures->south);
-	// free_mlx_texture(mlx->ptr, &textures->west);
-	// free_mlx_texture(mlx->ptr, &textures->east);
+	free_mlx_animated_entry(mlx);
 	free_mlx_texture(mlx->ptr, &textures->mini_wall);
 	free_mlx_texture(mlx->ptr, &textures->mini_void);
 	free_mlx_texture(mlx->ptr, &textures->mini_player);

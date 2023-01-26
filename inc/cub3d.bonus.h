@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 10:30:26 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:35:54 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					FALSE
-# define MOUSE_ENABLE					FALSE
+# define MOUSE_ENABLE					TRUE
 # define RAY_ENABLE						FALSE
-# define COLLISION						FALSE
+# define COLLISION						TRUE
+# define FRAME_INTERVAL					100
 
 	// MATRIX
 # define MAX_DOF						1
@@ -173,6 +174,8 @@
 # define ERRN_MALLOC_STR_02		"inside split"
 # define ERRN_MALLOC_STR_03		"inside get_map()"
 # define ERRN_MALLOC_STR_04		"inside dup_map_squared()"
+# define ERRN_MALLOC_STR_05		"texture list"
+# define ERRN_MALLOC_STR_06		"texture array"
 
 		// PARAMS
 # define ERRN_PARAMS_STR_01		"file path too short"
@@ -369,6 +372,7 @@ typedef struct s_mlx
 	void			*ptr;
 	void			*win;
 	void			*win_raycasting;
+	int				frame_time;
 	t_i_pos			screen;
 	t_mlx_textures	textures;
 }	t_mlx;
@@ -503,6 +507,8 @@ void			free_file(t_file *file);
 
 // dataset/free/mlx.c
 void			free_mlx(t_mlx *mlx, t_error err);
+void			free_mlx_animated(t_mlx_a_text *text_a, void *mlx);
+void			free_mlx_animated_entry(t_mlx *mlx);
 void			free_mlx_texture(void *mlx, t_mlx_texture *text);
 void			free_mlx_textures(t_mlx *mlx);
 
@@ -680,15 +686,13 @@ int				parse_line(t_error *err, char **line, t_parse *parse);
 
 // parsing/line/file_list/list.c
 int				lstsize_file(t_file_l *lst);
-t_file_l		*lstnew_file(t_error *err, char *path, int fd, int err_no);
+t_file_l		*lstnew_file(t_error *err, char *path, int fd);
 void			lstadd_front_file(t_file_l **lst, t_file_l *new);
 
 // parsing/line/texture.c
 t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
-void			print_texture_list(t_file_l *text);
-void			print_textures_list(t_textures *text);
-void			set_texture(t_error *err, t_file_l **text, char *ptr, int fd);
+void			set_texture(t_error *err, t_file_l **text, char *path, int fd);
 
 // parsing/map/check.door.surrounded.c
 int				check_door(t_i_pos pos, char **map, t_error *err);
@@ -727,8 +731,8 @@ void			get_map_size(t_map *map);
 int				draw_frame(t_main *config);
 void			do_moving(t_main *config);
 void			draw_background(t_main *config);
+void			frame_id_process(t_main *config, int *frame_id);
 void			put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
-void			reset_scene(t_main *config);
 
 // rendering/draw/hit.c
 void			draw_ray_hit(t_main *config);
@@ -791,6 +795,10 @@ void			draw_map_point(t_main *config, char current_cell, int y, int x);
 void			draw_player_pos(t_main *config);
 void			draw_raycast(t_main *config);
 
+// rendering/draw/switch_textures.c
+void			switch_texture(t_mlx_a_text *textures_a);
+void			switch_textures(t_mlx_textures *textures);
+
 // rendering/move/angle.c
 void			adjust_delta(t_player *player, int text_size);
 void			key_press_move_angle_left(t_player *player, int text_size);
@@ -831,9 +839,14 @@ void			cast_ray_left(t_ray *ray, t_player player);
 void			cast_ray_right(t_ray *ray, t_player player);
 void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 
+// rendering/texture/get.highest.c
+t_i_pos			get_textures_highest_size(t_mlx_textures textures);
+void			get_texture_highest_size(t_i_pos *highest, t_mlx_a_text textures_a);
+
 // rendering/texture/load.animated.c
-int				load_texture_animated(t_mlx_a_text *text, t_file_l *file, void *mlx_ptr);
-void			load_textures_animated(t_main *config);
+int				get_frame_nb_max(t_mlx_textures text);
+int				load_texture_animated(t_mlx_a_text *text, t_file_l *file_l, int type, t_main *config);
+int				load_textures_animated(t_main *config);
 
 // rendering/texture/load.c
 t_r_value		load_scene(t_main *config);

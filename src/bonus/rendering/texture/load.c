@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 20:10:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:22 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:56:39 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ void	load_textures_minimap(t_mlx *mlx, t_error *err)
 
 t_r_value	load_textures(t_main *config)
 {
-	t_textures	*textures;
 	t_mlx		*mlx;
 
-	textures = &config->parse.textures;
 	mlx = &config->mlx;
 	load_textures_animated(config);
 	load_textures_minimap(mlx, &config->err);

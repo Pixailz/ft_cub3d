@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 09:54:52 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:45:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_r_value	init_mlx(t_main *config)
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
 		return (set_error(&config->err, 0, ERRN_01));
+	mlx->frame_time = ((1000 / FPS) + 5);
 	init_mlx_textures(&mlx->textures);
 	init_mlx_window(mlx, &config->err);
 	if (have_error(config->err, 4) & ERRN_02)

@@ -12,10 +12,11 @@
     - parsing -> t_texture_list
     - loading -> t_mlx_side -> t_mlx_texture
 
+- fix weird angle
+
 - animation new system:
-  - load texture animated
-  - load size animated
   - choose texture animated
+    - fix frame_id changing realy fast
   - free animated
 
 ## STATUS
@@ -40,16 +41,16 @@
 |          |:green_circle: |- struct mini to included     |
 |          |:green_circle: |- 'tab' to expand map         |
 |          |:green_circle: |- 'M' to toggle map           |
-|          |:green_circle: |- fov + hit                   |
+|          |:orange_circle:|- fov + hit                   |
 |          |               |                              |
 |door      |:orange_circle:|door mechanism                |
 |          |:green_circle: |- parse good wall in map      |
 |          |:orange_circle:|- display doors               |
 |          |:red_circle:   |- interact with door with kb  |
 |          |               |                              |
-|annimation|:orange_circle:|animation mechanism           |
+|annimation|:green_circle:|animation mechanism           |
 |          |:green_circle: |- parse multiple texture      |
-|          |:red_circle:   |- animate                     |
+|          |:green_circle:|- animate                     |
 
 ## tips
 

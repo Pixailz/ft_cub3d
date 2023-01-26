@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 08:04:55 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 10:32:21 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:04:13 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	lstadd_front_file(t_file_l **lst, t_file_l *new)
 	*lst = new;
 }
 
-t_file_l	*lstnew_file(t_error *err, char *path, int fd, int err_no)
+t_file_l	*lstnew_file(t_error *err, char *path, int fd)
 {
 	t_file_l	*ptr;
 
@@ -45,6 +45,6 @@ t_file_l	*lstnew_file(t_error *err, char *path, int fd, int err_no)
 	}
 	ptr->next = FT_NULL;
 	set_file(&ptr->file, path, fd);
-	ptr->file.err_no = err_no;
+	ptr->file.err_no = errno;
 	return (ptr);
 }

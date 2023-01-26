@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/25 06:58:25 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/26 13:43:35 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM					:= rm -rf
 CC					:= gcc
 PRINTF				:= @printf
 MAKE				:= make -C
-VERSION				:= 1.4.2
+VERSION				:= 1.5.0
 $(eval export MAIN=1)
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
@@ -192,6 +192,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/minimap/update_minimap.c \
 					   src/bonus/rendering/draw/minimap/utils.c \
 					   src/bonus/rendering/draw/raycast.c \
+					   src/bonus/rendering/draw/switch_textures.c \
 					   src/bonus/rendering/move/angle.c \
 					   src/bonus/rendering/move/dir.c \
 					   src/bonus/rendering/move/keypress.c \
@@ -199,6 +200,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/raycast/get_text.c \
 					   src/bonus/rendering/raycast/horizontal.c \
 					   src/bonus/rendering/raycast/vertical.c \
+					   src/bonus/rendering/texture/get.highest.c \
 					   src/bonus/rendering/texture/load.animated.c \
 					   src/bonus/rendering/texture/load.c \
 					   src/bonus/rendering/texture/load.size.c \

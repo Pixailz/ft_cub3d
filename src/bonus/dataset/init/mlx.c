@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 08:41:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:54:52 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ void	init_mlx_texture(t_mlx_texture *text)
 
 void	init_mlx_textures(t_mlx_textures *textures)
 {
-	init_mlx_texture(&textures->north);
-	init_mlx_texture(&textures->south);
-	init_mlx_texture(&textures->west);
-	init_mlx_texture(&textures->east);
 	init_mlx_texture(&textures->mini_wall);
 	init_mlx_texture(&textures->mini_void);
 	init_mlx_texture(&textures->mini_player);

@@ -6,11 +6,26 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 08:04:55 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 08:44:45 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:32:21 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
+
+int	lstsize_file(t_file_l *lst)
+{
+	t_file_l	*ptr;
+	int			size;
+
+	ptr = lst;
+	size = 0;
+	while (ptr)
+	{
+		size++;
+		ptr = ptr->next;
+	}
+	return (size);
+}
 
 void	lstadd_front_file(t_file_l **lst, t_file_l *new)
 {

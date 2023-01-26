@@ -199,6 +199,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/raycast/get_text.c \
 					   src/bonus/rendering/raycast/horizontal.c \
 					   src/bonus/rendering/raycast/vertical.c \
+					   src/bonus/rendering/texture/load.animated.c \
 					   src/bonus/rendering/texture/load.c \
 					   src/bonus/rendering/texture/load.size.c \
 					   src/bonus/rendering/utils.1.c \

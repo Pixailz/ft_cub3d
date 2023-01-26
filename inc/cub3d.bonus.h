@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 08:50:19 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:30:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,38 @@ typedef struct s_mlx_texture
 	t_i_pos		len;
 }	t_mlx_texture;
 
+typedef struct s_mlx_a_text
+{
+	t_mlx_texture	*frame;
+	t_mlx_texture	*current_frame;
+	int				frame_nb;
+	int				frame_id;
+}				t_mlx_a_text;
+
+typedef struct s_mlx_textures
+{
+	t_mlx_a_text	north;
+	t_mlx_a_text	south;
+	t_mlx_a_text	west;
+	t_mlx_a_text	east;
+	t_mlx_texture	mini_wall;
+	t_mlx_texture	mini_void;
+	t_mlx_texture	mini_player;
+	t_mlx_texture	mini_door_close;
+	t_mlx_texture	mini_door_open;
+	t_mlx_texture	scene;
+	int				frame_nb_max;
+}	t_mlx_textures;
+
+typedef struct s_mlx
+{
+	void			*ptr;
+	void			*win;
+	void			*win_raycasting;
+	t_i_pos			screen;
+	t_mlx_textures	textures;
+}	t_mlx;
+
 typedef struct s_ray
 {
 	int				nbr;
@@ -365,29 +397,6 @@ typedef struct s_ray
 	double			dist;
 	t_mlx_texture	*img_use;
 }	t_ray;
-
-typedef struct s_mlx_textures
-{
-	t_mlx_texture	north;
-	t_mlx_texture	south;
-	t_mlx_texture	west;
-	t_mlx_texture	east;
-	t_mlx_texture	mini_wall;
-	t_mlx_texture	mini_void;
-	t_mlx_texture	mini_player;
-	t_mlx_texture	mini_door_close;
-	t_mlx_texture	mini_door_open;
-	t_mlx_texture	scene;
-}	t_mlx_textures;
-
-typedef struct s_mlx
-{
-	void			*ptr;
-	void			*win;
-	void			*win_raycasting;
-	t_i_pos			screen;
-	t_mlx_textures	textures;
-}	t_mlx;
 
 typedef struct s_file
 {
@@ -670,6 +679,7 @@ int				is_good_line(t_error *err, char *line, t_parse *parse);
 int				parse_line(t_error *err, char **line, t_parse *parse);
 
 // parsing/line/file_list/list.c
+int				lstsize_file(t_file_l *lst);
 t_file_l		*lstnew_file(t_error *err, char *path, int fd, int err_no);
 void			lstadd_front_file(t_file_l **lst, t_file_l *new);
 
@@ -820,6 +830,10 @@ void			cast_ray_up(t_ray *ray, t_player player);
 void			cast_ray_left(t_ray *ray, t_player player);
 void			cast_ray_right(t_ray *ray, t_player player);
 void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
+
+// rendering/texture/load.animated.c
+int				load_texture_animated(t_mlx_a_text *text, t_file_l *file, void *mlx_ptr);
+void			load_textures_animated(t_main *config);
 
 // rendering/texture/load.c
 t_r_value		load_scene(t_main *config);

@@ -1,7 +1,7 @@
 NO ./rsc/xpm/default_64/north.xpm
 NO ./rsc/xpm/default_64/east.xpm
 NO ./rsc/xpm/default_64/west.xpm
-NO ./rsc/xpm/default_64/east.xp
+NO ./rsc/xpm/default_64/east.xpm
 SO ./rsc/xpm/default_64/south.xpm
 SO ./rsc/xpm/default_64/east.xpm
 SO ./rsc/xpm/default_64/west.xpm

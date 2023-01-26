@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 07:14:00 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:33:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ void	choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text)
 			ray->img_use = &text->mini_door_close;
 		else if (ray->pos.x < ppos.x)
 		{
-			ray->img_use = &text->east;
+			ray->img_use = text->east.current_frame;
 			ray->t.x = ray->text_size - ray->t.x;
 		}
 		else
-			ray->img_use = &text->west;
+			ray->img_use = text->west.current_frame;
 	}
 	else
 	{
 		if (ray->hit == 2)
 			ray->img_use = &text->mini_door_close;
 		else if (ray->pos.y < ppos.y)
-			ray->img_use = &text->south;
+			ray->img_use = text->south.current_frame;
 		else
 		{
-			ray->img_use = &text->north;
+			ray->img_use = text->north.current_frame;
 			ray->t.x = ray->text_size - ray->t.x;
 		}
 	}

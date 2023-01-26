@@ -60,11 +60,13 @@ void	get_textures_size(t_main *config)
 	t_i_pos			highest;
 
 	textures = config->mlx.textures;
-	highest.x = textures.north.len.x;
-	highest.y = textures.north.len.y;
-	get_highest_size(&highest, textures.south);
-	get_highest_size(&highest, textures.west);
-	get_highest_size(&highest, textures.east);
+	highest.x = 64;
+	highest.y = 64;
+	// highest.x = textures.north.len.x;
+	// highest.y = textures.north.len.y;
+	// get_highest_size(&highest, textures.south);
+	// get_highest_size(&highest, textures.west);
+	// get_highest_size(&highest, textures.east);
 	get_mini_size(config);
 	if (highest.x < highest.y)
 		config->ray.text_size = highest.y;

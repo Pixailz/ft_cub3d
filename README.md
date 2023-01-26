@@ -12,7 +12,11 @@
     - parsing -> t_texture_list
     - loading -> t_mlx_side -> t_mlx_texture
 
-- fix weird angle
+- animation new system:
+  - load texture animated
+  - load size animated
+  - choose texture animated
+  - free animated
 
 ## STATUS
 

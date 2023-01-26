@@ -129,6 +129,7 @@ SRC_C_MANDATORY		:= src/mandatory/dataset/free/config.c \
 
 SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/free/file.c \
+					   src/bonus/dataset/free/file_list.c \
 					   src/bonus/dataset/free/mlx.c \
 					   src/bonus/dataset/free/mlx.hook.c \
 					   src/bonus/dataset/free/parse.c \
@@ -169,6 +170,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/parsing/ft_cub3d_split.c \
 					   src/bonus/parsing/line/color.c \
 					   src/bonus/parsing/line/entry.c \
+					   src/bonus/parsing/line/file_list/list.c \
 					   src/bonus/parsing/line/texture.c \
 					   src/bonus/parsing/map/check.door.surrounded.c \
 					   src/bonus/parsing/map/check.surrounded.c \

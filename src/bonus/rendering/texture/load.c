@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 20:10:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 08:43:01 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 08:28:15 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ t_r_value	load_textures(t_main *config)
 
 	textures = &config->parse.textures;
 	mlx = &config->mlx;
-	if (load_texture(&mlx->textures.north, textures->north_file.path, mlx->ptr))
+	if (load_texture(&mlx->textures.north, textures->north_file->file.path, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, NORTH);
-	if (load_texture(&mlx->textures.south, textures->south_file.path, mlx->ptr))
+	if (load_texture(&mlx->textures.south, textures->south_file->file.path, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, SOUTH);
-	if (load_texture(&mlx->textures.west, textures->west_file.path, mlx->ptr))
+	if (load_texture(&mlx->textures.west, textures->west_file->file.path, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, WEST);
-	if (load_texture(&mlx->textures.east, textures->east_file.path, mlx->ptr))
+	if (load_texture(&mlx->textures.east, textures->east_file->file.path, mlx->ptr))
 		set_error_known(&config->err, 1, ERRN_03, EAST);
 	load_textures_minimap(mlx, &config->err);
 	if (load_scene(config))

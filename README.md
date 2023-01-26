@@ -44,7 +44,7 @@
 |          |:red_circle:   |- interact with door with kb  |
 |          |               |                              |
 |annimation|:orange_circle:|animation mechanism           |
-|          |:orange_circle:|- parse multiple texture      |
+|          |:green_circle: |- parse multiple texture      |
 |          |:red_circle:   |- animate                     |
 
 ## tips

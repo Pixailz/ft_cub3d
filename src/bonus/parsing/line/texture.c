@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:01:22 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:18:59 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,37 @@
 t_bool	ft_is_space(const char c)
 {
 	return (c == ' ');
+}
+
+void	print_texture_list(t_file_l *text)
+{
+	t_file_l	*tmp;
+
+	tmp = text;
+	while (tmp)
+	{
+		printf("text.file(fd:%d,err_no:%d,path:%s)\n", tmp->file.fd, tmp->file.err_no, tmp->file.path);
+		tmp = tmp->next;
+	}
+}
+
+void	print_textures_list(t_textures *text)
+{
+	print_texture_list(text->north_file);
+	printf("\n");
+	print_texture_list(text->south_file);
+	printf("\n");
+	print_texture_list(text->west_file);
+	printf("\n");
+	print_texture_list(text->east_file);
+}
+
+void	set_texture(t_error *err, t_file_l **text, char *ptr, int fd)
+{
+	if (!text)
+		*text = lstnew_file(err, ft_strdup(ptr), fd, errno);
+	else
+		lstadd_front_file(text, lstnew_file(err, ft_strdup(ptr), fd, errno));
 }
 
 t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parse)
@@ -33,12 +64,12 @@ t_r_value	parse_line_text(t_error *err, char *line, int type, t_parse *parse)
 	if (file < 0)
 		set_error_known(err, 0, ERRN_09, type);
 	if (type == NORTH)
-		set_file(&parse->textures.north_file, ft_strdup(ptr), file);
+		set_texture(err, &parse->textures.north_file, ptr, file);
 	else if (type == SOUTH)
-		set_file(&parse->textures.south_file, ft_strdup(ptr), file);
+		set_texture(err, &parse->textures.south_file, ptr, file);
 	else if (type == WEST)
-		set_file(&parse->textures.west_file, ft_strdup(ptr), file);
+		set_texture(err, &parse->textures.west_file, ptr, file);
 	else if (type == EAST)
-		set_file(&parse->textures.east_file, ft_strdup(ptr), file);
+		set_texture(err, &parse->textures.east_file, ptr, file);
 	return (0);
 }

@@ -8,7 +8,7 @@
 |ERRN_02|MALLOC_SPLIT      |
 |ERRN_03|MALLOC_GET_MAP    |
 |ERRN_04|MALLOC_DUP_MAP    |
-|ERRN_05|                  |
+|ERRN_05|MALLOC_LST_FILE   |
 |ERRN_06|                  |
 |ERRN_07|                  |
 |ERRN_08|                  |

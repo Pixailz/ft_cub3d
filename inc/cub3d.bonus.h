@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 07:31:26 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 08:50:19 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,14 +396,20 @@ typedef struct s_file
 	char		*path;
 }	t_file;
 
+typedef struct s_file_l
+{
+	struct s_file_l	*next;
+	t_file			file;
+}					t_file_l;
+
 typedef struct s_textures
 {
 	t_int4			floor;
 	t_int4			ceiling;
-	t_file			north_file;
-	t_file			south_file;
-	t_file			west_file;
-	t_file			east_file;
+	t_file_l		*north_file;
+	t_file_l		*south_file;
+	t_file_l		*west_file;
+	t_file_l		*east_file;
 }	t_textures;
 
 typedef struct s_map
@@ -484,6 +490,8 @@ void			free_config(t_main *config);
 void			close_file(int fd);
 void			free_file(t_file *file);
 
+// dataset/free/file_list.c
+
 // dataset/free/mlx.c
 void			free_mlx(t_mlx *mlx, t_error err);
 void			free_mlx_texture(void *mlx, t_mlx_texture *text);
@@ -496,6 +504,7 @@ int				end_hook(t_mlx *mlx);
 void			free_parse(t_parse *parse);
 
 // dataset/free/texture.c
+void			free_file_list(t_file_l			*list);
 void			free_textures(t_textures *textures);
 
 // dataset/init/config.c
@@ -581,7 +590,7 @@ t_size			ft_put_padded(int fd, t_size lvl);
 t_size			ft_put_padded_str(int fd, t_size lvl, const char *str);
 
 // error/print/error_no_print.c
-void			print_errno(int err_no, char *filename);
+void			print_errno(t_file_l *text);
 
 // error/print/malloc.c
 void			error_print_malloc(t_r_value return_value);
@@ -660,9 +669,16 @@ int				get_line_type(char *line);
 int				is_good_line(t_error *err, char *line, t_parse *parse);
 int				parse_line(t_error *err, char **line, t_parse *parse);
 
+// parsing/line/file_list/list.c
+t_file_l		*lstnew_file(t_error *err, char *path, int fd, int err_no);
+void			lstadd_front_file(t_file_l **lst, t_file_l *new);
+
 // parsing/line/texture.c
 t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
+void			print_texture_list(t_file_l *text);
+void			print_textures_list(t_textures *text);
+void			set_texture(t_error *err, t_file_l **text, char *ptr, int fd);
 
 // parsing/map/check.door.surrounded.c
 int				check_door(t_i_pos pos, char **map, t_error *err);

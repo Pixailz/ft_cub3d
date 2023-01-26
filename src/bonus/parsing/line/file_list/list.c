@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 19:47:47 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 08:21:44 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/26 08:04:55 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/26 08:44:45 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
-void	init_textures(t_textures *texture)
+void	lstadd_front_file(t_file_l **lst, t_file_l *new)
 {
-	texture->north_file = FT_NULL;
-	texture->south_file = FT_NULL;
-	texture->west_file = FT_NULL;
-	texture->east_file = FT_NULL;
-	texture->ceiling = ft_int4_comp(0, 0, 0, 0);
-	texture->floor = ft_int4_comp(0, 0, 0, 0);
+	new->next = *lst;
+	*lst = new;
+}
+
+t_file_l	*lstnew_file(t_error *err, char *path, int fd, int err_no)
+{
+	t_file_l	*ptr;
+
+	ptr = (t_file_l *)ft_calloc(sizeof(t_file_l), 1);
+	if (!ptr)
+	{
+		set_error(err, 0, ERRN_05);
+		return (FT_NULL);
+	}
+	ptr->next = FT_NULL;
+	set_file(&ptr->file, path, fd);
+	ptr->file.err_no = err_no;
+	return (ptr);
 }

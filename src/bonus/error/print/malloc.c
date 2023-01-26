@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 01:37:06 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:35:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,8 @@ void	error_print_malloc(t_r_value return_value)
 		ft_put_padded_str(2, 2, ERRN_MALLOC_STR_03);
 	if (return_value & ERRN_04)
 		ft_put_padded_str(2, 2, ERRN_MALLOC_STR_04);
+	if (return_value & ERRN_05)
+		ft_put_padded_str(2, 2, ERRN_MALLOC_STR_05);
+	if (return_value & ERRN_06)
+		ft_put_padded_str(2, 2, ERRN_MALLOC_STR_06);
 }

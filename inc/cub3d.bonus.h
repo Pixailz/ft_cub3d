@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 15:26:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:35:54 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
  * mlx_init()
  */
 # include "mlx.h"
-# include "mlx_int.h"
 # include "libft.h"
 /* strerror()
  */
@@ -53,7 +52,7 @@
 # endif
 
 # ifndef VERBOSE
-#  define VERBOSE						2
+#  define VERBOSE						1
 # endif
 
 # ifndef DEBUG_FD
@@ -77,16 +76,18 @@
 // CONFIG
 	// BASE
 # define PLAYER_STEP					0.036
+# define SHIFTING_SPEED					5
+# define TURN_SENSIVITY					0.8
 # define FOV							50
 # define FPS							144
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					TRUE
-# define RAY_ENABLE						TRUE
-# define COLLISION						FALSE
-# define TURN_SENSIVITY					0.6
+# define RAY_ENABLE						FALSE
+# define COLLISION						TRUE
+# define FRAME_INTERVAL					100
 
 	// MATRIX
-# define MATRIX_OFFSET					10
+# define MAX_DOF						1
 # define GOOD_CHAR_MAP					" 10NSWED"
 # define VOID_CHAR						' '
 # define WALL_CHAR						'1'
@@ -109,8 +110,10 @@
 # define KEY_W							0x77
 # define KEY_S							0x73
 # define KEY_D							0x64
-# define KEY_R							0x72
-# define KEY_E							XK_e
+# define KEY_E							0x65
+# define KEY_M							0x6d
+# define KEY_TAB						0xff09
+# define KEY_LSHIFT						0xffe1
 
 		// ARROW
 # define KEY_RIGHT						0xff53
@@ -132,16 +135,27 @@
 # define RAY_HIT_COLOR					0xff0000
 
 	// MINIMAP
+		// TEXTURE
 # define MINI_WALL_PATH					"./rsc/xpm/minimap/wall_x16.xpm"
 # define MINI_VOID_PATH					"./rsc/xpm/minimap/void_x16.xpm"
-# define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x4.xpm"
+# define MINI_PLAYER_PATH				"./rsc/xpm/minimap/player_x5.xpm"
 # define MINI_DOOR_CLOSE_PATH			"./rsc/xpm/minimap/door_close_x16.xpm"
 # define MINI_DOOR_OPEN_PATH			"./rsc/xpm/minimap/door_open_x16.xpm"
 # define MINI_EDGE_COLOR				0xff00
-# define MINI_CENTER_X					80
-# define MINI_CENTER_Y					80
-# define MINI_CIRCLE_RADIUS				75
-# define MINI_TEXT_RADIUS				73
+# define MINI_EDGE_TRESH				2
+
+		// POSITION
+			// NORMAL MODE
+# define MINI_CENTER_X					100
+# define MINI_CENTER_Y					100
+// # define MINI_CENTER_X					500
+// # define MINI_CENTER_Y					300
+# define MINI_CIRCLE_RADIUS				90
+
+			// EXPANDED MODE
+# define MINI_EXPANDED_CENTER_X			200
+# define MINI_EXPANDED_CENTER_Y			200
+# define MINI_EXPANDED_CIRCLE_RADIUS	180
 
 // ERRNO
 # define ERRN_LENGTH					32
@@ -160,6 +174,8 @@
 # define ERRN_MALLOC_STR_02		"inside split"
 # define ERRN_MALLOC_STR_03		"inside get_map()"
 # define ERRN_MALLOC_STR_04		"inside dup_map_squared()"
+# define ERRN_MALLOC_STR_05		"texture list"
+# define ERRN_MALLOC_STR_06		"texture array"
 
 		// PARAMS
 # define ERRN_PARAMS_STR_01		"file path too short"
@@ -308,7 +324,15 @@ typedef struct s_line
 {
 	t_d_pos	begin;
 	t_d_pos	end;
+	t_int4	color;
 }	t_line;
+
+typedef struct s_circle
+{
+	int		radius;
+	t_i_pos	center;
+	t_int4	color;
+}	t_circle;
 
 typedef struct s_mlx_texture
 {
@@ -320,6 +344,39 @@ typedef struct s_mlx_texture
 	t_i_pos		len;
 }	t_mlx_texture;
 
+typedef struct s_mlx_a_text
+{
+	t_mlx_texture	*frame;
+	t_mlx_texture	*current_frame;
+	int				frame_nb;
+	int				frame_id;
+}				t_mlx_a_text;
+
+typedef struct s_mlx_textures
+{
+	t_mlx_a_text	north;
+	t_mlx_a_text	south;
+	t_mlx_a_text	west;
+	t_mlx_a_text	east;
+	t_mlx_texture	mini_wall;
+	t_mlx_texture	mini_void;
+	t_mlx_texture	mini_player;
+	t_mlx_texture	mini_door_close;
+	t_mlx_texture	mini_door_open;
+	t_mlx_texture	scene;
+	int				frame_nb_max;
+}	t_mlx_textures;
+
+typedef struct s_mlx
+{
+	void			*ptr;
+	void			*win;
+	void			*win_raycasting;
+	int				frame_time;
+	t_i_pos			screen;
+	t_mlx_textures	textures;
+}	t_mlx;
+
 typedef struct s_ray
 {
 	int				nbr;
@@ -329,8 +386,9 @@ typedef struct s_ray
 	int				text_size;
 	int				mini_cell_size;
 	int				mini_player_size;
-	t_bool			hit;
-	t_bool			hit_door;
+	int				hit;
+	int				wall_hit;
+	t_bool 			ray_type;
 	t_l_pos			max;
 	t_d_pos			pos;
 	t_d_pos			offset;
@@ -346,29 +404,6 @@ typedef struct s_ray
 	t_mlx_texture	*img_use;
 }	t_ray;
 
-typedef struct s_mlx_textures
-{
-	t_mlx_texture	north;
-	t_mlx_texture	south;
-	t_mlx_texture	west;
-	t_mlx_texture	east;
-	t_mlx_texture	mini_wall;
-	t_mlx_texture	mini_void;
-	t_mlx_texture	mini_player;
-	t_mlx_texture	mini_door_close;
-	t_mlx_texture	mini_door_open;
-	t_mlx_texture	scene;
-}	t_mlx_textures;
-
-typedef struct s_mlx
-{
-	void			*ptr;
-	void			*win;
-	void			*win_raycasting;
-	t_i_pos			screen;
-	t_mlx_textures	textures;
-}	t_mlx;
-
 typedef struct s_file
 {
 	int			fd;
@@ -376,14 +411,20 @@ typedef struct s_file
 	char		*path;
 }	t_file;
 
+typedef struct s_file_l
+{
+	struct s_file_l	*next;
+	t_file			file;
+}					t_file_l;
+
 typedef struct s_textures
 {
 	t_int4			floor;
 	t_int4			ceiling;
-	t_file			north_file;
-	t_file			south_file;
-	t_file			west_file;
-	t_file			east_file;
+	t_file_l		*north_file;
+	t_file_l		*south_file;
+	t_file_l		*west_file;
+	t_file_l		*east_file;
 }	t_textures;
 
 typedef struct s_map
@@ -407,7 +448,8 @@ typedef struct s_move
 	t_bool	right;
 	t_bool	left_angle;
 	t_bool	right_angle;
-	t_bool	e;
+	t_bool	shifting;
+	t_bool	reading_map;
 	float	r_speed;
 }	t_move;
 
@@ -419,13 +461,34 @@ typedef struct s_player
 	t_move	movement;
 }	t_player;
 
+typedef struct s_minimap
+{
+	t_circle		circle;
+	t_bool			zoomed;
+	int				max_text_size;
+	t_i_pos			max_dir;
+	t_i_pos			max_dir_zoomed;
+	t_i_pos			tmp_pos;
+	t_i_pos			ppos;
+	t_i_pos			ppos_scaled;
+	t_i_pos			id;
+	t_i_pos			dir;
+	t_i_pos			img_2;
+	t_mlx_texture	*img_to_use;
+	t_mlx_texture	*wall;
+	t_mlx_texture	*voidd;
+	t_mlx_texture	*player;
+	t_mlx_texture	*door_close;
+	t_mlx_texture	*door_open;
+}				t_minimap;
+
 typedef struct s_main
 {
 	t_parse		parse;
 	t_mlx		mlx;
 	t_player	player;
 	t_ray		ray;
-	int			cursor;
+	t_minimap	mini;
 	t_error		err;
 }	t_main;
 
@@ -442,8 +505,12 @@ void			free_config(t_main *config);
 void			close_file(int fd);
 void			free_file(t_file *file);
 
+// dataset/free/file_list.c
+
 // dataset/free/mlx.c
 void			free_mlx(t_mlx *mlx, t_error err);
+void			free_mlx_animated(t_mlx_a_text *text_a, void *mlx);
+void			free_mlx_animated_entry(t_mlx *mlx);
 void			free_mlx_texture(void *mlx, t_mlx_texture *text);
 void			free_mlx_textures(t_mlx *mlx);
 
@@ -454,6 +521,7 @@ int				end_hook(t_mlx *mlx);
 void			free_parse(t_parse *parse);
 
 // dataset/free/texture.c
+void			free_file_list(t_file_l			*list);
 void			free_textures(t_textures *textures);
 
 // dataset/init/config.c
@@ -462,6 +530,10 @@ void			init_config(t_main *config);
 // dataset/init/file.c
 void			init_file(t_file *file);
 void			set_file(t_file *file, char *path, int fd);
+
+// dataset/init/minimap.c
+void			get_max_text_size(t_mlx_textures *text, t_minimap *mini, t_i_pos *max);
+void			init_mini_map(t_main *config);
 
 // dataset/init/mlx.c
 t_r_value		init_mlx(t_main *config);
@@ -500,6 +572,11 @@ void			debug_print_errn(t_error *err);
 void			debug_print_errn_binary(const char *title, t_int64 to_bin);
 void			debug_print_error(int mode, void *ptr);
 
+// debug/keypress.c
+int				debug_print_key_letter(int key_code);
+int				debug_print_key_special(int key_code);
+void			debug_print_key(int key_code);
+
 // debug/map.c
 void			debug_print_coord_checked(t_i_pos pos, char **map);
 
@@ -517,7 +594,6 @@ void			debug_print_ray(int mode, void *ptr);
 void			debug_print_ray_info(char *title, t_ray ray);
 
 // debug/render.c
-void			debug_print_key(int key_code);
 void			debug_print_player_stat(t_player *player);
 void			debug_print_render(int mode, void *ptr);
 void			debug_print_screen_size(void *ptr);
@@ -531,7 +607,7 @@ t_size			ft_put_padded(int fd, t_size lvl);
 t_size			ft_put_padded_str(int fd, t_size lvl, const char *str);
 
 // error/print/error_no_print.c
-void			print_errno(int err_no, char *filename);
+void			print_errno(t_file_l *text);
 
 // error/print/malloc.c
 void			error_print_malloc(t_r_value return_value);
@@ -610,9 +686,15 @@ int				get_line_type(char *line);
 int				is_good_line(t_error *err, char *line, t_parse *parse);
 int				parse_line(t_error *err, char **line, t_parse *parse);
 
+// parsing/line/file_list/list.c
+int				lstsize_file(t_file_l *lst);
+t_file_l		*lstnew_file(t_error *err, char *path, int fd);
+void			lstadd_front_file(t_file_l **lst, t_file_l *new);
+
 // parsing/line/texture.c
 t_bool			ft_is_space(const char c);
 t_r_value		parse_line_text(t_error *err, char *line, int type, t_parse *parse);
+void			set_texture(t_error *err, t_file_l **text, char *path, int fd);
 
 // parsing/map/check.door.surrounded.c
 int				check_door(t_i_pos pos, char **map, t_error *err);
@@ -646,39 +728,78 @@ t_bool			map_char_is_player(char c);
 void			get_map_size(t_map *map);
 
 // rendering/draw/fov.c
-void			draw_fov(t_main *config);
 
 // rendering/draw/frame.c
 int				draw_frame(t_main *config);
 void			do_moving(t_main *config);
+void			draw_background(t_main *config);
+void			frame_id_process(t_main *config, int *frame_id);
+void			put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
 
 // rendering/draw/hit.c
 void			draw_ray_hit(t_main *config);
 
 // rendering/draw/line.c
-t_line			get_line(t_d_pos begin, t_d_pos end);
-void			draw_line(void *mlx_ptr, void *win_ptr, t_line line, int color);
+t_line			get_line(t_d_pos begin, t_d_pos end, t_int4 color);
+void			draw_line(void *mlx_ptr, void *win_ptr, t_line line);
 
-// rendering/draw/minimap/init_minimap.c
-t_bool			pos_is_in_circle(t_i_pos pos, t_i_pos counter);
-void			draw_circle(t_i_pos pos, t_int4 color, int r, t_mlx_textures *text);
-void			init_mini_map(t_mlx_textures *text);
-void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst);
+// rendering/draw/minimap/fov_draw.c
+void			raycast_fov_draw(t_main *config, t_player player, t_ray ray_fov);
+void			raycast_fov_draw_hit(t_main *config, t_player player, t_ray ray_fov);
+void			raycast_fov_draw_line(t_main *config, t_player player, t_ray ray_fov);
+
+// rendering/draw/minimap/fov_ray_horizontal.c
+void			fov_cast_ray_down(t_ray *ray, t_player player);
+void			fov_cast_ray_horizontal(t_ray *ray, t_player player, t_map map);
+void			fov_cast_ray_up(t_ray *ray, t_player player);
+
+// rendering/draw/minimap/fov_ray_vertical.c
+void			fov_cast_ray_left(t_ray *ray, t_player player);
+void			fov_cast_ray_right(t_ray *ray, t_player player);
+void			fov_cast_ray_vertical(t_ray *ray, t_player player, t_map map);
+
+// rendering/draw/minimap/fov_raycast.c
+void			init_raycast_fov(t_ray *ray_fov, t_player *player, float angle, t_main *config);
+void			raycast_fov(t_main *config, t_player player, t_ray *ray_fov);
+void			raycast_fov_entry(t_main *config, float angle);
+
+// rendering/draw/minimap/in_circle.c
+t_bool			opti_outof_mini_square(int px, int py, t_circle circle);
+t_bool			pos_is_in_circle(t_i_pos pos, int c_x, int c_y, t_circle circle);
+void			ft_put_pixel_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color, t_circle circle);
+void			put_line_in_circle(t_mlx_texture *scene, t_line line, t_circle circle);
+void			text_to_buff_circle(t_i_pos pos, t_mlx_texture *src, t_mlx_texture *dst, t_circle circle);
 
 // rendering/draw/minimap/minimap.c
-void			draw_mini_map_in_circle(t_main *config, char **map, t_d_pos ppos);
+t_i_pos			get_max_dir(t_minimap mini);
+void			draw_cross(t_main *config, t_circle circle);
+void			draw_mini_map_scaled(t_main *config, t_minimap *mini);
 void			draw_minimap(t_main *config);
+void			minimap_choose_text(t_main *config, t_minimap *mini);
+
+// rendering/draw/minimap/player.c
+void			draw_minimap_player(t_main *config);
+void			draw_minimap_player_angle(t_mlx_textures *text, t_minimap mini, float angle);
+void			draw_minimap_player_square(t_mlx_textures *text, t_minimap mini);
+
+// rendering/draw/minimap/update_minimap.c
+void			update_mini_circle(t_bool zoomed, t_circle *circle);
+void			update_mini_map(t_main *config, t_minimap *mini);
+void			update_mini_map_vars(t_main *config, t_minimap *mini);
+
+// rendering/draw/minimap/utils.c
+char			get_current_char_map(t_map map, t_i_pos pos);
+void			draw_circle(t_circle circle, t_mlx_textures *text);
 
 // rendering/draw/raycast.c
 void			draw_map(t_main *config);
 void			draw_map_point(t_main *config, char current_cell, int y, int x);
-void			draw_player_angle(t_main *config);
 void			draw_player_pos(t_main *config);
 void			draw_raycast(t_main *config);
 
-// rendering/draw/scene.c
-void			draw_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
-void			draw_scene(t_main *config);
+// rendering/draw/switch_textures.c
+void			switch_texture(t_mlx_a_text *textures_a);
+void			switch_textures(t_mlx_textures *textures);
 
 // rendering/move/angle.c
 void			adjust_delta(t_player *player, int text_size);
@@ -687,6 +808,12 @@ void			key_press_move_angle_right(t_player *player, int text_size);
 
 // rendering/move/dir.c
 t_bool			hit_wall(t_player player, t_map map, int text_size);
+t_d_pos			move_get_dir(t_player player);
+void			move_dir_backward(t_player *player, int text_size, t_map map);
+void			move_dir_forward(t_player *player, int text_size, t_map map);
+
+// rendering/move/keypress.c
+void			key_press_interact_down(t_main *config);
 void			key_press_move_down(t_player *player, int text_size, t_map map);
 void			key_press_move_left(t_player *player, int text_size, t_map map);
 void			key_press_move_right(t_player *player, int text_size, t_map map);
@@ -696,6 +823,7 @@ void			key_press_move_up(t_player *player, int text_size, t_map map);
 void			cast_ray_entry(t_main *config);
 void			cast_rays(t_main *config);
 void			choose_ray(t_main *config);
+void			choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text);
 
 // rendering/raycast/get_text.c
 void			fix_fisheyes(t_ray *ray, t_player player);
@@ -714,6 +842,15 @@ void			cast_ray_left(t_ray *ray, t_player player);
 void			cast_ray_right(t_ray *ray, t_player player);
 void			cast_ray_vertical(t_ray *ray, t_player player, t_map map);
 
+// rendering/texture/get.highest.c
+t_i_pos			get_textures_highest_size(t_mlx_textures textures);
+void			get_texture_highest_size(t_i_pos *highest, t_mlx_a_text textures_a);
+
+// rendering/texture/load.animated.c
+int				get_frame_nb_max(t_mlx_textures text);
+int				load_texture_animated(t_mlx_a_text *text, t_file_l *file_l, int type, t_main *config);
+int				load_textures_animated(t_main *config);
+
 // rendering/texture/load.c
 t_r_value		load_scene(t_main *config);
 t_r_value		load_texture(t_mlx_texture *text, char *file_path, void *mlx);
@@ -721,8 +858,8 @@ t_r_value		load_textures(t_main *config);
 void			load_textures_minimap(t_mlx *mlx, t_error *err);
 
 // rendering/texture/load.size.c
-unsigned char	get_bit_prec(int lowest);
-void			get_highest_size(t_i_pos *lowest, t_mlx_texture text);
+unsigned char	get_bit_prec(int highest);
+void			get_highest_size(t_i_pos *highest, t_mlx_texture text);
 void			get_mini_size(t_main *config);
 void			get_textures_size(t_main *config);
 
@@ -736,7 +873,9 @@ void			increase_offset(t_ray *ray);
 // rendering/utils.2.c
 float			get_ratio(float nbr, t_ray ray);
 int				check_in_img(t_ray ray, int point);
+t_bool			pos_is_not_in_circle(t_i_pos pos, int c_x, int c_y, t_circle circle);
 void			ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color);
+void			ft_put_pixel_not_in_circle(t_i_pos pos, t_mlx_texture *image, t_int4 color, t_circle circle);
 
 /* ########################################################################## */
 

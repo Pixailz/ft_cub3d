@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:56:41 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 t_bool	is_movement_key(int key_code)
 {
 	if (key_code == KEY_A || key_code == KEY_D || key_code == KEY_W || \
-		key_code == KEY_S || key_code == KEY_LEFT || key_code == XK_e || key_code == KEY_RIGHT)
+		key_code == KEY_S || key_code == KEY_LEFT || key_code == KEY_RIGHT || \
+		key_code == KEY_LSHIFT)
 		return (TRUE);
 	return (FALSE);
 }
@@ -30,8 +31,8 @@ void	set_movement(t_move *movement, int key_code, t_bool value)
 		movement->up = value;
 	else if (key_code == KEY_S)
 		movement->down = value;
-	else if (key_code == KEY_E)
-		movement->e = value;
+	else if (key_code == KEY_LSHIFT)
+		movement->shifting = value;
 	else if (!MOUSE_ENABLE)
 	{
 		if (key_code == KEY_LEFT)
@@ -46,6 +47,8 @@ int	key_press(int key_code, t_main *config)
 	debug_print(RENDER_KEY_PRESS, (void *)&key_code);
 	if (is_movement_key(key_code))
 		set_movement(&config->player.movement, key_code, TRUE);
+	// if (key_code == KEY_E)
+	// 	interact_door();
 	return (0);
 }
 
@@ -55,6 +58,13 @@ int	key_release(int key_code, t_main *config)
 		set_movement(&config->player.movement, key_code, FALSE);
 	if (key_code == KEY_ESC)
 		return (end_hook(&config->mlx));
+	if (key_code == KEY_E)
+		key_press_interact_down(config);
+	if (key_code == KEY_TAB)
+		config->mini.zoomed = !config->mini.zoomed;
+	if (key_code == KEY_M)
+		config->player.movement.reading_map = \
+										!config->player.movement.reading_map;
 	return (0);
 }
 
@@ -64,8 +74,6 @@ void	init_mlx_hook(t_main *config)
 	long int	mouse_mask;
 
 	mlx = &config->mlx;
-	config->cursor = 0;
-	config->player.movement.e = FALSE;
 	mlx_hook(mlx->win, 33, (1L << 17), end_hook, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), key_press, config);
 	mlx_hook(mlx->win, 3, (1L << 1), key_release, config);

@@ -1,0 +1,15 @@
+NO ./rsc/xpm/flech/north.xpm
+SO ./rsc/xpm/flech/south.xpm
+WE ./rsc/xpm/flech/west.xpm
+EA ./rsc/xpm/flech/east.xpm
+
+F 220,100,0
+C 225,30,0
+
+1111111
+1000001
+1000001
+100N001
+1000001
+1000001
+1111111

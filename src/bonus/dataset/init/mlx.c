@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 08:41:29 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:45:26 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ void	init_mlx_texture(t_mlx_texture *text)
 
 void	init_mlx_textures(t_mlx_textures *textures)
 {
-	init_mlx_texture(&textures->north);
-	init_mlx_texture(&textures->south);
-	init_mlx_texture(&textures->west);
-	init_mlx_texture(&textures->east);
 	init_mlx_texture(&textures->mini_wall);
 	init_mlx_texture(&textures->mini_void);
 	init_mlx_texture(&textures->mini_player);
@@ -67,6 +63,7 @@ t_r_value	init_mlx(t_main *config)
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
 		return (set_error(&config->err, 0, ERRN_01));
+	mlx->frame_time = ((1000 / FPS) + 5);
 	init_mlx_textures(&mlx->textures);
 	init_mlx_window(mlx, &config->err);
 	if (have_error(config->err, 4) & ERRN_02)

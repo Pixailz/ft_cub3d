@@ -159,9 +159,6 @@ SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doE
 SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-38.xpm
 SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-39.xpm
 
-F 220,100,0
-C 225,30,0
-
 SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-40.xpm
 SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-41.xpm
 SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-42.xpm
@@ -182,6 +179,9 @@ SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doE
 SO ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-56.xpm
 
 EA ./rsc/xpm/maxwell-the-cat-maxwell/94b4ed84d1ad47a9b02c2c48f7a6e8eel8DylYN6doEjaKNe-56.xpm
+
+F 0,255,0
+C 0,0,255
 
    11111111111111
   1000000000001  1

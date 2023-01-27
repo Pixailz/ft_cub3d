@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 05:29:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 05:39:53 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@
 # define TURN_SENSIVITY					0.8
 # define FOV							50
 # define FPS							144
-# define FOG							4
-# define RATIO_FOG						0.1
+# define FOG							8
+# define RATIO_FOG						0.6
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					FALSE
 # define RAY_ENABLE						FALSE
-# define COLLISION						TRUE
+# define COLLISION						FALSE
 # define FRAME_INTERVAL					10
 
 	// MATRIX
@@ -732,7 +732,6 @@ int				draw_frame(t_main *config);
 void			do_moving(t_main *config);
 void			draw_background(t_main *config);
 void			frame_id_process(t_main *config, int *frame_id);
-void			ft_put_pixel_background(t_i_pos pos, t_mlx_texture *scene, t_int4 color);
 void			put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
 
 // rendering/draw/hit.c

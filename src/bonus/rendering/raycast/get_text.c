@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 04:56:16 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 06:54:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,19 @@ t_int4	push_buff_scene_get_color(t_ray ray, int point)
 	t_int1	tmp_rgb[3];
 	t_int4	rgb;
 
-	ratio_fog = 1 - (ray.dist_real - (FOG * ray.text_size * RATIO_FOG)) / \
-					((FOG * ray.text_size) * (1 - RATIO_FOG));
+	if (ray.dist_real > FOG * ray.text_size)
+		return (0);
 	tmp_rgb[2] = ray.img_use->buff[point + 2];
 	tmp_rgb[1] = ray.img_use->buff[point + 1];
 	tmp_rgb[0] = ray.img_use->buff[point];
 	if (ray.dist_real > FOG * ray.text_size * RATIO_FOG && \
 										ray.dist_real < FOG * ray.text_size)
 	{
+		ratio_fog = 1 - (ray.dist_real - (FOG * ray.text_size * RATIO_FOG)) / \
+					((FOG * ray.text_size) * (1 - RATIO_FOG));
 		tmp_rgb[2] *= ratio_fog;
 		tmp_rgb[1] *= ratio_fog;
 		tmp_rgb[0] *= ratio_fog;
-	}
-	else if (ray.dist_real > FOG * ray.text_size)
-	{
-		tmp_rgb[2] = 0;
-		tmp_rgb[1] = 0;
-		tmp_rgb[0] = 0;
 	}
 	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
 	return (rgb);

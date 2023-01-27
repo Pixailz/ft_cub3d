@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 02:29:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 04:56:16 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	fix_fisheyes(t_ray *ray, t_player player)
 {
 	float	cosinus_angle;
 
+	ray->dist_real = ray->dist;
 	cosinus_angle = player.angle - ray->angle;
 	if (cosinus_angle < 0)
 		cosinus_angle += PI2;
@@ -36,21 +37,45 @@ void	set_texture_height(t_ray *ray, t_mlx_texture scene)
 	}
 }
 
+t_int4	push_buff_scene_get_color(t_ray ray, int point)
+{
+	double	ratio_fog;
+	t_int1	tmp_rgb[3];
+	t_int4	rgb;
+
+	ratio_fog = 1 - (ray.dist_real - (FOG * ray.text_size * RATIO_FOG)) / \
+					((FOG * ray.text_size) * (1 - RATIO_FOG));
+	tmp_rgb[2] = ray.img_use->buff[point + 2];
+	tmp_rgb[1] = ray.img_use->buff[point + 1];
+	tmp_rgb[0] = ray.img_use->buff[point];
+	if (ray.dist_real > FOG * ray.text_size * RATIO_FOG && \
+										ray.dist_real < FOG * ray.text_size)
+	{
+		tmp_rgb[2] *= ratio_fog;
+		tmp_rgb[1] *= ratio_fog;
+		tmp_rgb[0] *= ratio_fog;
+	}
+	else if (ray.dist_real > FOG * ray.text_size)
+	{
+		tmp_rgb[2] = 0;
+		tmp_rgb[1] = 0;
+		tmp_rgb[0] = 0;
+	}
+	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
+	return (rgb);
+}
+
 void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter)
 {
 	t_int4	rgb;
-	t_int1	tmp_rgb[3];
 	int		y;
 	int		point;
 
 	point = (int)(ray->t.x * ray->img_use->len.x / ray->text_size) * 4 + \
-										4 * (int)ray->t.y * ray->img_use->len.x;
-	if (point <= ray->img_use->size_line * ray->img_use->len.y)
+			(int)ray->t.y * ray->img_use->len.x * 4;
+	if (point + 2 <= ray->img_use->size_line * ray->img_use->len.y)
 	{
-		tmp_rgb[2] = ray->img_use->buff[point + 2];
-		tmp_rgb[1] = ray->img_use->buff[point + 1];
-		tmp_rgb[0] = ray->img_use->buff[point];
-		rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
+		rgb = push_buff_scene_get_color(*ray, point);
 		y = (int)(counter + scene->len.y / 2 - ray->t_height / 2);
 		ft_put_pixel(ray->nbr, y, scene, rgb);
 	}

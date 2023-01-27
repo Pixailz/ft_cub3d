@@ -157,7 +157,7 @@
 |:-----:|:-----------------------|
 |ERRN_00|all good                |
 |ERRN_01|MLX_MAIN_WINDOW         |
-|ERRN_02|MLX_RAY_WINDOW          |
+|ERRN_02|                        |
 |ERRN_03|MLX_NORTH_TEXT          |
 |ERRN_04|MLX_SOUTH_TEXT          |
 |ERRN_05|MLX_WEST_TEXT           |

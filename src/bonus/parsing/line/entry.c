@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 06:38:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 05:32:59 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:25:53 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ int	get_line_type(char *line)
 	return (0);
 }
 
+t_bool	have_all_params(int already_taken)
+{
+	return (already_taken & FLOOR && already_taken & FLOOR && \
+		already_taken & NORTH && already_taken & SOUTH && \
+		already_taken & WEST && already_taken & EAST);
+}
+
 int	is_good_line(t_error *err, char *line, t_parse *parse)
 {
 	static unsigned char	already_taken = 0;
@@ -66,8 +73,14 @@ int	is_good_line(t_error *err, char *line, t_parse *parse)
 	if (ft_is_str(line, ft_isspace))
 		return (1);
 	line_type = get_line_type(line);
+	parse->current_line = line;
 	if (!line_type)
-		return (set_error(err, 1, ERRN_05));
+	{
+		if (have_all_params(already_taken))
+			return (-1);
+		else
+			return (set_error(err, 1, ERRN_05));
+	}
 	if (line_type & (FLOOR | CEIL) && already_taken & line_type)
 		return (set_error_known(err, 0, ERRN_06, line_type));
 	already_taken |= line_type;
@@ -77,8 +90,6 @@ int	is_good_line(t_error *err, char *line, t_parse *parse)
 		return_value = parse_line_color(err, line, line_type, parse);
 	if (return_value)
 		return (return_value);
-	if (already_taken & FLOOR && already_taken & CEIL)
-		return (-1);
 	return (0);
 }
 

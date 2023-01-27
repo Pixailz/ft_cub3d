@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 06:56:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:03:08 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	key_press(int key_code, t_main *config)
 	debug_print(RENDER_KEY_PRESS, (void *)&key_code);
 	if (is_movement_key(key_code))
 		set_movement(&config->player.movement, key_code, TRUE);
-	// if (key_code == KEY_E)
-	// 	interact_door();
 	return (0);
 }
 
@@ -56,6 +54,8 @@ int	key_release(int key_code, t_main *config)
 {
 	if (is_movement_key(key_code))
 		set_movement(&config->player.movement, key_code, FALSE);
+	if (key_code == KEY_E)
+		key_press_interact_down(config);
 	if (key_code == KEY_ESC)
 		return (end_hook(&config->mlx));
 	if (key_code == KEY_TAB)

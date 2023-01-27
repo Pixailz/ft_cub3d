@@ -65,4 +65,5 @@ void	get_textures_size(t_main *config)
 	else
 		config->ray.text_size = highest.x;
 	config->ray.bit_prec = get_bit_prec(config->ray.text_size);
+	config->ray.text_size = 1UL << config->ray.bit_prec;
 }

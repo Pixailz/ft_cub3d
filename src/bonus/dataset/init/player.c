@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:29:43 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 06:57:28 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:08:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
-float	get_player_angle(char player_char)
+float	get_player_angle_x(char player_char)
 {
 	if (player_char == 'N')
 		return (PI3);
@@ -37,7 +37,7 @@ void	get_player_pos(t_map map, t_player *player, int text_size)
 		{
 			if (map_char_is_player(map.matrix[y][x]))
 			{
-				player->angle = get_player_angle(map.matrix[y][x]);
+				player->angle.x = get_player_angle_x(map.matrix[y][x]);
 				map.matrix[y][x] = EMPTY_CHAR;
 				player->pos.x = x * text_size + text_size / 2;
 				player->pos.y = y * text_size + text_size / 2;
@@ -53,7 +53,8 @@ void	init_player(t_player *player)
 {
 	player->pos.x = -1;
 	player->pos.y = -1;
-	player->angle = -1;
+	player->angle.x = -1;
+	player->angle.y = -1;
 	player->delta.x = -1;
 	player->delta.y = -1;
 	player->movement.up = FALSE;
@@ -64,5 +65,6 @@ void	init_player(t_player *player)
 	player->movement.right_angle = FALSE;
 	player->movement.shifting = FALSE;
 	player->movement.reading_map = TRUE;
-	player->movement.r_speed = TURN_SENSIVITY;
+	player->movement.r_speed.x = TURN_SENSIVITY;
+	player->movement.r_speed.y = TURN_SENSIVITY;
 }

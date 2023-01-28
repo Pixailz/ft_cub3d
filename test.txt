@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:12:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/28 06:43:02 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 06:54:32 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	fix_fisheyes(t_ray *ray, t_player player)
 	float	cosinus_angle;
 
 	ray->dist_real = ray->dist;
-	cosinus_angle = player.angle.x - ray->angle;
+	cosinus_angle = player.angle - ray->angle;
 	if (cosinus_angle < 0)
 		cosinus_angle += PI2;
 	if (cosinus_angle > PI2)
@@ -25,17 +25,17 @@ void	fix_fisheyes(t_ray *ray, t_player player)
 	ray->dist *= cos(cosinus_angle);
 }
 
-void	set_texture_height(t_ray *ray, t_mlx_texture scene, t_player player)
+void    set_texture_height(t_ray *ray, t_mlx_texture scene, t_player player)
 {
-	(void)player;
-	ray->t_height = (ray->text_size * scene.len.x) / ray->dist;
-	ray->ty_step = (ray->img_use->len.y / (float)ray->t_height);
-	ray->ty_offset = 0;
-	if (ray->t_height > scene.len.y )
-	{
-		ray->ty_offset = (ray->t_height - scene.len.y) * player.angle.y;
-		ray->t_height = scene.len.y;
-	}
+    (void)player;
+    ray->t_height = (ray->text_size * scene.len.x) / ray->dist;
+    ray->ty_step = (ray->img_use->len.y / (float)ray->t_height);
+    ray->ty_offset = 0;
+    if (ray->t_height > scene.len.y )
+    {
+        ray->ty_offset = (ray->t_height - scene.len.y) * player.angle_y;
+        ray->t_height = scene.len.y;
+    }
 }
 
 t_int4	push_buff_scene_get_color(t_ray ray, int point)
@@ -73,23 +73,23 @@ void	push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter, t_play
 	if (point + 2 <= ray->img_use->size_line * ray->img_use->len.y)
 	{
 		rgb = push_buff_scene_get_color(*ray, point);
-		y = (int)(counter + scene->len.y /2 - ray->t_height  *player.angle.y );
-		ft_put_pixel(ray->nbr, y + ((player.angle.y - 0.5) * scene->len.y), scene, rgb);
+		y = (int)(counter + scene->len.y /2 - ray->t_height  *player.angle_y );
+		ft_put_pixel(ray->nbr, y + ((player.angle_y - 0.5) * scene->len.y), scene, rgb);
 	}
 }
 
-void	push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene, t_player player)
+void    push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene, t_player player)
 {
-	int	counter;
+    int        counter;
 
-	counter = 0;
-	ray->t.y = ray->ty_offset * ray->ty_step;
-	while (counter < ray->t_height)
-	{
-		push_buff_scene_color(ray, scene, counter, player);
-		ray->t.y += ray->ty_step;
-		counter++;
-	}
+    counter = 0;
+    ray->t.y = ray->ty_offset * ray->ty_step;
+    while (counter < ray->t_height)
+    {
+        push_buff_scene_color(ray, scene, counter, player);
+        ray->t.y += ray->ty_step;
+        counter++;
+    }
 }
 
 void	get_text(t_main *config)
@@ -100,9 +100,9 @@ void	get_text(t_main *config)
 
 	fix_fisheyes(&config->ray, config->player);
 	begin.x = 0;
-	begin.y = FOG * config->ray.text_size;
-	end.x = 0;
-	end.y = 0;
+    begin.y = FOG * config->ray.text_size;
+    end.x = 0;
+    end.y = 0;
 	dist = get_dist(begin, end);
 	if (config->ray.dist < dist)
 	{

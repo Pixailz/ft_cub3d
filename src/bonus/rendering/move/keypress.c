@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:38:16 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 01:23:45 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:16:11 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	key_press_move_left(t_player *player, int text_size, t_map map)
 {
-	player->angle -= 90 * DR;
+	player->angle.x -= 90 * DR;
 	adjust_delta(player, text_size);
 	move_dir_forward(player, text_size, map);
-	player->angle += 90 * DR;
+	player->angle.x += 90 * DR;
 	adjust_delta(player, text_size);
 }
 
 void	key_press_move_right(t_player *player, int text_size, t_map map)
 {
-	player->angle += 90 * DR;
+	player->angle.x += 90 * DR;
 	adjust_delta(player, text_size);
 	move_dir_forward(player, text_size, map);
-	player->angle -= 90 * DR;
+	player->angle.x -= 90 * DR;
 	adjust_delta(player, text_size);
 }
 
@@ -46,7 +46,7 @@ void	key_press_interact_down(t_main *config)
 	int		mx;
 	int		my;
 
-	config->ray.angle = config->player.angle;
+	config->ray.angle = config->player.angle.x;
 	config->ray.hit_door = 0;
 	if (config->ray.angle < 0)
 		config->ray.angle += PI2;

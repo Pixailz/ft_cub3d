@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:09:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 01:33:57 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:11:40 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_raycast_fov(t_ray *ray_fov, t_player *player, float angle, t_main *con
 	ray_fov->angle = angle - (DR * (FOV / 2));
 	ray_fov->nbr = 0;
 	ray_fov->nbr_ray = config->mini.circle.radius * 2;
-	player->angle = angle;
+	player->angle.x = angle;
 	player->pos.x = config->player.pos.x / config->ray.text_size * \
 													config->mini.max_text_size;
 	player->pos.y = config->player.pos.y / config->ray.text_size * \

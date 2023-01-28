@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:46:34 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 13:33:14 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 03:07:55 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ void	free_mlx_textures(t_mlx *mlx)
 
 void	free_mlx(t_mlx *mlx, t_error err)
 {
-	free_mlx_textures(mlx);
-	if (have_error(err, 5) ^ ERRN_01)
-		mlx_destroy_window(mlx->ptr, mlx->win);
-	if (RAY_ENABLE)
-		if (have_error(err, 5) ^ ERRN_02)
-			mlx_destroy_window(mlx->ptr, mlx->win_raycasting);
-	mlx_destroy_display(mlx->ptr);
-	free(mlx->ptr);
+	if (mlx->ptr)
+	{
+		free_mlx_textures(mlx);
+		if (have_error(err, 5) ^ ERRN_01)
+			mlx_destroy_window(mlx->ptr, mlx->win);
+		mlx_destroy_display(mlx->ptr);
+		free(mlx->ptr);
+	}
 	mlx->ptr = FT_NULL;
 	mlx = FT_NULL;
 }

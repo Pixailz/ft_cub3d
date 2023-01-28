@@ -7,11 +7,7 @@
 - fix little norme issue everywhere (line to long prototype)
   - inc/
   - src/
-
-- animation new system:
-  - choose texture animated
-    - fix frame_id changing realy fast
-  - free animated
+- add raycasting for background
 
 ## STATUS
 

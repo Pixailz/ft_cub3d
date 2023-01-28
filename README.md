@@ -21,6 +21,9 @@
 |:--------:|:-------------:|:-----------------------------|
 |parsing   |:green_circle: |                              |
 |collision |:green_circle: |cannot pass throught wall     |
+|mouse     |:green_circle: |use mouse                     |
+|          |:green_circle: |move right and left           |
+|          |:green_circle: |move up and down              |
 |runing    |:green_circle: |can run with shift            |
 |          |               |                              |
 |mini map  |:green_circle: |display a minimap             |
@@ -31,16 +34,20 @@
 |          |:green_circle: |- struct mini to included     |
 |          |:green_circle: |- 'tab' to expand map         |
 |          |:green_circle: |- 'M' to toggle map           |
-|          |:orange_circle:|- fov + hit                   |
+|          |:green_circle: |- fov + hit                   |
 |          |               |                              |
-|door      |:orange_circle:|door mechanism                |
+|door      |:green_circle: |door mechanism                |
 |          |:green_circle: |- parse good wall in map      |
-|          |:orange_circle:|- display doors               |
-|          |:red_circle:   |- interact with door with kb  |
+|          |:green_circle: |- display doors               |
+|          |:green_circle: |- interact with door with kb  |
 |          |               |                              |
-|annimation|:green_circle:|animation mechanism           |
+|annimation|:green_circle: |animation mechanism           |
 |          |:green_circle: |- parse multiple texture      |
-|          |:green_circle:|- animate                     |
+|          |:green_circle: |- animate                     |
+|fog++     |:orange_circle:|animation mechanism           |
+|          |:green_circle: |- fog on wall                 |
+|          |:orange_circle:|- fov with fog                |
+
 
 ## tips
 
@@ -54,4 +61,5 @@
 `make MAP=<MAP_PATH> run`
 
 > run bonus maps
+
 `make MAP=<MAP_PATH> run_bonus`

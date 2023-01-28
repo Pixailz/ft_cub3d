@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 03:33:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 02:05:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	cast_ray_left(t_ray *ray, t_player player)
 void	cast_ray_vertical(t_ray *ray, t_player player, t_map map)
 {
 	ray->depth_of_field = 0;
-	ray->ray_type = 1;
+	ray->ray_type = RAY_VERTICAL;
 	cast_ray_right(ray, player);
 	cast_ray_left(ray, player);
 	if (ray->angle == 0 || ray->angle == PI)

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:09:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 07:49:30 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:33:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	raycast_fov_entry(t_main *config, float angle)
 
 	init_raycast_fov(&ray_fov, &player, angle, config);
 	to_add = DR / (config->mini.circle.radius * 2 / FOV);
-	while (ray_fov.angle < angle + (DR * (FOV / 2)))
+	while (ray_fov.nbr < ray_fov.nbr_ray)
 	{
 		raycast_fov(config, player, &ray_fov);
 		raycast_fov_draw(config, player, ray_fov);

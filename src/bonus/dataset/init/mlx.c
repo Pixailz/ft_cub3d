@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 12:45:26 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 02:25:44 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ void	init_mlx_window(t_mlx *mlx, t_error *err)
 															WINDOW_TITLE);
 	if (!mlx->win)
 		set_error_known_texture(err, ERRN_02, MAIN_WINDOW);
-	if (RAY_ENABLE)
-	{
-		mlx->win_raycasting = mlx_new_window(mlx->ptr, \
-			RAY_SCREEN_SIZE_X, RAY_SCREEN_SIZE_Y, RAY_TITLE);
-		if (!mlx->win_raycasting)
-			set_error_known_texture(err, ERRN_02, RAY_WINDOW);
-	}
 }
 
 t_r_value	init_mlx(t_main *config)

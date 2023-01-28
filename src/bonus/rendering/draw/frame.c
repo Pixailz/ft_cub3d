@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 12:47:02 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:05:37 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,21 @@ void	do_moving(t_main *config)
 		key_press_move_angle_left(&config->player, config->ray.text_size);
 	if (config->player.movement.right_angle == TRUE)
 		key_press_move_angle_right(&config->player, config->ray.text_size);
+	if (config->player.movement.up_angle == TRUE)
+		key_press_move_angle_up(&config->player);
+	if (config->player.movement.down_angle == TRUE)
+		key_press_move_angle_down(&config->player);
 }
 
-void	put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene)
+void	put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene, t_player player)
 {
 	t_i_pos	pos;
 
 	pos.y = 0;
-	while (pos.y <= scene->len.y / 2)
+	while (pos.y <= scene->len.y * player.angle_y)
 	{
 		pos.x = 0;
-		while (pos.x <= scene->len.x)
+		while (pos.x <= (scene->len.x))
 		{
 			ft_put_pixel(pos.x, pos.y, scene, ceiling);
 			pos.x++;
@@ -71,7 +75,7 @@ void	draw_background(t_main *config)
 								y_y < config->parse.map.size.y + MAX_DOF)
 	{
 		put_background(config->parse.textures.floor, \
-			config->parse.textures.ceiling, &config->mlx.textures.scene);
+			config->parse.textures.ceiling, &config->mlx.textures.scene, config->player);
 	}
 }
 
@@ -81,13 +85,12 @@ void	frame_id_process(t_main *config, int *frame_id)
 
 	(*frame_id)++;
 	elapsed = *frame_id * config->mlx.frame_time;
-	if (elapsed >= 1)
+	if (elapsed >= FRAME_INTERVAL)
 	{
 		switch_textures(&config->mlx.textures);
 		*frame_id = 0;
 	}
 }
-
 
 int	draw_frame(t_main *config)
 {
@@ -102,7 +105,7 @@ int	draw_frame(t_main *config)
 		draw_minimap(config);
 	mlx_put_image_to_window(config->mlx.ptr, config->mlx.win, \
 		config->mlx.textures.scene.ptr, 0, 0);
-	//usleep(ONE_SEC / 10000);
+	usleep(ONE_SEC / FPS);
 	frame_id_process(config, &frame_id);
 	return (0);
 }

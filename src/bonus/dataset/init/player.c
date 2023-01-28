@@ -54,6 +54,7 @@ void	init_player(t_player *player)
 	player->pos.x = -1;
 	player->pos.y = -1;
 	player->angle = -1;
+	player->angle_y = 0.5;
 	player->delta.x = -1;
 	player->delta.y = -1;
 	player->movement.up = FALSE;

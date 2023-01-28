@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 10:33:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:55:14 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text)
 {
 	if (ray->save.x == ray->pos.x)
 	{
-		if (ray->wall_hit == 1)
+		if (ray->hit_door == 1)
 			ray->img_use = &text->mini_door_close;
 		else if (ray->pos.x < ppos.x)
 		{
@@ -28,7 +28,7 @@ void	choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text)
 	}
 	else
 	{
-		if (ray->wall_hit == 2)
+		if (ray->hit_door == 2)
 			ray->img_use = &text->mini_door_close;
 		else if (ray->pos.y < ppos.y)
 			ray->img_use = text->south.current_frame;
@@ -60,14 +60,14 @@ void	choose_ray(t_main *config)
 void	cast_rays(t_main *config)
 {
 	config->ray.hit = 0;
-	config->ray.wall_hit = 0;
+	config->ray.hit_door = 0;
 	if (config->ray.angle < 0)
 		config->ray.angle += PI2;
 	if (config->ray.angle > PI2)
 		config->ray.angle -= PI2;
 	config->ray.a_tan = get_a_tan(config->ray.angle);
-	config->ray.n_tan = get_n_tan(config->ray.angle);
 	cast_ray_horizontal(&config->ray, config->player, config->parse.map);
+	config->ray.n_tan = get_n_tan(config->ray.angle);
 	cast_ray_vertical(&config->ray, config->player, config->parse.map);
 	choose_ray(config);
 	get_text(config);

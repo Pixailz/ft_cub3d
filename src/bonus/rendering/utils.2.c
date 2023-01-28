@@ -24,12 +24,9 @@ void	ft_put_pixel(int x, int y, t_mlx_texture *image, t_int4 color)
 	if (x < 0 || y < 0 || x > image->len.x || y > image->len.y)
 		return ;
 	point = x * 4 + 4 * y * image->len.x;
-	if (ft_int4_dcomp(color, 1) != 0xFC && ft_int4_dcomp(color, 2) != 0xFB && ft_int4_dcomp(color, 3) != 0xFC)
-	{
-		image->buff[point + 2] = ft_int4_dcomp(color, 1);
-		image->buff[point + 1] = ft_int4_dcomp(color, 2);
-		image->buff[point] = ft_int4_dcomp(color, 3);
-	}
+	image->buff[point + 2] = ft_int4_dcomp(color, 1);
+	image->buff[point + 1] = ft_int4_dcomp(color, 2);
+	image->buff[point] = ft_int4_dcomp(color, 3);
 	return ;
 }
 

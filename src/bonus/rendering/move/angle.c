@@ -33,3 +33,17 @@ void	key_press_move_angle_right(t_player *player, int text_size)
 		player->angle -= PI2;
 	adjust_delta(player, text_size);
 }
+
+void	key_press_move_angle_up(t_player *player)
+{
+	player->angle_y += DR * (player->movement.r_speed_y * 4);
+	if (player->angle_y > 1)
+		player->angle_y = 1;
+}	
+
+void	key_press_move_angle_down(t_player *player)
+{
+	player->angle_y -= DR * (player->movement.r_speed_y * 4);
+	if (player->angle_y < 0)
+		player->angle_y = 0;
+}

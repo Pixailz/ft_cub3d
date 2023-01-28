@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:33:46 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:12:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ t_r_value	parse_file_params(t_error *err, t_parse *parse)
 	{
 		line = parse_get_line(err, parse->map.file.fd);
 		return_value = parse_line(err, &line, parse);
-		free(line);
 		if (return_value == 1)
+		{
+			free(line);
 			continue ;
+		}
 		else if (return_value == -1)
 			break ;
 		else if (return_value)
+		{
+			free(line);
 			return (return_value);
+		}
 	}
 	return (0);
 }

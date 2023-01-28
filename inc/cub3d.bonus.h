@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 13:35:54 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 05:39:53 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@
 # define TURN_SENSIVITY					0.8
 # define FOV							50
 # define FPS							144
+# define FOG							8
+# define RATIO_FOG						0.6
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					TRUE
 # define RAY_ENABLE						FALSE
 # define COLLISION						TRUE
-# define FRAME_INTERVAL					100
+# define FRAME_INTERVAL					10
 
 	// MATRIX
 # define MAX_DOF						1
@@ -125,11 +127,6 @@
 	// RAYCAST
 # define PLAYER_ANGLE_SIZE				16
 # define PLAYER_ANGLE_COLOR				0x00ff00
-
-		// WINDOW
-# define RAY_TITLE						"Supa Cub3D - RayCasting"
-# define RAY_SCREEN_SIZE_X				800
-# define RAY_SCREEN_SIZE_Y				480
 
 		// TEXTURE
 # define RAY_HIT_COLOR					0xff0000
@@ -279,12 +276,11 @@ typedef enum e_param_type
 	FLOOR			= 1L << 4,
 	CEIL			= 1L << 5,
 	MAIN_WINDOW		= 1L << 6,
-	RAY_WINDOW		= 1L << 7,
-	MINI_VOID		= 1L << 11,
-	MINI_WALL		= 1L << 12,
-	MINI_PLAYER		= 1L << 13,
-	MINI_DOOR_CLOSE	= 1L << 14,
-	MINI_DOOR_OPEN	= 1L << 15
+	MINI_VOID		= 1L << 7,
+	MINI_WALL		= 1L << 8,
+	MINI_PLAYER		= 1L << 9,
+	MINI_DOOR_CLOSE	= 1L << 10,
+	MINI_DOOR_OPEN	= 1L << 11
 }	t_param_type;
 
 typedef struct s_error
@@ -386,9 +382,9 @@ typedef struct s_ray
 	int				text_size;
 	int				mini_cell_size;
 	int				mini_player_size;
-	int				hit;
-	int				wall_hit;
-	t_bool 			ray_type;
+	int				hit_door;
+	int				ray_type;
+	t_bool			hit;
 	t_l_pos			max;
 	t_d_pos			pos;
 	t_d_pos			offset;
@@ -401,6 +397,7 @@ typedef struct s_ray
 	float			ty_offset;
 	int				t_height;
 	double			dist;
+	double			dist_real;
 	t_mlx_texture	*img_use;
 }	t_ray;
 
@@ -438,6 +435,7 @@ typedef struct s_parse
 {
 	t_map		map;
 	t_textures	textures;
+	char		*current_line;
 }	t_parse;
 
 typedef struct s_move
@@ -448,9 +446,12 @@ typedef struct s_move
 	t_bool	right;
 	t_bool	left_angle;
 	t_bool	right_angle;
+	t_bool	up_angle;
+	t_bool	down_angle;
 	t_bool	shifting;
 	t_bool	reading_map;
 	float	r_speed;
+	float	r_speed_y;
 }	t_move;
 
 typedef struct s_player
@@ -458,6 +459,7 @@ typedef struct s_player
 	t_d_pos	pos;
 	t_d_pos	delta;
 	float	angle;
+	float	angle_y;
 	t_move	movement;
 }	t_player;
 
@@ -504,8 +506,7 @@ void			free_config(t_main *config);
 // dataset/free/file.c
 void			close_file(int fd);
 void			free_file(t_file *file);
-
-// dataset/free/file_list.c
+void			free_file_list(t_file_l			*list);
 
 // dataset/free/mlx.c
 void			free_mlx(t_mlx *mlx, t_error err);
@@ -521,7 +522,6 @@ int				end_hook(t_mlx *mlx);
 void			free_parse(t_parse *parse);
 
 // dataset/free/texture.c
-void			free_file_list(t_file_l			*list);
 void			free_textures(t_textures *textures);
 
 // dataset/init/config.c
@@ -685,6 +685,7 @@ char			*parse_get_line(t_error *err, int file);
 int				get_line_type(char *line);
 int				is_good_line(t_error *err, char *line, t_parse *parse);
 int				parse_line(t_error *err, char **line, t_parse *parse);
+t_bool			have_all_params(int already_taken);
 
 // parsing/line/file_list/list.c
 int				lstsize_file(t_file_l *lst);
@@ -714,6 +715,7 @@ t_bool			check_map_new_line(t_map map);
 t_bool			check_map_wrong_char(t_map map);
 
 // parsing/map/entry.c
+char			*get_current_line(t_error *err, t_parse *parse);
 t_bool			get_map(t_error *err, t_parse *parse);
 t_bool			get_map_end(t_error *err, char **tmp_joined, t_parse *parse);
 t_r_value		parse_map(t_error *err, t_parse *parse);
@@ -734,7 +736,7 @@ int				draw_frame(t_main *config);
 void			do_moving(t_main *config);
 void			draw_background(t_main *config);
 void			frame_id_process(t_main *config, int *frame_id);
-void			put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene);
+void			put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene, t_player player);
 
 // rendering/draw/hit.c
 void			draw_ray_hit(t_main *config);
@@ -803,8 +805,10 @@ void			switch_textures(t_mlx_textures *textures);
 
 // rendering/move/angle.c
 void			adjust_delta(t_player *player, int text_size);
+void			key_press_move_angle_down(t_player *player);
 void			key_press_move_angle_left(t_player *player, int text_size);
 void			key_press_move_angle_right(t_player *player, int text_size);
+void			key_press_move_angle_up(t_player *player);
 
 // rendering/move/dir.c
 t_bool			hit_wall(t_player player, t_map map, int text_size);
@@ -826,11 +830,12 @@ void			choose_ray(t_main *config);
 void			choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text);
 
 // rendering/raycast/get_text.c
+t_int4			push_buff_scene_get_color(t_ray ray, int point);
 void			fix_fisheyes(t_ray *ray, t_player player);
 void			get_text(t_main *config);
-void			push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene);
-void			push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter);
-void			set_texture_height(t_ray *ray, t_mlx_texture scene);
+void			push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene, t_player player);
+void			push_buff_scene_color(t_ray *ray, t_mlx_texture *scene, int counter, t_player player);
+void			set_texture_height(t_ray *ray, t_mlx_texture scene, t_player player);
 
 // rendering/raycast/horizontal.c
 void			cast_ray_down(t_ray *ray, t_player player);

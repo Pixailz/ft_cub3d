@@ -129,7 +129,6 @@ SRC_C_MANDATORY		:= src/mandatory/dataset/free/config.c \
 
 SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/free/file.c \
-					   src/bonus/dataset/free/file_list.c \
 					   src/bonus/dataset/free/mlx.c \
 					   src/bonus/dataset/free/mlx.hook.c \
 					   src/bonus/dataset/free/parse.c \

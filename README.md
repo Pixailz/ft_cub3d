@@ -7,12 +7,6 @@
 - fix little norme issue everywhere (line to long prototype)
   - inc/
   - src/
-- add multiple texture to the cube face (parsing)
-  - can have at least 1 to a lot :)
-    - parsing -> t_texture_list
-    - loading -> t_mlx_side -> t_mlx_texture
-
-- fix weird angle
 
 - animation new system:
   - choose texture animated

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 20:22:12 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/25 20:35:06 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:59:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	hit_wall(t_player player, t_map map, int text_size)
 		return (FALSE);
 	if (pos_x_text_size >= 0 && pos_y_text_size >= 0)
 	{
-		if (pos_x_text_size < map.size.x && pos_y_text_size < map.size.y)
+		if (pos_x_text_size < map.size.x + 1 && pos_y_text_size < map.size.y + 1)
 		{
 			if (map.matrix[pos_y_text_size][pos_x_text_size] == WALL_CHAR)
 				return (TRUE);

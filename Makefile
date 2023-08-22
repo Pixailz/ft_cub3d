@@ -6,7 +6,7 @@
 #    By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 01:36:34 by brda-sil          #+#    #+#              #
-#    Updated: 2023/01/23 06:11:11 by brda-sil         ###   ########.fr        #
+#    Updated: 2023/01/26 13:43:35 by brda-sil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM					:= rm -rf
 CC					:= gcc
 PRINTF				:= @printf
 MAKE				:= make -C
-VERSION				:= 1.2.0
+VERSION				:= 1.5.0
 $(eval export MAIN=1)
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
@@ -43,7 +43,7 @@ endif
 ifeq ($(DEBUG),)
 CFLAGS				+= -Werror
 else
-CFLAGS				+= -g3
+CFLAGS				+= -g3 -fsanitize=signed-integer-overflow
 endif
 
 # DIR
@@ -135,6 +135,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/free/texture.c \
 					   src/bonus/dataset/init/config.c \
 					   src/bonus/dataset/init/file.c \
+					   src/bonus/dataset/init/minimap.c \
 					   src/bonus/dataset/init/mlx.c \
 					   src/bonus/dataset/init/mlx.hook.c \
 					   src/bonus/dataset/init/mlx.hook.mouse.c \
@@ -143,6 +144,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/dataset/init/rendering.c \
 					   src/bonus/dataset/init/texture.c \
 					   src/bonus/debug/error.c \
+					   src/bonus/debug/keypress.c \
 					   src/bonus/debug/map.c \
 					   src/bonus/debug/parsing.c \
 					   src/bonus/debug/print.c \
@@ -167,6 +169,7 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/parsing/ft_cub3d_split.c \
 					   src/bonus/parsing/line/color.c \
 					   src/bonus/parsing/line/entry.c \
+					   src/bonus/parsing/line/file_list/list.c \
 					   src/bonus/parsing/line/texture.c \
 					   src/bonus/parsing/map/check.door.surrounded.c \
 					   src/bonus/parsing/map/check.surrounded.c \
@@ -178,15 +181,26 @@ SRC_C_BONUS			:= src/bonus/dataset/free/config.c \
 					   src/bonus/rendering/draw/frame.c \
 					   src/bonus/rendering/draw/hit.c \
 					   src/bonus/rendering/draw/line.c \
-					   src/bonus/rendering/draw/minimap.c \
+					   src/bonus/rendering/draw/minimap/fov_draw.c \
+					   src/bonus/rendering/draw/minimap/fov_ray_horizontal.c \
+					   src/bonus/rendering/draw/minimap/fov_ray_vertical.c \
+					   src/bonus/rendering/draw/minimap/fov_raycast.c \
+					   src/bonus/rendering/draw/minimap/in_circle.c \
+					   src/bonus/rendering/draw/minimap/minimap.c \
+					   src/bonus/rendering/draw/minimap/player.c \
+					   src/bonus/rendering/draw/minimap/update_minimap.c \
+					   src/bonus/rendering/draw/minimap/utils.c \
 					   src/bonus/rendering/draw/raycast.c \
-					   src/bonus/rendering/draw/scene.c \
+					   src/bonus/rendering/draw/switch_textures.c \
 					   src/bonus/rendering/move/angle.c \
 					   src/bonus/rendering/move/dir.c \
+					   src/bonus/rendering/move/keypress.c \
 					   src/bonus/rendering/raycast/cast.c \
 					   src/bonus/rendering/raycast/get_text.c \
 					   src/bonus/rendering/raycast/horizontal.c \
 					   src/bonus/rendering/raycast/vertical.c \
+					   src/bonus/rendering/texture/get.highest.c \
+					   src/bonus/rendering/texture/load.animated.c \
 					   src/bonus/rendering/texture/load.c \
 					   src/bonus/rendering/texture/load.size.c \
 					   src/bonus/rendering/utils.1.c \
@@ -376,10 +390,10 @@ re_all:					re_lib re
 
 re_bonus:				fclean bonus
 
-run:					re
-	./$(TARGET) ./rsc/map/test.1.cub
-	
-run_bonus:				re_bonus
-	./$(TARGET_BONUS) ./rsc/map/test.1.cub
+run:					ft_helper re
+	bash -c "./$(TARGET) $(MAP) 420>exec.log"
+
+run_bonus:				ft_helper re_bonus
+	bash -c "./$(TARGET_BONUS) $(MAP) 420>exec.log"
 
 # **************************************************************************** #

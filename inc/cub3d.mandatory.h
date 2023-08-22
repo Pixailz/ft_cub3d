@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 09:01:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:24:02 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define FOV							50
 
 	// MATRIX
-# define MATRIX_OFFSET					10
+# define MAX_DOF						1
 # define GOOD_CHAR_MAP					" 10NSWE"
 # define VOID_CHAR						' '
 # define WALL_CHAR						'1'
@@ -109,14 +109,14 @@
 
 		// WINDOW
 # define RAY_TITLE					"Supa Cub3D - RayCasting"
-# define RAY_ENABLE					1
+# define RAY_ENABLE					FALSE
 # define RAY_SCREEN_SIZE_X			800
 # define RAY_SCREEN_SIZE_Y			480
 
 		// TEXTURE
 # define RAY_WALL_PATH				"./rsc/xpm/minimap/wall_x16.xpm"
 # define RAY_VOID_PATH				"./rsc/xpm/minimap/void_x16.xpm"
-# define RAY_PLAYER_PATH			"./rsc/xpm/minimap/player_x4.xpm"
+# define RAY_PLAYER_PATH			"./rsc/xpm/minimap/player_x5.xpm"
 # define RAY_HIT_COLOR				0xff0000
 
 // ERRNO
@@ -386,7 +386,6 @@ typedef struct s_main
 	t_mlx		mlx;
 	t_player	player;
 	t_ray		ray;
-	int			cursor;
 	t_error		err;
 }	t_main;
 
@@ -637,6 +636,7 @@ void			key_press_move_up(t_player *player);
 void			cast_ray_entry(t_main *config);
 void			cast_rays(t_main *config);
 void			choose_ray(t_main *config);
+void			choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text);
 
 // rendering/raycast/get_text.c
 void			fix_fisheyes(t_ray *ray, t_player player);
@@ -661,8 +661,8 @@ t_r_value		load_texture(t_mlx_texture *text, char *file_path, void *mlx);
 t_r_value		load_textures(t_main *config);
 
 // rendering/texture/load.size.c
-unsigned char	get_bit_prec(int lowest);
-void			get_highest_size(t_i_pos *lowest, t_mlx_texture text);
+unsigned char	get_bit_prec(int highest);
+void			get_highest_size(t_i_pos *highest, t_mlx_texture text);
 void			get_raycast_size(t_main *config);
 void			get_textures_size(t_main *config);
 

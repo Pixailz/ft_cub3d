@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/23 04:22:51 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 02:05:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,20 @@ void	cast_ray_left(t_ray *ray, t_player player)
 void	cast_ray_vertical(t_ray *ray, t_player player, t_map map)
 {
 	ray->depth_of_field = 0;
+	ray->ray_type = RAY_VERTICAL;
 	cast_ray_right(ray, player);
 	cast_ray_left(ray, player);
 	if (ray->angle == 0 || ray->angle == PI)
 	{
 		ray->pos.x = player.pos.x;
 		ray->pos.y = player.pos.y;
-		ray->depth_of_field = map.size.x + MATRIX_OFFSET;
+		ray->depth_of_field = map.size.x + MAX_DOF * 8;
 	}
-	while (ray->depth_of_field < map.size.x + MATRIX_OFFSET)
+	while (ray->depth_of_field < map.size.x + MAX_DOF * 8)
 	{
 		ray->max.x = (unsigned long int)(ray->pos.x) >> ray->bit_prec;
 		ray->max.y = (unsigned long int)(ray->pos.y) >> ray->bit_prec;
-		if (!ray_hit(ray, map, map.size.x + MATRIX_OFFSET))
+		if (!ray_hit(ray, map, map.size.x + MAX_DOF * 8))
 			increase_offset(ray);
 	}
 	debug_print(RAY_VERTICAL, (void *)ray);

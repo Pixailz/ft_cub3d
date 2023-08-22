@@ -12,22 +12,22 @@
 
 #include <cub3d.mandatory.h>
 
-void	get_highest_size(t_i_pos *lowest, t_mlx_texture text)
+void	get_highest_size(t_i_pos *highest, t_mlx_texture text)
 {
-	if (lowest->x < text.len.x)
-		lowest->x = text.len.x;
-	if (lowest->y < text.len.y)
-		lowest->y = text.len.y;
+	if (highest->x < text.len.x)
+		highest->x = text.len.x;
+	if (highest->y < text.len.y)
+		highest->y = text.len.y;
 }
 
-unsigned char	get_bit_prec(int lowest)
+unsigned char	get_bit_prec(int highest)
 {
 	unsigned char	counter;
 
-	if (lowest <= 0)
+	if (highest <= 0)
 		return (0);
 	counter = 0;
-	while (lowest - (1 << counter) > 0)
+	while (highest - (1 << counter) > 0)
 		counter++;
 	return (counter);
 }
@@ -57,19 +57,19 @@ void	get_raycast_size(t_main *config)
 void	get_textures_size(t_main *config)
 {
 	t_mlx_textures	textures;
-	t_i_pos			lowest;
+	t_i_pos			highest;
 
 	textures = config->mlx.textures;
-	lowest.x = textures.north.len.x;
-	lowest.y = textures.north.len.y;
-	get_highest_size(&lowest, textures.south);
-	get_highest_size(&lowest, textures.west);
-	get_highest_size(&lowest, textures.east);
+	highest.x = textures.north.len.x;
+	highest.y = textures.north.len.y;
+	get_highest_size(&highest, textures.south);
+	get_highest_size(&highest, textures.west);
+	get_highest_size(&highest, textures.east);
 	if (RAY_ENABLE)
 		get_raycast_size(config);
-	if (lowest.x < lowest.y)
-		config->ray.text_size = lowest.y;
+	if (highest.x < highest.y)
+		config->ray.text_size = highest.y;
 	else
-		config->ray.text_size = lowest.x;
+		config->ray.text_size = highest.x;
 	config->ray.bit_prec = get_bit_prec(config->ray.text_size);
 }

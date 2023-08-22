@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:22:58 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:19:07 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ void	error_print_params_have_empty(t_r_value return_value)
 void	error_print_params_wrong_path(t_r_value return_value, t_parse parse)
 {
 	if (return_value & ERRN_19)
-		print_errno(parse.textures.north_file.err_no, "NO");
+		print_errno(parse.textures.north_file);
 	if (return_value & ERRN_20)
-		print_errno(parse.textures.south_file.err_no, "SO");
+		print_errno(parse.textures.south_file);
 	if (return_value & ERRN_21)
-		print_errno(parse.textures.west_file.err_no, "WE");
+		print_errno(parse.textures.west_file);
 	if (return_value & ERRN_22)
-		print_errno(parse.textures.east_file.err_no, "EA");
+		print_errno(parse.textures.east_file);
 }
 
 void	error_print_params_known(t_error err, t_parse parse)

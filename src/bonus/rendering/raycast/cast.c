@@ -6,15 +6,43 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 03:19:55 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:55:14 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.bonus.h>
 
+void	choose_ray_text(t_ray *ray, t_d_pos ppos, t_mlx_textures *text)
+{
+	if (ray->save.x == ray->pos.x)
+	{
+		if (ray->hit_door == 1)
+			ray->img_use = &text->mini_door_close;
+		else if (ray->pos.x < ppos.x)
+		{
+			ray->img_use = text->east.current_frame;
+			ray->t.x = ray->text_size - ray->t.x;
+		}
+		else
+			ray->img_use = text->west.current_frame;
+	}
+	else
+	{
+		if (ray->hit_door == 2)
+			ray->img_use = &text->mini_door_close;
+		else if (ray->pos.y < ppos.y)
+			ray->img_use = text->south.current_frame;
+		else
+		{
+			ray->img_use = text->north.current_frame;
+			ray->t.x = ray->text_size - ray->t.x;
+		}
+	}
+}
+
 void	choose_ray(t_main *config)
 {
-	float		dist;
+	double	dist;
 
 	dist = get_dist(config->player.pos, config->ray.pos);
 	if (config->ray.dist > dist)
@@ -22,25 +50,17 @@ void	choose_ray(t_main *config)
 		config->ray.dist = dist;
 		config->ray.save.x = config->ray.pos.x;
 		config->ray.save.y = config->ray.pos.y;
-		if (config->ray.pos.x < config->player.pos.x)
-			config->ray.img_use = &config->mlx.textures.east;
-		else
-			config->ray.img_use = &config->mlx.textures.west;
 		config->ray.t.x = (int)(config->ray.save.y) % config->ray.text_size;
 	}
 	else
-	{
-		if (config->ray.pos.y < config->player.pos.y)
-			config->ray.img_use = &config->mlx.textures.south;
-		else
-			config->ray.img_use = &config->mlx.textures.north;
 		config->ray.t.x = (int)(config->ray.save.x) % config->ray.text_size;
-	}
+	choose_ray_text(&config->ray, config->player.pos, &config->mlx.textures);
 }
 
 void	cast_rays(t_main *config)
 {
 	config->ray.hit = 0;
+	config->ray.hit_door = 0;
 	if (config->ray.angle < 0)
 		config->ray.angle += PI2;
 	if (config->ray.angle > PI2)
@@ -56,9 +76,7 @@ void	cast_rays(t_main *config)
 void	cast_ray_entry(t_main *config)
 {
 	float	to_add;
-	int		first;
 
-	first = 0;
 	to_add = DR / (config->mlx.screen.x / FOV);
 	config->ray.angle = config->player.angle - (DR * (FOV / 2));
 	config->ray.nbr = 0;
@@ -66,14 +84,7 @@ void	cast_ray_entry(t_main *config)
 	while (config->ray.nbr < config->ray.nbr_ray)
 	{
 		cast_rays(config);
-		if (!first)
-		{
-			draw_fov(config);
-			first++;
-		}
-		draw_ray_hit(config);
 		config->ray.angle += to_add;
 		config->ray.nbr++;
 	}
-	draw_fov(config);
 }

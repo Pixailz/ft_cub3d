@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 14:38:16 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/22 17:13:02 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/01/25 20:22:12 by brda-sil          #+#    #+#             */
+/*   Updated: 2023/01/27 00:59:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,57 +19,57 @@ t_bool	hit_wall(t_player player, t_map map, int text_size)
 
 	pos_x_text_size = player.pos.x / text_size;
 	pos_y_text_size = player.pos.y / text_size;
+	if (!COLLISION)
+		return (FALSE);
 	if (pos_x_text_size >= 0 && pos_y_text_size >= 0)
-		if (pos_x_text_size < map.size.x && pos_y_text_size < map.size.y)
+	{
+		if (pos_x_text_size < map.size.x + 1 && pos_y_text_size < map.size.y + 1)
+		{
 			if (map.matrix[pos_y_text_size][pos_x_text_size] == WALL_CHAR)
 				return (TRUE);
+			if (map.matrix[pos_y_text_size][pos_x_text_size] == DOOR_CLOSE_CHAR)
+				return (TRUE);
+		}
+	}
 	return (FALSE);
 }
 
-void	key_press_move_left(t_player *player, int text_size, t_map map)
+t_d_pos	move_get_dir(t_player player)
 {
-	player->angle -= 90 * DR;
-	adjust_delta(player, text_size);
-	player->pos.x += player->delta.x;
-	if (hit_wall(*player, map, text_size))
-		player->pos.x -= player->delta.x;
-	player->pos.y += player->delta.y;
-	if (hit_wall(*player, map, text_size))
-		player->pos.y -= player->delta.y;
-	player->angle += 90 * DR;
-	adjust_delta(player, text_size);
+	t_d_pos	dir;
+
+	dir.x = player.delta.x;
+	dir.y = player.delta.y;
+	if (player.movement.shifting)
+	{
+		dir.x *= SHIFTING_SPEED;
+		dir.y *= SHIFTING_SPEED;
+	}
+	return (dir);
 }
 
-void	key_press_move_right(t_player *player, int text_size, t_map map)
+void	move_dir_forward(t_player *player, int text_size, t_map map)
 {
-	player->angle += 90 * DR;
-	adjust_delta(player, text_size);
-	player->pos.x += player->delta.x;
+	t_d_pos	dir;
+
+	dir = move_get_dir(*player);
+	player->pos.x += dir.x;
 	if (hit_wall(*player, map, text_size))
-		player->pos.x -= player->delta.x;
-	player->pos.y += player->delta.y;
+		player->pos.x -= dir.x;
+	player->pos.y += dir.y;
 	if (hit_wall(*player, map, text_size))
-		player->pos.y -= player->delta.y;
-	player->angle -= 90 * DR;
-	adjust_delta(player, text_size);
+		player->pos.y -= dir.y;
 }
 
-void	key_press_move_up(t_player *player, int text_size, t_map map)
+void	move_dir_backward(t_player *player, int text_size, t_map map)
 {
-	player->pos.x += player->delta.x;
-	if (hit_wall(*player, map, text_size))
-		player->pos.x -= player->delta.x;
-	player->pos.y += player->delta.y;
-	if (hit_wall(*player, map, text_size))
-		player->pos.y -= player->delta.y;
-}
+	t_d_pos	dir;
 
-void	key_press_move_down(t_player *player, int text_size, t_map map)
-{
-	player->pos.x -= player->delta.x;
+	dir = move_get_dir(*player);
+	player->pos.x -= dir.x;
 	if (hit_wall(*player, map, text_size))
-		player->pos.x += player->delta.x;
-	player->pos.y -= player->delta.y;
+		player->pos.x += dir.x;
+	player->pos.y -= dir.y;
 	if (hit_wall(*player, map, text_size))
-		player->pos.y += player->delta.y;
+		player->pos.y += dir.y;
 }

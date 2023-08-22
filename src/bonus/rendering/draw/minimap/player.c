@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 01:01:47 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/26 06:38:41 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:12:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	draw_minimap_player_angle(t_mlx_textures *text, t_minimap mini, float angle
 
 void	draw_minimap_player(t_main *config)
 {
-	raycast_fov_entry(config, config->player.angle);
+	raycast_fov_entry(config, config->player.angle.x);
 	draw_minimap_player_angle(&config->mlx.textures, config->mini, \
-														config->player.angle);
+														config->player.angle.x);
 	draw_minimap_player_square(&config->mlx.textures, config->mini);
 }

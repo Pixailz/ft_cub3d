@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:56:44 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 05:39:53 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:44:58 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -450,16 +450,14 @@ typedef struct s_move
 	t_bool	down_angle;
 	t_bool	shifting;
 	t_bool	reading_map;
-	float	r_speed;
-	float	r_speed_y;
+	t_d_pos	r_speed;
 }	t_move;
 
 typedef struct s_player
 {
 	t_d_pos	pos;
 	t_d_pos	delta;
-	float	angle;
-	float	angle_y;
+	t_d_pos	angle;
 	t_move	movement;
 }	t_player;
 
@@ -556,7 +554,7 @@ int				ft_not_in_axis(t_main *config);
 void			init_parse(t_parse *parse);
 
 // dataset/init/player.c
-float			get_player_angle(char player_char);
+float			get_player_angle_x(char player_char);
 void			get_player_pos(t_map map, t_player *player, int text_size);
 void			init_player(t_player *player);
 

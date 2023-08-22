@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 04:28:23 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 03:55:14 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:16:43 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	cast_ray_entry(t_main *config)
 	float	to_add;
 
 	to_add = DR / (config->mlx.screen.x / FOV);
-	config->ray.angle = config->player.angle - (DR * (FOV / 2));
+	config->ray.angle = config->player.angle.x - (DR * (FOV / 2));
 	config->ray.nbr = 0;
 	config->ray.nbr_ray = config->mlx.textures.scene.len.x;
 	while (config->ray.nbr < config->ray.nbr_ray)

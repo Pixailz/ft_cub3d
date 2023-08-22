@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 02:16:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 13:14:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:06:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,29 @@ int	ft_get_axis(int x, int y, t_main *config)
 	config->player.movement.right_angle = FALSE;
 	config->player.movement.up_angle = FALSE;
 	config->player.movement.down_angle = FALSE;
-	config->player.movement.r_speed_y = 1;
+	config->player.movement.r_speed.y = 1;
 	if (x < config->mlx.screen.x * 0.45)
 	{
 		config->player.movement.left_angle = TRUE;
-		config->player.movement.r_speed = ((config->mlx.screen.x / 2 - x)) / \
+		config->player.movement.r_speed.x = ((config->mlx.screen.x / 2 - x)) / \
 								(config->mlx.screen.x * 0.45 / TURN_SENSIVITY);
 	}
 	else if (x > config->mlx.screen.x * 0.55)
 	{
 		config->player.movement.right_angle = TRUE;
-		config->player.movement.r_speed = (x - config->mlx.screen.x / 2) / \
+		config->player.movement.r_speed.x = (x - config->mlx.screen.x / 2) / \
 								(config->mlx.screen.x * 0.45 / TURN_SENSIVITY);
 	}
 	if (y < config->mlx.screen.y * 0.45)
 	{
 		config->player.movement.up_angle = TRUE;
-		config->player.movement.r_speed_y = ((config->mlx.screen.y / 2 - y)) / \
+		config->player.movement.r_speed.y = ((config->mlx.screen.y / 2 - y)) / \
 								(config->mlx.screen.y * 0.45 / TURN_SENSIVITY);
 	}
 	else if (y > config->mlx.screen.y * 0.55)
 	{
 		config->player.movement.down_angle = TRUE;
-		config->player.movement.r_speed_y = (y - config->mlx.screen.y / 2) / \
+		config->player.movement.r_speed.y = (y - config->mlx.screen.y / 2) / \
 								(config->mlx.screen.y * 0.45 / TURN_SENSIVITY);
 	}
 	return (y);

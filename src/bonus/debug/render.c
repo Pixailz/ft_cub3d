@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:24:08 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/24 05:46:13 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:10:28 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ void	debug_print_player_stat(t_player *player)
 {
 	if (VERBOSE >= 2)
 	{
-		dprintf(DEBUG_FD, "player.pos.x\t(%.2f)\n", player->pos.x);
-		dprintf(DEBUG_FD, "player.pos.y\t(%.2f)\n", player->pos.y);
-		dprintf(DEBUG_FD, "player angle\t(%.2f)\n", player->angle);
-		dprintf(DEBUG_FD, "player.delta.x\t(%.2f)\n", player->delta.x);
-		dprintf(DEBUG_FD, "player.delta.y\t(%.2f)\n", player->delta.y);
+		dprintf(DEBUG_FD, "player.pos.x\t(x:%.2f,y:%.2f)\n", \
+			player->pos.x, player->pos.y);
+		dprintf(DEBUG_FD, "player angle\t(x:%.2f.y:%.2f)\n", \
+			player->angle.x, player->angle.y);
+		dprintf(DEBUG_FD, "player.delta.x\t(x:%.2f.y:%.2f)\n", \
+			player->delta.x, player->delta.y);
 	}
 }
 

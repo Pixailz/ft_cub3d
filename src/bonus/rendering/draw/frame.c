@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:32:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/01/27 01:05:37 by brda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:11:11 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	put_background(t_int4 floor, t_int4 ceiling, t_mlx_texture *scene, t_player
 	t_i_pos	pos;
 
 	pos.y = 0;
-	while (pos.y <= scene->len.y * player.angle_y)
+	while (pos.y <= scene->len.y * player.angle.y)
 	{
 		pos.x = 0;
 		while (pos.x <= (scene->len.x))

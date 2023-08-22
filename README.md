@@ -4,11 +4,6 @@
 
 ## TODO
 
-- fix little norme issue everywhere (line to long prototype)
-  - inc/
-  - src/
-- add raycasting for background
-
 ## STATUS
 
 :green_circle:	= done
@@ -48,7 +43,6 @@
 |          |:green_circle: |- fog on wall                 |
 |          |:orange_circle:|- fov with fog                |
 
-
 ## tips
 
 > show diff betwen two dir, with colors
@@ -61,5 +55,4 @@
 `make MAP=<MAP_PATH> run`
 
 > run bonus maps
-
 `make MAP=<MAP_PATH> run_bonus`

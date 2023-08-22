@@ -85,7 +85,7 @@
 # define FULL_SCREEN					FALSE
 # define MOUSE_ENABLE					TRUE
 # define RAY_ENABLE						FALSE
-# define COLLISION						FALSE
+# define COLLISION						TRUE
 # define FRAME_INTERVAL					10
 
 	// MATRIX

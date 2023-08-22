@@ -44,6 +44,30 @@ t_int4	push_buff_scene_get_color(t_ray ray, int point)
 	t_int1	tmp_rgb[3];
 	t_int4	rgb;
 
+	if (ray.dist_real > FOG * ray.text_size)
+		return (0);
+	tmp_rgb[2] = ray.img_use->buff[point + 2];
+	tmp_rgb[1] = ray.img_use->buff[point + 1];
+	tmp_rgb[0] = ray.img_use->buff[point];
+	if (ray.dist_real > FOG * ray.text_size * RATIO_FOG && \
+										ray.dist_real < FOG * ray.text_size)
+	{
+		ratio_fog = 1 - (ray.dist_real - (FOG * ray.text_size * RATIO_FOG)) / \
+					((FOG * ray.text_size) * (1 - RATIO_FOG));
+		tmp_rgb[2] *= ratio_fog;
+		tmp_rgb[1] *= ratio_fog;
+		tmp_rgb[0] *= ratio_fog;
+	}
+	rgb = ft_int4_comp(tmp_rgb[0], tmp_rgb[1], tmp_rgb[2], 0);
+	return (rgb);
+}
+
+t_int4	push_buff_scene_get_color(t_ray ray, int point)
+{
+	double	ratio_fog;
+	t_int1	tmp_rgb[3];
+	t_int4	rgb;
+
 	if (ray.dist_real > FOG * ray.text_size || !ray.hit)
 		return (0);
 	tmp_rgb[2] = ray.img_use->buff[point + 2];
@@ -84,7 +108,7 @@ void	push_buff_pixel_text(t_ray *ray, t_mlx_texture *scene, t_player player)
 
 	counter = 0;
 	ray->t.y = ray->ty_offset * ray->ty_step;
-	while (counter < ray->t_height)
+	while (counter < ray->t_height && counter + (player.angle_y - 0.5) * scene->len.y < scene->len.y)
 	{
 		push_buff_scene_color(ray, scene, counter, player);
 		ray->t.y += ray->ty_step;

@@ -39,9 +39,11 @@
 |annimation|:green_circle: |animation mechanism           |
 |          |:green_circle: |- parse multiple texture      |
 |          |:green_circle: |- animate                     |
-|fog++     |:orange_circle:|animation mechanism           |
+|          |               |                              |
+|fog++     |:green_circle: |fog mechanism                 |
 |          |:green_circle: |- fog on wall                 |
 |          |:orange_circle:|- fov with fog                |
+|          |:red_circle:   |- fov near wall buggy         |
 
 ## tips
 
